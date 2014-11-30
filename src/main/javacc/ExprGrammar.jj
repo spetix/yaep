@@ -1,0 +1,161 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
+ */options{
+  JDK_VERSION = "1.7";
+  static = false;
+  FORCE_LA_CHECK = true;
+  DEBUG_PARSER = true;
+  DEBUG_LOOKAHEAD = true;
+  DEBUG_TOKEN_MANAGER = true;
+  LOOKAHEAD=2;}
+PARSER_BEGIN(ExpressionParser)
+package it.fe.cassano.astvisassignsample.ccparser;
+import java.io.BufferedReader;
+import java.io.Reader;
+import it.fe.cassano.astvisassignsample.ast.*;
+
+
+public class ExpressionParser{
+  public boolean isValidExpression() 
+  {
+    boolean isValid = false;
+    try
+    {      isValid = testvalid();
+    }
+    catch (Exception e)
+    {
+      isValid = false;    }
+  
+    return isValid;  }     }PARSER_END(ExpressionParser)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MUL : "*" >| < DIV : "/" >
+| < ASSIGN : "=" >
+| < OBR: "(" >
+| < CBR: ")" >
+| <  COMMA: "," >}
+
+TOKEN : /* IDENTIFIERS */
+{
+  < IDENT : < ALPHA >(< ALPHA > | < DIGIT > )* >
+| < #ALPHA : ["A"-"Z"]|["a"-"z"]|"_" >
+}
+
+TOKEN : /* IDENT VALUE */
+{
+  < IDENTVAL : "$"<IDENT > > }
+TOKEN : /* NUMBERS */{  < INTNUM : (< DIGIT >)+ >| < #DIGIT : [ "0"-"9" ] >}
+
+
+
+
+public Exp expr() :
+{Token id,op=null; Exp t1, t2; }
+{
+  /* populate expression */
+  t1=assignment() ( < COMMA > t2=expr() { t1= new SeqExp(t1, t2); } )*  {    return t1;
+  }
+ | t1=term() ( [ op=<PLUS >|op=< MINUS >] t2=term() 
+  { t1 = (op.kind==PLUS)? new PlusExp(t1,t2):new MinusExp(t1,t2);  } )*
+  {
+    return t1;
+  }
+}
+
+
+Exp assignment() :
+{Token id; Exp t1;}
+{
+    id=< IDENT > < ASSIGN > t1=expr()    {
+      t1 = new AssignExp(new IdentExp(id.image), t1);
+      return t1;    }
+    
+}
+
+
+
+Exp term():
+{Exp f1; Exp f2; Token op=null;}
+{  f1=factor() ( [ op=< MUL > | op=< DIV > ] f2=factor()   {
+    f1=(op.kind==MUL)?new ProductExp(f1,f2):new DivideExp(f1,f2);  }
+ )*
+ {   return f1; }
+}
+
+
+Exp factor():
+{ Token num; Token id; Exp nestedExp;}
+{
+  num=<INTNUM> { return new NumExp(Integer.parseInt(num.image)); }
+  |
+  id= < IDENTVAL >  {    return new IdentExp(id.image);
+  }
+  | 
+  < OBR > nestedExp=expr() < CBR > { return nestedExp;}}
+
+
+protected boolean testvalid() :
+{}
+{
+  expr() < EOF >
+  {
+    return true;
+  }
+| < EOF >
+  {
+    return false;
+  }   
+}
+
+/*
+BNF:
+// LEFT RECURSION IS PRESENT!
+EXP ::= TERM
+EXP ::= EXP + TERM 
+EXP ::= EXP - TERM
+EXP ::= ASSIGNMENT , EXP
+TERM ::= FACTOR
+TERM ::= TERM * FACTOR
+TERM ::= TERM / FACTOR 
+FACTOR ::= num | ( EXP ) | IDENT
+
+ASSIGNMENT ::= IDENT = EXP
+FACTOR ::= IDENTVAL
+
+EBNF:
+
+ 
+
+EXP ::= TERM ( [+|-] TERM )* | ident = EXP
+TERM ::= FACTOR ( [*|/] FACTOR )*
+FACTOR ::= num | identval | LBR EXP RBR
+*/
+
+/*
+ * GRAMMAR WITH NO ACTION:
+ */
+
+/*
+void expr() :
+{ }
+{
+  < IDENT > (assignment())+
+| 
+  term() ( [ <PLUS >|< MINUS >] term() )* 
+}
+
+void assignment() :
+{}
+{
+    < ASSIGN > expr()
+}
+
+void term() :
+{ }
+{
+  factor() ( [ <MUL >| < DIV >] factor() )?
+}
+
+void factor() :
+{}
+{
+  < INTNUM > | < IDENT > |< OBR > expr() < CBR >
+}
+*/

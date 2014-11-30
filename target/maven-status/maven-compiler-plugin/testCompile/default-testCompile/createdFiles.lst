@@ -1,0 +1,9 @@
+it/fe/cassano/astvisassignsample/ccparser/ParserValidityTest.class
+it/fe/cassano/astvisassignsample/ast/AssignmentTest.class
+it/fe/cassano/astvisassignsample/parser/ParserTest.class
+it/fe/cassano/astvisassignsample/ccparser/ExpressionParserTest.class
+it/fe/cassano/astvisassignsample/visitor/EvalVisitorTest.class
+it/fe/cassano/astvisassignsample/visitor/EvalWithAssignVisitorTest.class
+it/fe/cassano/astvisassignsample/AppTest.class
+it/fe/cassano/astvisassignsample/tokenizer/TokenizerTest.class
+it/fe/cassano/astvisassignsample/ast/SimpleExpressionsTest.class

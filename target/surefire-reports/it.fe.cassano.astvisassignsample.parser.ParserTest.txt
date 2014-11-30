@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: it.fe.cassano.astvisassignsample.parser.ParserTest
+-------------------------------------------------------------------------------
+Tests run: 27, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE!
+testParseSequence(it.fe.cassano.astvisassignsample.parser.ParserTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.NullPointerException
+	at it.fe.cassano.astvisassignsample.parser.ParserTest.testParseSequence(ParserTest.java:282)
+

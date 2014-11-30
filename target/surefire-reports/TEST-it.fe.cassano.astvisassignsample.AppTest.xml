@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="84" failures="1" name="it.fe.cassano.astvisassignsample.AppTest" time="9.181" errors="1" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="25.40-b13"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="IT"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/ccassano/Documents/workspace/astvisassignsample"/>
+    <property name="java.runtime.version" value="1.8.0_40-ea-b09"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.io.tmpdir" value="/var/folders/4f/58l9zjkd72v312ycy89jb2nm0000gn/T/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="classworlds.conf" value="/Users/ccassano/lab/tools/maven/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/ccassano/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.10"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/ccassano"/>
+    <property name="user.timezone" value="Europe/Rome"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="ccassano"/>
+    <property name="java.class.path" value="/Users/ccassano/lab/tools/maven/boot/plexus-classworlds-2.5.1.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean javacc:javacc install"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="it"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_40-ea"/>
+    <property name="java.ext.dirs" value="/Users/ccassano/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/Users/ccassano/lab/tools/maven"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testSimpleToken" time="0.275"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParsePlusOp" time="0.145"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParsePlusOpTernary" time="0.178"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseMinusOp" time="0.089"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseMinusOpTernary" time="0.272"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseMulOp" time="0.071"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseMulOpTernary" time="0.094"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseDivOp" time="0.093"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseAssign" time="0.313"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testParseIdentWordAssign" time="0.147"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testComplexExpression" time="0.094"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testBracketsExpression" time="0.417"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testInvalidUnbalancedBrackets" time="0.497"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testLoongAssignmentChain" time="0.148"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testAssignIdentChainTernary" time="0.172"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testAssignIdentSimpleChain" time="0.116"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testAssignIdentChain" time="0.38"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testLooongAssignmentChain" time="0.692"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testLooongAssignmentChainStrange" time="1.285"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testSequence" time="0.186"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest" name="testLongSequence" time="1.611"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseFactor" time="0.004"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseFactorIdent" time="0.018">
+    <failure message="expected:&lt;(a33)&gt; but was:&lt;a33&gt;" type="junit.framework.ComparisonFailure">junit.framework.ComparisonFailure: expected:&lt;(a33)&gt; but was:&lt;a33&gt;
+	at junit.framework.Assert.assertEquals(Assert.java:81)
+	at junit.framework.Assert.assertEquals(Assert.java:87)
+	at it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest.testParseFactorIdent(ExpressionParserTest.java:39)
+</failure>
+    <system-out>Call:   factor
+Skipping character :   (32)
+Skipping character :   (32)
+Current character : a (97) at line 1 column 3
+   No string literal matches possible.
+   Starting NFA to match one of : { &lt;IDENT&gt;, &lt;INTNUM&gt; }
+Current character : a (97) at line 1 column 3
+   Currently matched the first 1 characters as a &lt;IDENT&gt; token.
+   Possible kinds of longer matches : { &lt;IDENT&gt; }
+Current character : 3 (51) at line 1 column 4
+   Currently matched the first 2 characters as a &lt;IDENT&gt; token.
+   Possible kinds of longer matches : { &lt;IDENT&gt; }
+Current character : 3 (51) at line 1 column 5
+   Currently matched the first 3 characters as a &lt;IDENT&gt; token.
+   Possible kinds of longer matches : { &lt;IDENT&gt; }
+Current character :   (32) at line 1 column 6
+   Currently matched the first 3 characters as a &lt;IDENT&gt; token.
+   Putting back 1 characters into the input stream.
+****** FOUND A &lt;IDENT&gt; MATCH (a33) ******
+
+  Visited token: &lt;&lt;IDENT&gt;: &quot;a33&quot; at line 1 column 3&gt;; Expected token: &lt;&lt;INTNUM&gt;&gt;
+  Visited token: &lt;&lt;IDENT&gt;: &quot;a33&quot; at line 1 column 3&gt;; Expected token: &lt;&lt;IDENT&gt;&gt;
+  Consumed token: &lt;&lt;IDENT&gt;: &quot;a33&quot; at line 1 column 3&gt;
+Return: factor
+</system-out>
+  </testcase>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseFactor2" time="0.045"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseFactor3" time="0.061"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseFactor4" time="0.063"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseFactorTernary" time="0.056"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseAssigment" time="0.055"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseTerm" time="0.072"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseTermTernary" time="0.128"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest" name="testParseTermTernary2" time="0.116"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.SimpleExpressionsTest" name="testSum" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.SimpleExpressionsTest" name="testMinus" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.SimpleExpressionsTest" name="testProduct" time="0.009"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.SimpleExpressionsTest" name="testDivide" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testSum" time="0.006"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testAssignVal" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testAssignExpr" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testAssignEnv" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testAssignedTwice" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testDoubleAssignment" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest" name="testDoubleAssignmentEnv" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseFactor" time="0.025"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseFactor2" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseFactor3" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseFactor4" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTerm" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTerm2" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTerm3" time="0.003"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTerm4" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTerm5" time="0.012"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTerm6" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprSimpe" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprSimpleRightPlus" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprSimpleRightMinus" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExpr" time="0.007"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprOnlyNeededBrackets" time="0.003"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprOnlyNeededBracketsBut" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprRightAssSimplerMinus" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprRightAssSimplerMul" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExprRightAss" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExpr2" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testExpr3" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTermAsExpr1" time="0.001"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseFactorBrackets" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTermBrackets" time="0.001"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseTermBracketsDiv" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseFactorBracketsDiv" time="0.001"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.parser.ParserTest" name="testParseSequence" time="0.005">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at it.fe.cassano.astvisassignsample.parser.ParserTest.testParseSequence(ParserTest.java:282)
+</error>
+  </testcase>
+  <testcase classname="it.fe.cassano.astvisassignsample.tokenizer.TokenizerTest" name="testNext" time="0.002"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.tokenizer.TokenizerTest" name="testFirstToken" time="0.001"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.tokenizer.TokenizerTest" name="testBrackets" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.tokenizer.TokenizerTest" name="testNextTokenIs" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.tokenizer.TokenizerTest" name="testPeekCurrent" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testSimpleSum" time="0.023"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testProd" time="0.02"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testCplx" time="0.126"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testCplx2" time="0.185"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testLispOutputVisitor" time="0.152"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testLispOutputVisitor2" time="0.208"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.AppTest" name="testEvalVisitor" time="0.498"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.AssignmentTest" name="testBuildAssignment" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.AssignmentTest" name="testMultipleAssignment" time="0"/>
+  <testcase classname="it.fe.cassano.astvisassignsample.ast.AssignmentTest" name="testBuildAssignmentWithExpRV" time="0"/>
+</testsuite>
