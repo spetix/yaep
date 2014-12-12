@@ -1,18 +1,10 @@
 package it.fe.cassano.astvisassignsample.tokenizer;
 
-import java.io.IOException;
+import it.fe.cassano.astvisassignsample.ccparser.Token;
+
 
 public interface ITokenizer {
-	
-	public String getCurrent() throws IOException;
-	
-	public boolean hasNext() throws IOException;
-	
-	public int nextTokenIs() throws IOException;
 
-	public String peekCurrent();
-
-	public int nextToken() throws IOException;
-	
-
+	Token getNextToken();
+	Token getToken(int index);
 }

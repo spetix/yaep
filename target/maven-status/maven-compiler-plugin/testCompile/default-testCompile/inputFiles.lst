@@ -1,9 +1,0 @@
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/tokenizer/TokenizerTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/visitor/EvalWithAssignVisitorTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/parser/ParserTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/ast/SimpleExpressionsTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/ast/AssignmentTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/ccparser/ParserValidityTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/AppTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/ccparser/ExpressionParserTest.java
-/Users/ccassano/Documents/workspace/astvisassignsample/src/test/java/it/fe/cassano/astvisassignsample/visitor/EvalVisitorTest.java

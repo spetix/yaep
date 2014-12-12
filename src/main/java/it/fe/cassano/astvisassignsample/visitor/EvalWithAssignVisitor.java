@@ -1,8 +1,10 @@
 package it.fe.cassano.astvisassignsample.visitor;
 
 import it.fe.cassano.astvisassignsample.ast.AssignExp;
+import it.fe.cassano.astvisassignsample.ast.ExpParams;
 import it.fe.cassano.astvisassignsample.ast.IdentExp;
 import it.fe.cassano.astvisassignsample.ast.IdentValExp;
+import it.fe.cassano.astvisassignsample.ast.RealExp;
 import it.fe.cassano.astvisassignsample.ast.SeqExp;
 
 import java.util.Collections;
@@ -51,6 +53,18 @@ public class EvalWithAssignVisitor extends EvalVisitor implements IVisitor,IAssi
 	public void visit(SeqExp e) {
 		e.left().accept(this);
 		e.right().accept(this);
+		
+	}
+
+	@Override
+	public void visit(RealExp realExp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(ExpParams e) {
+		// TODO Auto-generated method stub
 		
 	}
 

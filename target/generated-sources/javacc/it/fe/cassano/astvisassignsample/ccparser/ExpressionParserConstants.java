@@ -31,9 +31,19 @@ public interface ExpressionParserConstants {
   /** RegularExpression Id. */
   int ALPHA = 14;
   /** RegularExpression Id. */
-  int INTNUM = 15;
+  int FNAME = 15;
   /** RegularExpression Id. */
-  int DIGIT = 16;
+  int LOWCASE = 16;
+  /** RegularExpression Id. */
+  int INTNUM = 17;
+  /** RegularExpression Id. */
+  int DIGIT = 18;
+  /** RegularExpression Id. */
+  int ZERO = 19;
+  /** RegularExpression Id. */
+  int REALNUM = 20;
+  /** RegularExpression Id. */
+  int DOT = 21;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -55,8 +65,13 @@ public interface ExpressionParserConstants {
     "\",\"",
     "<IDENT>",
     "<ALPHA>",
+    "<FNAME>",
+    "<LOWCASE>",
     "<INTNUM>",
     "<DIGIT>",
+    "\"0\"",
+    "<REALNUM>",
+    "\".\"",
   };
 
 }
