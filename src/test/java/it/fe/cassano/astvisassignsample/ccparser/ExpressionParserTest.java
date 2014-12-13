@@ -1,5 +1,7 @@
 package it.fe.cassano.astvisassignsample.ccparser;
 
+import it.fe.cassano.astvisassignsample.tokenizer.ITokenizer;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -30,6 +32,18 @@ public class ExpressionParserTest extends TestCase {
     	ExpressionParser p = new ExpressionParser(r);
     	assertEquals("(1)",p.factor().toString());
     	
+    }
+    
+    public void testParseDoubleMinus() throws IOException, ParseException {
+    	Reader r = new StringReader("1- 1- 1");
+    	ExpressionParser t = new ExpressionParser(r);
+    	assertEquals("(((1)-(1))-(1))",t.expr().toString());
+    }
+    
+    public void testParseDoubleMinus2() throws IOException, ParseException {
+    	Reader r = new StringReader("1-1-1");
+    	ExpressionParser t = new ExpressionParser(r);
+    	assertEquals("(((1)-(1))-1)",t.expr().toString());
     }
     
     public void testParseFactorIdent() throws IOException, ParseException

@@ -1,8 +1,8 @@
 package it.fe.cassano.astvisassignsample.parser;
 
 import it.fe.cassano.astvisassignsample.ast.Exp;
-import it.fe.cassano.astvisassignsample.tokenizer.ExpressionTokenizer;
-import it.fe.cassano.astvisassignsample.tokenizer.ITokenizer;
+import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
+import it.fe.cassano.astvisassignsample.ccparser.ParseException;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -28,6 +28,26 @@ public class ParserTest extends TestCase {
         return ts;
     }
     
+    public void testExprSimpleRightMinus() throws IOException, ParseException
+    {
+    	Reader valThis = new StringReader("1 - ( 1 - 1 )");
+        ExpressionParser p = new ExpressionParser(valThis);
+        //assertTrue(p.isValidExpression());
+        assertEquals("((1)-((1)-(1)))",p.expr().toString());
+    	
+    }
+    
+    public void testUltraViolence() throws IOException, ParseException
+    {
+    
+        Reader valThis = new StringReader("A=3,1 - ( a(3.4,-1) - 1 )");
+        ExpressionParser p = new ExpressionParser(valThis);
+        //assertTrue(p.isValidExpression());
+        Exp e = p.expr();
+        assertEquals("(A=(3)),((1)-(a(3.4,-2)-(1)))",e);
+    	
+    }
+/*  
     public void testParseFactor() throws IOException
     {
     	Reader r = new StringReader("  1  ");
@@ -141,10 +161,9 @@ public class ParserTest extends TestCase {
     public void testExprSimpleRightMinus() throws IOException
     {
         Reader valThis = new StringReader("1 - ( 1 - 1 )");
-        ITokenizer tok = new ExpressionTokenizer(valThis);
-        Parser p = new Parser(tok);
-        Exp expressionEval = p.parseExp();
-        assertEquals("((1)-((1)-(1)))",expressionEval.toString());
+        ExpressionParser p = new ExpressionParser(valThis);
+        assertTrue(p.isValidExpression());
+        assertEquals("((1)-((1)-(1)))",p.expr().toString());
     }
     
     
@@ -282,4 +301,5 @@ public class ParserTest extends TestCase {
     	assertEquals("(a=(3),b=(2),(c=(a)+(b))",p.parseFactor().toString());
     	
     }
+    */
 }

@@ -8,7 +8,7 @@ import it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest;
 import it.fe.cassano.astvisassignsample.ccparser.ParseException;
 import it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest;
 import it.fe.cassano.astvisassignsample.parser.ParserTest;
-import it.fe.cassano.astvisassignsample.tokenizer.TokenizerTest;
+import it.fe.cassano.astvisassignsample.tokenizer.TokenizerNumbersTest;
 import it.fe.cassano.astvisassignsample.visitor.EvalVisitor;
 import it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest;
 import it.fe.cassano.astvisassignsample.visitor.LispOutputVisitor;
@@ -52,7 +52,7 @@ public class AppTest
     	ts.addTestSuite(EvalWithAssignVisitorTest.class);
     	/* OTHER */
     	ts.addTestSuite(ParserTest.class);
-    	ts.addTestSuite(TokenizerTest.class);
+    	ts.addTestSuite(TokenizerNumbersTest.class);
     	ts.addTestSuite(AppTest.class);
      
     	// After adding assignment extension to the App:
@@ -137,6 +137,19 @@ public class AppTest
         final LispOutputVisitor v = new LispOutputVisitor();
         expressionEval.accept(v);
         assertEquals(v.getVal(),"(- (* 7 (+ 1 1)) 3)");
+        
+    }
+    
+    
+    public void testLispOutputVisitor3() throws IOException, ParseException
+    {
+    	Reader valThis = new StringReader(" 7 * ( sin(-0.75) + max(3,5 ) )- 3");
+         
+        ExpressionParser p = new ExpressionParser(valThis);
+        final Exp expressionEval = p.expr();
+        final LispOutputVisitor v = new LispOutputVisitor();
+        expressionEval.accept(v);
+        assertEquals(v.getVal(),"(- (* 7 (+ (sin -0.75) (max 3 5))) 3)");
         
     }
     

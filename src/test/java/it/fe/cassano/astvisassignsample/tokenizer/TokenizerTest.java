@@ -1,12 +1,5 @@
 package it.fe.cassano.astvisassignsample.tokenizer;
 
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
-import it.fe.cassano.astvisassignsample.ccparser.Token;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -23,38 +16,18 @@ public class TokenizerTest extends TestCase {
     public static Test suite()
     {
     	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(TokenizerTest.class);
-  
+    	ts.addTestSuite(TokenizerNumbersTest.class);
+    	ts.addTestSuite(TokenizerIdentTest.class);
+    	ts.addTestSuite(TokenizerFunctionNameTest.class);  
+    	ts.addTestSuite(TokenizerExpressionsTest.class);  
+        
+    	  
         return ts;
     }
     
-    public void testFirstToken() throws IOException
-    {
-    	Reader r = new StringReader(" 123 + 2 + 3 + 0");
-    	 ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertTrue(tok.image.equals("123"));
-    	r.close();
-    	
-    }
-  /*  
-    public void testNext() throws IOException
-    {
-    	Reader r = new StringReader("1 + 2 + 3");
-    	ITokenizer t = new ExpressionTokenizer(r);
-    	
-    	assertTrue("1".equals(t.getCurrent()));
-    	assertTrue("+".equals(t.getCurrent()));
-    	assertTrue(t.hasNext());
-    	assertTrue("2".equals(t.getCurrent()));
-    	assertTrue(t.hasNext());
-    	assertTrue("+".equals(t.getCurrent()));
-    	assertTrue(t.hasNext());
-    	assertTrue("3".equals(t.getCurrent()));
-    	assertTrue(!t.hasNext());
-    	r.close();  	
-    }
+  
     
+    /*
     public void testBrackets() throws IOException
     {
     	Reader r = new StringReader("( )");

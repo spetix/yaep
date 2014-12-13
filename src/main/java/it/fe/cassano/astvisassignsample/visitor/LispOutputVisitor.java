@@ -1,6 +1,7 @@
 package it.fe.cassano.astvisassignsample.visitor;
 
 import it.fe.cassano.astvisassignsample.ast.DivideExp;
+import it.fe.cassano.astvisassignsample.ast.Exp;
 import it.fe.cassano.astvisassignsample.ast.FunExp;
 import it.fe.cassano.astvisassignsample.ast.MinusExp;
 import it.fe.cassano.astvisassignsample.ast.NumExp;
@@ -8,6 +9,11 @@ import it.fe.cassano.astvisassignsample.ast.OpExp;
 import it.fe.cassano.astvisassignsample.ast.PlusExp;
 import it.fe.cassano.astvisassignsample.ast.ProductExp;
 import it.fe.cassano.astvisassignsample.ast.RealExp;
+
+import java.util.List;
+import java.util.Vector;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class LispOutputVisitor implements IVisitor, IEval<String> {
 
@@ -26,14 +32,22 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 	curs = "" + e.getValue();
 	}
 	@Override
-	public void visit(RealExp realExp) {
-		// TODO Auto-generated method stub
-		
+	public void visit(RealExp e) {
+		curs = ""+ e.getValue();
 	}
 	@Override
 	public void visit(FunExp funExp) {
-		// TODO Auto-generated method stub
+		List<Exp> params = funExp.getParams();
+		List<String> res = new Vector<String>();
+		for (Exp p: params)
+		{
+			p.accept(this);
+			res.add(getVal());
+		}
+		curs = "(" + funExp.opName() + " " + StringUtils.join(res," ") + ")";
+		
 		
 	}
+
 
 }

@@ -1,7 +1,6 @@
 package it.fe.cassano.astvisassignsample.visitor;
 
 import it.fe.cassano.astvisassignsample.ast.AssignExp;
-import it.fe.cassano.astvisassignsample.ast.ExpParams;
 import it.fe.cassano.astvisassignsample.ast.IdentExp;
 import it.fe.cassano.astvisassignsample.ast.IdentValExp;
 import it.fe.cassano.astvisassignsample.ast.RealExp;
@@ -62,11 +61,7 @@ public class EvalWithAssignVisitor extends EvalVisitor implements IVisitor,IAssi
 		
 	}
 
-	@Override
-	public void visit(ExpParams e) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	
 

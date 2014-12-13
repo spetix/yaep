@@ -2,7 +2,7 @@
  * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
  */options{
   JDK_VERSION = "1.7";
-  static = false;
+  STATIC = false;
   FORCE_LA_CHECK = true;
   DEBUG_PARSER = true;
   DEBUG_LOOKAHEAD = true;
@@ -15,7 +15,8 @@ import java.io.Reader;
 import it.fe.cassano.astvisassignsample.ast.*;
 import it.fe.cassano.astvisassignsample.tokenizer.ITokenizer;
 import it.fe.cassano.astvisassignsample.parser.IParser;
-
+import java.util.List;
+import java.util.Vector;
 
 public class ExpressionParser implements ITokenizer, IParser{
   public boolean isValidExpression() 
@@ -38,7 +39,7 @@ public class ExpressionParser implements ITokenizer, IParser{
 
 TOKEN : /* IDENTIFIERS */
 {
-  < IDENT : < ALPHA >(< ALPHA > | < DIGIT > )* >
+  < IDENT : < ALPHA >(< ALPHA > | < DIGIT > | < LOWCASE > )* >
 | < #ALPHA : ["A"-"Z"]|"_" >
 }
 
@@ -52,7 +53,7 @@ TOKEN : /* FUNCTION NAME */
 
 TOKEN : /* REAL NUMBERS */
 {
-  < REALNUM : < INTNUM > < DOT > (< ZERO > | < DIGIT >)* >
+  < REALNUM : (< INTNUM > | ( < MINUS > )? < ZERO > ) < DOT > (< ZERO > | < DIGIT >)* >   
 | < #DOT : "." >}
 
 
@@ -93,7 +94,7 @@ Exp term():
 
 
 Exp factor():
-{ Token num; Token id; Exp nestedExp; Token fname;}
+{ Token num; Token id; Exp fact; }
 {
   num=<INTNUM> { return new NumExp(Integer.parseInt(num.image)); }
   |
@@ -102,16 +103,25 @@ Exp factor():
   id= < IDENT >  {    return new IdentExp(id.image);
   }
   | 
-  < OBR > nestedExp=expr() < CBR > { return nestedExp;}  |
-  fname= < FNAME >< OBR > nestedExp=fparams() < CBR >  {
-    return new FunExp(fname.image,nestedExp);  } }
+  < OBR > fact=expr() < CBR > { return fact;}  |
+  fact = function()  {
+    return fact;  }}
 
-Exp fparams():
-{ Exp e1; Exp e2=null;}
-{
-  e1= expr() ( < COMMA > e2 = fparams())*
+Exp function():
+{ Token fname; List<Exp > params = new Vector<Exp >(); }
+{ 
+  fname= < FNAME >< OBR > fparams(params) < CBR >
   {
-    return (e2!=null)?(new ExpParams(e1, e2)):(new ExpParams(e1));  }}
+    return new FunExp(fname.image,params);
+  } 
+}
+
+void fparams(List<Exp > params):
+{ Exp e1; }
+{
+  e1= expr()  {
+    params.add(e1);
+  }  ( < COMMA > fparams(params))*}
 
 
 protected boolean testvalid() :
