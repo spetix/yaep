@@ -9,6 +9,7 @@ import it.fe.cassano.astvisassignsample.ast.OpExp;
 import it.fe.cassano.astvisassignsample.ast.PlusExp;
 import it.fe.cassano.astvisassignsample.ast.ProductExp;
 import it.fe.cassano.astvisassignsample.ast.RealExp;
+import it.fe.cassano.astvisassignsample.ast.UnaryMinusExp;
 
 import java.util.List;
 import java.util.Vector;
@@ -46,6 +47,13 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 		}
 		curs = "(" + funExp.opName() + " " + StringUtils.join(res," ") + ")";
 		
+		
+	}
+	@Override
+	public void visit(UnaryMinusExp e) {
+		e.expr().accept(this);
+		String ex = getVal();
+		curs = "(- "+ex+")";
 		
 	}
 

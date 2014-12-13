@@ -7,6 +7,7 @@ import it.fe.cassano.astvisassignsample.ast.NumExp;
 import it.fe.cassano.astvisassignsample.ast.PlusExp;
 import it.fe.cassano.astvisassignsample.ast.ProductExp;
 import it.fe.cassano.astvisassignsample.ast.RealExp;
+import it.fe.cassano.astvisassignsample.ast.UnaryMinusExp;
 
 public class EvalVisitor implements IVisitor {
 	
@@ -59,6 +60,12 @@ public class EvalVisitor implements IVisitor {
 
 	@Override
 	public void visit(FunExp funExp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(UnaryMinusExp unaryMinusExp) {
 		// TODO Auto-generated method stub
 		
 	}

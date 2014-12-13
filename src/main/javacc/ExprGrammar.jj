@@ -48,12 +48,12 @@ TOKEN : /* FUNCTION NAME */
   < FNAME : < LOWCASE >(< ALPHA > | < DIGIT > | < LOWCASE >)* >
 |  < #LOWCASE : ["a"-"z"] >}
 
-TOKEN : /* NUMBERS */{  < INTNUM : (< MINUS >)? < DIGIT >(< ZERO >| < DIGIT >)* | < ZERO > >| < #DIGIT : [ "1"-"9" ] >
+TOKEN : /* NUMBERS */{  < INTNUM : < DIGIT >(< ZERO >| < DIGIT >)* | < ZERO > >| < #DIGIT : [ "1"-"9" ] >
 | < #ZERO : "0" >}
 
 TOKEN : /* REAL NUMBERS */
 {
-  < REALNUM : (< INTNUM > | ( < MINUS > )? < ZERO > ) < DOT > (< ZERO > | < DIGIT >)* >   
+  < REALNUM : < INTNUM > < DOT > (< ZERO > | < DIGIT >)* >   
 | < #DOT : "." >}
 
 
@@ -65,11 +65,18 @@ public Exp expr() :
   /* populate expression */
   t1=assignment() ( < COMMA > t2=expr() { t1= new SeqExp(t1, t2); } )*  {    return t1;
   }
- | t1=term() ( [ op=<PLUS >|op=< MINUS >] t2=term() 
-  { t1 = (op.kind==PLUS)? new PlusExp(t1,t2):new MinusExp(t1,t2);  } )*
+ | t1=term()
+ (   <PLUS > t2=term()  
   {
-    return t1;
+    t1=new PlusExp(t1,t2);
   }
+ | < MINUS > t2=term() 
+  {
+    t1=new MinusExp(t1,t2);
+  }
+)*
+	{	  return t1;
+	}
 }
 
 
@@ -85,11 +92,17 @@ Exp assignment() :
 
 
 Exp term():
-{Exp f1; Exp f2; Token op=null;}
-{  f1=factor() ( [ op=< MUL > | op=< DIV > ] f2=factor()   {
-    f1=(op.kind==MUL)?new ProductExp(f1,f2):new DivideExp(f1,f2);  }
- )*
- {   return f1; }
+{Exp f1; Exp f2; }
+{  f1=factor()
+  (     < MUL > f2=factor() 
+ {   f1= new ProductExp(f1,f2); }
+| < DIV > f2=factor() 
+ {
+   f1= new DivideExp(f1,f2);
+  }
+)*
+{
+  return f1;}
 }
 
 
@@ -105,11 +118,20 @@ Exp factor():
   | 
   < OBR > fact=expr() < CBR > { return fact;}  |
   fact = function()  {
-    return fact;  }}
+    return fact;  }
+  |
+  fact = unaryMinus()
+  {
+    return fact;  } }
 
 Exp function():
 { Token fname; List<Exp > params = new Vector<Exp >(); }
-{ 
+{
+  fname= < FNAME ><OBR ><CBR >
+  {
+    return new FunExp(fname.image,params);
+  }
+| 
   fname= < FNAME >< OBR > fparams(params) < CBR >
   {
     return new FunExp(fname.image,params);
@@ -122,6 +144,13 @@ void fparams(List<Exp > params):
   e1= expr()  {
     params.add(e1);
   }  ( < COMMA > fparams(params))*}
+
+Exp unaryMinus():
+{Exp e;}
+{
+  < MINUS > e = expr()
+  {
+    return new UnaryMinusExp(e);  }}
 
 
 protected boolean testvalid() :

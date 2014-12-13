@@ -7,6 +7,7 @@ import it.fe.cassano.astvisassignsample.ast.NumExp;
 import it.fe.cassano.astvisassignsample.ast.PlusExp;
 import it.fe.cassano.astvisassignsample.ast.ProductExp;
 import it.fe.cassano.astvisassignsample.ast.RealExp;
+import it.fe.cassano.astvisassignsample.ast.UnaryMinusExp;
 
 public interface IVisitor {
 
@@ -17,6 +18,7 @@ public interface IVisitor {
 	public void visit(final DivideExp exp);
 	public void visit(final RealExp realExp);
 	public void visit(final FunExp funExp);
+	public void visit(final UnaryMinusExp unaryMinusExp);
 	
 	
 	

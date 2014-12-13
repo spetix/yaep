@@ -4,10 +4,10 @@ import it.fe.cassano.astvisassignsample.ast.AssignmentTest;
 import it.fe.cassano.astvisassignsample.ast.Exp;
 import it.fe.cassano.astvisassignsample.ast.SimpleExpressionsTest;
 import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParserTest;
 import it.fe.cassano.astvisassignsample.ccparser.ParseException;
-import it.fe.cassano.astvisassignsample.ccparser.ParserValidityTest;
-import it.fe.cassano.astvisassignsample.parser.ParserTest;
+import it.fe.cassano.astvisassignsample.parser.ExpressionParserTest;
+import it.fe.cassano.astvisassignsample.parser.OtherParserTest;
+import it.fe.cassano.astvisassignsample.parser.ParserValidityTest;
 import it.fe.cassano.astvisassignsample.tokenizer.TokenizerNumbersTest;
 import it.fe.cassano.astvisassignsample.visitor.EvalVisitor;
 import it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest;
@@ -51,7 +51,7 @@ public class AppTest
     	/* VISITORS */
     	ts.addTestSuite(EvalWithAssignVisitorTest.class);
     	/* OTHER */
-    	ts.addTestSuite(ParserTest.class);
+    	ts.addTestSuite(OtherParserTest.class);
     	ts.addTestSuite(TokenizerNumbersTest.class);
     	ts.addTestSuite(AppTest.class);
      
@@ -149,7 +149,7 @@ public class AppTest
         final Exp expressionEval = p.expr();
         final LispOutputVisitor v = new LispOutputVisitor();
         expressionEval.accept(v);
-        assertEquals(v.getVal(),"(- (* 7 (+ (sin -0.75) (max 3 5))) 3)");
+        assertEquals(v.getVal(),"(- (* 7 (+ (sin (- 0.75)) (max 3 5))) 3)");
         
     }
     

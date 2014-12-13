@@ -52,8 +52,10 @@ public class TokenizerExpressionsTest extends TestCase {
     	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.PLUS, tok.kind);
     	tok = t.getNextToken();
+    	assertEquals(ExpressionParserConstants.MINUS, tok.kind);
+    	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.INTNUM, tok.kind);
-    	assertEquals("-1",tok.image);
+    	assertEquals("1",tok.image);
     	r.close();  	
     }
     
@@ -175,15 +177,19 @@ public class TokenizerExpressionsTest extends TestCase {
     	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.COMMA, tok.kind);
     	tok = t.getNextToken();
+    	assertEquals(ExpressionParserConstants.MINUS, tok.kind);
+    	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.REALNUM, tok.kind);
-    	assertEquals("-0.3",tok.image);
+    	assertEquals("0.3",tok.image);
     	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.CBR, tok.kind);
     	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.MINUS, tok.kind);
     	tok = t.getNextToken();
+    	assertEquals(ExpressionParserConstants.MINUS, tok.kind);
+    	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.INTNUM, tok.kind);
-    	assertEquals("-1",tok.image);
+    	assertEquals("1",tok.image);
     	r.close();  	
     }
    

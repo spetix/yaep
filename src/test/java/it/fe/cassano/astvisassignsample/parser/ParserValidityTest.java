@@ -1,4 +1,7 @@
-package it.fe.cassano.astvisassignsample.ccparser;
+package it.fe.cassano.astvisassignsample.parser;
+
+import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
+import it.fe.cassano.astvisassignsample.ccparser.ParseException;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -94,9 +97,16 @@ public class ParserValidityTest extends TestCase {
     
     public void testParseIdentWordAssign() throws IOException, ParseException
     {
-    	Reader r = new StringReader("myVar=6");
+    	Reader r = new StringReader("MyVar=6");
     	ExpressionParser p = new ExpressionParser(r);
     	assertTrue(p.isValidExpression());
+    }
+    
+    public void testParseIdentWordAssignFail() throws IOException, ParseException
+    {
+    	Reader r = new StringReader("myVar=6");
+    	ExpressionParser p = new ExpressionParser(r);
+    	assertFalse(p.isValidExpression());
     }
     
     public void testComplexExpression() throws ParseException 

@@ -43,9 +43,12 @@ public class TokenizerNumbersTest extends TestCase {
     public void testNegativeNumber() throws IOException
     {
     	Reader r = new StringReader("-123");
-    	 ITokenizer t = new ExpressionParser(r);
+    	ITokenizer t = new ExpressionParser(r);
     	Token tok = t.getNextToken();
-    	assertTrue(tok.image.equals("-123"));
+     	assertTrue(StringUtils.equals(tok.image,"-"));
+     	assertTrue(tok.kind==ExpressionParserConstants.MINUS);
+    	tok = t.getNextToken();
+    	assertTrue(tok.image.equals("123"));
     	r.close();	
     }
     
@@ -104,7 +107,9 @@ public class TokenizerNumbersTest extends TestCase {
     	Reader r = new StringReader("-0.03");
     	 ITokenizer t = new ExpressionParser(r);
     	Token tok = t.getNextToken();
-    	assertTrue(StringUtils.equals(tok.image,"-0.03"));
+    	assertTrue(tok.kind==ExpressionParserConstants.MINUS);
+    	tok = t.getNextToken();
+    	assertTrue(StringUtils.equals(tok.image,"0.03"));
     	assertTrue(tok.kind==ExpressionParserConstants.REALNUM);
     	r.close();	
     }
@@ -124,8 +129,10 @@ public class TokenizerNumbersTest extends TestCase {
     {
     	Reader r = new StringReader("-1202.33");
     	 ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertTrue(StringUtils.equals(tok.image,"-1202.33"));
+    	 Token tok = t.getNextToken();
+     	assertTrue(tok.kind==ExpressionParserConstants.MINUS);
+     	tok = t.getNextToken();
+     	assertTrue(StringUtils.equals(tok.image,"1202.33"));
     	assertTrue(tok.kind==ExpressionParserConstants.REALNUM);
     	r.close();	
     }

@@ -1,5 +1,8 @@
-package it.fe.cassano.astvisassignsample.ccparser;
+package it.fe.cassano.astvisassignsample.parser;
 
+import it.fe.cassano.astvisassignsample.ast.Exp;
+import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
+import it.fe.cassano.astvisassignsample.ccparser.ParseException;
 import it.fe.cassano.astvisassignsample.tokenizer.ITokenizer;
 
 import java.io.IOException;
@@ -26,12 +29,11 @@ public class ExpressionParserTest extends TestCase {
         return ts;
     }
     
-    public void testParseFactor() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("  1  ");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(1)",p.factor().toString());
-    	
+    
+    public void testParseDoublePlus() throws IOException, ParseException {
+    	Reader r = new StringReader("1+1+1");
+    	ExpressionParser t = new ExpressionParser(r);
+    	assertEquals("(((1)+(1))+(1))",t.expr().toString());
     }
     
     public void testParseDoubleMinus() throws IOException, ParseException {
@@ -43,90 +45,34 @@ public class ExpressionParserTest extends TestCase {
     public void testParseDoubleMinus2() throws IOException, ParseException {
     	Reader r = new StringReader("1-1-1");
     	ExpressionParser t = new ExpressionParser(r);
-    	assertEquals("(((1)-(1))-1)",t.expr().toString());
+    	Exp e = t.expr();
+    	assertEquals("(((1)-(1))-(1))",e.toString());
     }
     
-    public void testParseFactorIdent() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("  a33 ");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("a33",p.factor().toString());
-    	
+    public void testParseDoubleMinus3() throws IOException, ParseException {
+    	Reader r = new StringReader("1-1--1");
+    	ExpressionParser t = new ExpressionParser(r);
+    	Exp e = t.expr();
+    	assertEquals("(((1)-(1))-(-(1)))",e.toString());
     }
     
-    public void testParseFactor2() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("(  1  )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(1)",p.factor().toString());
-    	
+    public void testParseDoubleExpr() throws IOException, ParseException {
+    	Reader r = new StringReader("1-1+1");
+    	ExpressionParser t = new ExpressionParser(r);
+    	Exp e = t.expr();
+    	assertEquals("(((1)-(1))+(1))",e.toString());
     }
     
-    // not a valid factor:
-    public void testParseFactor3() throws IOException, ParseException
-    {
-    	Reader r = new StringReader(" 1 + 3 ");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("((1)+(3))",p.factor().toString());
+    public void testParseDoubleExpr2() throws IOException, ParseException {
+    	Reader r = new StringReader("1-1+-1");
+    	ExpressionParser t = new ExpressionParser(r);
+    	Exp e = t.expr();
+    	assertEquals("(((1)-(1))+(-(1)))",e.toString());
     }
+  
+   
     
-    public void testParseFactor4() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("( 1 + 1 )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("((1)+(1))",p.factor().toString());
-    	
-    }
-    
-    public void testParseFactor5() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("( 1 * 1 )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("((1)*(1))",p.factor().toString());
-    	
-    	
-    }
-    
-    public void testParseFactorTernary() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("( 1 * 1 * 1 )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(((1)*(1))*(1))",p.factor().toString());
-    	
-    	
-    }
-    
-    public void testParseAssigment() throws ParseException 
-    {
-    	Reader r = new StringReader("A = 3");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(3))",p.expr().toString());
-    }
-    
-    
-    public void testParseTerm() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("( 1 * 1 )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("((1)*(1))",p.term().toString());
-    	
-    }
-    
-    public void testParseTermTernary() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("( 1 * 1 * 1 )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(((1)*(1))*(1))",p.term().toString());
-   }
-    
-    public void testParseTermTernary2() throws IOException, ParseException
-    {
-    	Reader r = new StringReader("( 1 * 1/ 1 )");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(((1)*(1))/(1))",p.term().toString());
-    	
-    	
-    }
+ 
     
 //    
 //    public void testParseTerm2() throws IOException
