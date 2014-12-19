@@ -20,6 +20,7 @@ public class TokenizerTest extends TestCase {
     	ts.addTestSuite(TokenizerIdentTest.class);
     	ts.addTestSuite(TokenizerFunctionNameTest.class);  
     	ts.addTestSuite(TokenizerExpressionsTest.class);  
+    	ts.addTestSuite(TokenizerFunctionNameTest.class);  
         
     	  
         return ts;

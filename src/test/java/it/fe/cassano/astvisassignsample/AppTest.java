@@ -2,6 +2,8 @@ package it.fe.cassano.astvisassignsample;
 
 import it.fe.cassano.astvisassignsample.ast.AssignmentTest;
 import it.fe.cassano.astvisassignsample.ast.Exp;
+import it.fe.cassano.astvisassignsample.ast.NumExp;
+import it.fe.cassano.astvisassignsample.ast.RealExp;
 import it.fe.cassano.astvisassignsample.ast.SimpleExpressionsTest;
 import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
 import it.fe.cassano.astvisassignsample.ccparser.ParseException;
@@ -9,7 +11,6 @@ import it.fe.cassano.astvisassignsample.parser.ExpressionParserTest;
 import it.fe.cassano.astvisassignsample.parser.OtherParserTest;
 import it.fe.cassano.astvisassignsample.parser.ParserValidityTest;
 import it.fe.cassano.astvisassignsample.tokenizer.TokenizerNumbersTest;
-import it.fe.cassano.astvisassignsample.visitor.EvalVisitor;
 import it.fe.cassano.astvisassignsample.visitor.EvalWithAssignVisitorTest;
 import it.fe.cassano.astvisassignsample.visitor.LispOutputVisitor;
 
@@ -43,21 +44,21 @@ public class AppTest
     public static Test suite()
     {
     	final TestSuite ts = new TestSuite();
-    	/* TOKENIZER AND PARSER */
-    	ts.addTestSuite(ParserValidityTest.class);
-    	ts.addTestSuite(ExpressionParserTest.class);
-    	/* AST */
-    	ts.addTestSuite(SimpleExpressionsTest.class);
-    	/* VISITORS */
-    	ts.addTestSuite(EvalWithAssignVisitorTest.class);
-    	/* OTHER */
-    	ts.addTestSuite(OtherParserTest.class);
-    	ts.addTestSuite(TokenizerNumbersTest.class);
-    	ts.addTestSuite(AppTest.class);
+//    	/* TOKENIZER AND PARSER */
+//    	ts.addTestSuite(ParserValidityTest.class);
+//    	ts.addTestSuite(ExpressionParserTest.class);
+//    	/* AST */
+//    	ts.addTestSuite(SimpleExpressionsTest.class);
+//    	/* VISITORS */
+//    	ts.addTestSuite(EvalWithAssignVisitorTest.class);
+//    	/* OTHER */
+//    	ts.addTestSuite(OtherParserTest.class);
+//    	ts.addTestSuite(TokenizerNumbersTest.class);
+   	ts.addTestSuite(AppTest.class);
      
     	// After adding assignment extension to the App:
     	
-    	ts.addTestSuite(AssignmentTest.class);
+   // 	ts.addTestSuite(AssignmentTest.class);
   
         return ts;
     }
@@ -153,16 +154,54 @@ public class AppTest
         
     }
     
-    public void testEvalVisitor() throws IOException, ParseException
+//    public void testEvalVisitor() throws IOException, ParseException
+//    {
+//    	Reader valThis = new StringReader(" ( 7 * ( 1 + 1 ) ) - 3");
+//        
+//        ExpressionParser p = new ExpressionParser(valThis);
+//        final Exp expressionEval = p.expr();
+//        final EvalVisitor v = new EvalVisitor();
+//        expressionEval.accept(v);
+//        assertEquals(v.getVal(),new Integer(11));
+//        
+//    }
+    
+    public void testCasting()
     {
-    	Reader valThis = new StringReader(" ( 7 * ( 1 + 1 ) ) - 3");
-        
-        ExpressionParser p = new ExpressionParser(valThis);
-        final Exp expressionEval = p.expr();
-        final EvalVisitor v = new EvalVisitor();
-        expressionEval.accept(v);
-        assertEquals(v.getVal(),new Integer(11));
-        
+    	NumExp a = new NumExp(7);
+    	RealExp b = new RealExp(5.5f);
+    	
+    	assertEquals(11.0f, sum(b,b));
+    	assertEquals(12.5f, sum(a,b));
+    	assertEquals(12.5f, sum(b,a));
+    	assertEquals(14l, sum(a,a));
+    	
     }
+    
+
+    
+    protected Float sum(RealExp a, RealExp b)
+    {
+    	return a.getValue()+b.getValue();
+    }
+    
+    protected Float sum(RealExp a,NumExp b)
+    {
+    	return a.getValue()+b.getValue();
+    }
+    
+    protected Float sum(NumExp a, RealExp b)
+    {
+    	return a.getValue()+b.getValue();
+    }
+    
+    protected long sum(NumExp a, NumExp b)
+    {
+    	return (long) (a.getValue()+b.getValue());
+    }
+    
+
+    
+    
     
 }

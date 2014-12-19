@@ -28,78 +28,16 @@ public class TokenizerFunctionNameTest extends TestCase {
         return ts;
     }
    
-    public void testFName() throws IOException
+    public void testJName() throws IOException
     {
-    	Reader r = new StringReader("s(2)");
+    	Reader r = new StringReader("java.lang.Math.sin");
     	ITokenizer t = new ExpressionParser(r);
     	Token tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("s",tok.image);
-    	r.close();  	
+    	assertEquals(ExpressionParserConstants.JFUN, tok.kind);
+    	assertEquals("java.lang.Math.sin",tok.image);
+    	r.close();  
+    	
     }
-    
-  
-    
-    public void testNotAFName() throws IOException
-    {
-    	Reader r = new StringReader("Aaa");
-    	ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertTrue(ExpressionParserConstants.FNAME != tok.kind);
-    	r.close();  	
-    }
-    
-    public void testFNameComplex() throws IOException
-    {
-    	Reader r = new StringReader("a1ae_test");
-    	ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("a1ae_test",tok.image);
-    	r.close();  	
-    }
-    
-   
-    
-    public void testFNameOfFName() throws IOException
-    {
-    	Reader r = new StringReader("aaaa(bbb(1))");
-    	ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("aaaa",tok.image);
-    	tok = t.getNextToken();
-    	tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("bbb",tok.image);
-    	r.close();  	
-    }
-    
-    public void testFNamesInOp() throws IOException
-    {
-    	Reader r = new StringReader("aaa()*bbb()");
-    	ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("aaa",tok.image);
-    	tok = t.getNextToken();
-    	tok = t.getNextToken();
-    	tok = t.getNextToken();
-    	tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("bbb",tok.image);
-    	r.close();  	
-    }
-  
-    public void testFNameInBrackets() throws IOException
-    {
-    	Reader r = new StringReader("(aaa()))");
-    	ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.FNAME, tok.kind);
-    	assertEquals("aaa",tok.image);
-    	r.close();  	
-    }
+
     
 }

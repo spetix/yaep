@@ -18,7 +18,7 @@ public class VisitorTest extends TestCase {
     	ts.addTestSuite(LispOutputVisitorTest.class);
     	ts.addTestSuite(EvalVisitorTest.class);
     	ts.addTestSuite(EvalWithAssignVisitorTest.class);
-    	  
+    	 ts.addTestSuite(TypeVisitorTest.class);
         return ts;
     }
     

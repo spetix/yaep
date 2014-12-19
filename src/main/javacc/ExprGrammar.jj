@@ -17,6 +17,7 @@ import it.fe.cassano.astvisassignsample.tokenizer.ITokenizer;
 import it.fe.cassano.astvisassignsample.parser.IParser;
 import java.util.List;
 import java.util.Vector;
+import it.fe.cassano.astvisassignsample.visitor.ExpType;
 
 public class ExpressionParser implements ITokenizer, IParser{
   public boolean isValidExpression() 
@@ -33,6 +34,9 @@ public class ExpressionParser implements ITokenizer, IParser{
 
 SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MUL : "*" >| < DIV : "/" >
 | < ASSIGN : "=" >
+}
+TOKEN : /* SYNTAX HELPERS */
+{  < COLON : ":" >
 | < OBR: "(" >
 | < CBR: ")" >
 | <  COMMA: "," >}
@@ -48,6 +52,9 @@ TOKEN : /* FUNCTION NAME */
   < FNAME : < LOWCASE >(< ALPHA > | < DIGIT > | < LOWCASE >)* >
 |  < #LOWCASE : ["a"-"z"] >}
 
+TOKEN :
+{  < JFUN : < LOWCASE > (< ALPHA >| < DIGIT > | < LOWCASE > | < DOT >)* (< ALPHA > | < DIGIT >| < LOWCASE >) >
+}
 TOKEN : /* NUMBERS */{  < INTNUM : < DIGIT >(< ZERO >| < DIGIT >)* | < ZERO > >| < #DIGIT : [ "1"-"9" ] >
 | < #ZERO : "0" >}
 
@@ -56,14 +63,18 @@ TOKEN : /* REAL NUMBERS */
   < REALNUM : < INTNUM > < DOT > (< ZERO > | < DIGIT >)* >   
 | < #DOT : "." >}
 
-
-
+TOKEN : /* DATA TYPES */
+{  < DATATYPE : "RealExp" | "NumExp" >
+}
 
 public Exp expr() :
 {Token id,op=null; Exp t1, t2; }
 {
   /* populate expression */
-  t1=assignment() ( < COMMA > t2=expr() { t1= new SeqExp(t1, t2); } )*  {    return t1;
+  (     t1=assignment()
+    |
+    t1=fundef()
+  ) ( < COMMA > t2=expr() { t1= new SeqExp(t1, t2); } )*  {    return t1;
   }
  | t1=term()
  (   <PLUS > t2=term()  
@@ -86,8 +97,22 @@ Exp assignment() :
     id=< IDENT > < ASSIGN > t1=expr()    {
       t1 = new AssignExp(new IdentExp(id.image), t1);
       return t1;    }
-    
 }
+
+Exp fundef():
+{Token fLabel,fId,tId; List<ExpType> par = new Vector<ExpType>();}{	fLabel=< FNAME > <ASSIGN > fId=< JFUN ><OBR > fundefparams(par) < CBR ><COLON > tId= <DATATYPE > 	{  		return new FunDefineExp(new FunSignExp(fLabel.image,ExpType.valueof(tId.image),par), new FunCodeExp(fId.image,ExpType.valueof(tId.image),par));
+	}}
+  
+void fundefparams(List<ExpType > params):
+{ Token t; }
+{
+  t=< DATATYPE > {
+    params.add(ExpType.valueof(t.image));
+  }
+  ( < COMMA > fundefparams(params))*
+}
+
+
 
 
 
@@ -153,6 +178,8 @@ Exp unaryMinus():
     return new UnaryMinusExp(e);  }}
 
 
+
+
 protected boolean testvalid() :
 {}
 {
@@ -165,6 +192,8 @@ protected boolean testvalid() :
     return false;
   }   
 }
+
+
 
 /*
 BNF:

@@ -21,29 +21,35 @@ public interface ExpressionParserConstants {
   /** RegularExpression Id. */
   int ASSIGN = 9;
   /** RegularExpression Id. */
-  int OBR = 10;
+  int COLON = 10;
   /** RegularExpression Id. */
-  int CBR = 11;
+  int OBR = 11;
   /** RegularExpression Id. */
-  int COMMA = 12;
+  int CBR = 12;
   /** RegularExpression Id. */
-  int IDENT = 13;
+  int COMMA = 13;
   /** RegularExpression Id. */
-  int ALPHA = 14;
+  int IDENT = 14;
   /** RegularExpression Id. */
-  int FNAME = 15;
+  int ALPHA = 15;
   /** RegularExpression Id. */
-  int LOWCASE = 16;
+  int FNAME = 16;
   /** RegularExpression Id. */
-  int INTNUM = 17;
+  int LOWCASE = 17;
   /** RegularExpression Id. */
-  int DIGIT = 18;
+  int JFUN = 18;
   /** RegularExpression Id. */
-  int ZERO = 19;
+  int INTNUM = 19;
   /** RegularExpression Id. */
-  int REALNUM = 20;
+  int DIGIT = 20;
   /** RegularExpression Id. */
-  int DOT = 21;
+  int ZERO = 21;
+  /** RegularExpression Id. */
+  int REALNUM = 22;
+  /** RegularExpression Id. */
+  int DOT = 23;
+  /** RegularExpression Id. */
+  int DATATYPE = 24;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -60,6 +66,7 @@ public interface ExpressionParserConstants {
     "\"*\"",
     "\"/\"",
     "\"=\"",
+    "\":\"",
     "\"(\"",
     "\")\"",
     "\",\"",
@@ -67,11 +74,13 @@ public interface ExpressionParserConstants {
     "<ALPHA>",
     "<FNAME>",
     "<LOWCASE>",
+    "<JFUN>",
     "<INTNUM>",
     "<DIGIT>",
     "\"0\"",
     "<REALNUM>",
     "\".\"",
+    "<DATATYPE>",
   };
 
 }
