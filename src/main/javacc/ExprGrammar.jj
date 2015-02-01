@@ -7,17 +7,18 @@
   DEBUG_PARSER = true;
   DEBUG_LOOKAHEAD = true;
   DEBUG_TOKEN_MANAGER = true;
-  LOOKAHEAD=2;}
+  // this reduces parser performances overall, better find the right place for:
+   LOOKAHEAD=5;}
 PARSER_BEGIN(ExpressionParser)
-package it.fe.cassano.astvisassignsample.ccparser;
+package it.fe.cassano.yeap.ccparser;
 import java.io.BufferedReader;
 import java.io.Reader;
-import it.fe.cassano.astvisassignsample.ast.*;
-import it.fe.cassano.astvisassignsample.tokenizer.ITokenizer;
-import it.fe.cassano.astvisassignsample.parser.IParser;
+import it.fe.cassano.yeap.ast.*;
+import it.fe.cassano.yeap.tokenizer.ITokenizer;
+import it.fe.cassano.yeap.parser.IParser;
 import java.util.List;
 import java.util.Vector;
-import it.fe.cassano.astvisassignsample.visitor.ExpType;
+import it.fe.cassano.yeap.visitor.ExpType;
 
 public class ExpressionParser implements ITokenizer, IParser{
   public boolean isValidExpression() 
@@ -43,8 +44,9 @@ TOKEN : /* SYNTAX HELPERS */
 
 TOKEN : /* IDENTIFIERS */
 {
-  < IDENT : < ALPHA >(< ALPHA > | < DIGIT > | < LOWCASE > )* >
-| < #ALPHA : ["A"-"Z"]|"_" >
+  < IDENT : (< ALPHA >|< UNDERSCORE >)(< ALPHA > |< UNDERSCORE > | < DIGIT > | < LOWCASE > )* >
+| < #ALPHA : ["A"-"Z"] >
+| < #UNDERSCORE : "_" >
 }
 
 TOKEN : /* FUNCTION NAME */
@@ -53,7 +55,8 @@ TOKEN : /* FUNCTION NAME */
 |  < #LOWCASE : ["a"-"z"] >}
 
 TOKEN :
-{  < JFUN : < LOWCASE > (< ALPHA >| < DIGIT > | < LOWCASE > | < DOT >)* (< ALPHA > | < DIGIT >| < LOWCASE >) >
+{//  < JFUN : < LOWCASE > ((< ALPHA >| < DIGIT > | < LOWCASE >)* | (< ALPHA >| < DIGIT > | < LOWCASE >)< DOT >)+(< ALPHA > | < DIGIT >| < LOWCASE >)+ >
+ < JFUN : (< LOWCASE > (<ALPHA >|< DIGIT >|<LOWCASE >)*< DOT >)+< ALPHA >(< ALPHA >|< DIGIT >|< LOWCASE >|< UNDERSCORE >)*< DOT >(< ALPHA >|< LOWCASE >|< UNDERSCORE >)(< ALPHA >| < DIGIT > | < LOWCASE >)* >
 }
 TOKEN : /* NUMBERS */{  < INTNUM : < DIGIT >(< ZERO >| < DIGIT >)* | < ZERO > >| < #DIGIT : [ "1"-"9" ] >
 | < #ZERO : "0" >}
@@ -72,11 +75,11 @@ public Exp expr() :
 {
   /* populate expression */
   (     t1=assignment()
-    |
+    | 
     t1=fundef()
-  ) ( < COMMA > t2=expr() { t1= new SeqExp(t1, t2); } )*  {    return t1;
+  ) (  < COMMA > t2=expr() { t1= new SeqExp(t1, t2); } )*  {    return t1;
   }
- | t1=term()
+ |  t1=term()
  (   <PLUS > t2=term()  
   {
     t1=new PlusExp(t1,t2);
@@ -93,8 +96,8 @@ public Exp expr() :
 
 Exp assignment() :
 {Token id; Exp t1;}
-{
-    id=< IDENT > < ASSIGN > t1=expr()    {
+{  	
+    id=  < IDENT > < ASSIGN > t1=expr()    {
       t1 = new AssignExp(new IdentExp(id.image), t1);
       return t1;    }
 }
@@ -109,7 +112,7 @@ void fundefparams(List<ExpType > params):
   t=< DATATYPE > {
     params.add(ExpType.valueof(t.image));
   }
-  ( < COMMA > fundefparams(params))*
+  (  < COMMA > fundefparams(params))*
 }
 
 
@@ -119,7 +122,7 @@ void fundefparams(List<ExpType > params):
 Exp term():
 {Exp f1; Exp f2; }
 {  f1=factor()
-  (     < MUL > f2=factor() 
+  (      < MUL > f2=factor() 
  {   f1= new ProductExp(f1,f2); }
 | < DIV > f2=factor() 
  {
@@ -157,7 +160,7 @@ Exp function():
     return new FunExp(fname.image,params);
   }
 | 
-  fname= < FNAME >< OBR > fparams(params) < CBR >
+  LOOKAHEAD(3) fname= < FNAME >< OBR > fparams(params) < CBR >
   {
     return new FunExp(fname.image,params);
   } 
@@ -168,7 +171,7 @@ void fparams(List<Exp > params):
 {
   e1= expr()  {
     params.add(e1);
-  }  ( < COMMA > fparams(params))*}
+  }  ( LOOKAHEAD(2) < COMMA > fparams(params))*}
 
 Exp unaryMinus():
 {Exp e;}
