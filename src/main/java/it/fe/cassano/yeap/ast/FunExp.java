@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import it.fe.cassano.yeap.visitor.IVisitor;
+import it.fe.cassano.yeap.visitors.IVisitor;
 
 
 public class FunExp extends Exp {

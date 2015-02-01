@@ -2,12 +2,6 @@ package it.fe.cassano.yeap.ast;
 
 
 
-import it.fe.cassano.yeap.ast.DivideExp;
-import it.fe.cassano.yeap.ast.MinusExp;
-import it.fe.cassano.yeap.ast.NumExp;
-import it.fe.cassano.yeap.ast.OpExp;
-import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.ast.ProductExp;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

@@ -1,10 +1,5 @@
 package it.fe.cassano.yeap.ast;
 
-import it.fe.cassano.yeap.ast.AssignExp;
-import it.fe.cassano.yeap.ast.Exp;
-import it.fe.cassano.yeap.ast.IdentExp;
-import it.fe.cassano.yeap.ast.NumExp;
-import it.fe.cassano.yeap.ast.PlusExp;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

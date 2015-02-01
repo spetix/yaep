@@ -1,6 +1,6 @@
 package it.fe.cassano.yeap.tokenizer;
 
-import it.fe.cassano.astvisassignsample.ccparser.Token;
+import it.fe.cassano.yeap.ccparser.Token;
 
 
 public interface ITokenizer {

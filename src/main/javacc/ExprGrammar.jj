@@ -7,8 +7,7 @@
   DEBUG_PARSER = true;
   DEBUG_LOOKAHEAD = true;
   DEBUG_TOKEN_MANAGER = true;
-  // this reduces parser performances overall, better find the right place for:
-   LOOKAHEAD=5;}
+  LOOKAHEAD=2;}
 PARSER_BEGIN(ExpressionParser)
 package it.fe.cassano.yeap.ccparser;
 import java.io.BufferedReader;
@@ -18,7 +17,7 @@ import it.fe.cassano.yeap.tokenizer.ITokenizer;
 import it.fe.cassano.yeap.parser.IParser;
 import java.util.List;
 import java.util.Vector;
-import it.fe.cassano.yeap.visitor.ExpType;
+import it.fe.cassano.yeap.visitors.ExpType;
 
 public class ExpressionParser implements ITokenizer, IParser{
   public boolean isValidExpression() 

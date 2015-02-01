@@ -1,6 +1,6 @@
 package it.fe.cassano.yeap.ast;
 
-import it.fe.cassano.yeap.visitor.IVisitor;
+import it.fe.cassano.yeap.visitors.IVisitor;
 
 public class SeqExp extends OpExp {
 

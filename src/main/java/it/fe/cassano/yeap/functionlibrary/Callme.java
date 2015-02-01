@@ -1,6 +1,6 @@
 package it.fe.cassano.yeap.functionlibrary;
 
-import it.fe.cassano.yeap.visitor.ExpType;
+import it.fe.cassano.yeap.visitors.ExpType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

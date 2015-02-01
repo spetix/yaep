@@ -1,4 +1,4 @@
-package it.fe.cassano.yeap.visitor;
+package it.fe.cassano.yeap.visitors;
 
 import it.fe.cassano.yeap.ast.AssignExp;
 import it.fe.cassano.yeap.ast.DivideExp;

@@ -4,7 +4,7 @@ import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ast.FunExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.RealExp;
-import it.fe.cassano.yeap.visitor.LispOutputVisitor;
+import it.fe.cassano.yeap.visitors.LispOutputVisitor;
 
 import java.util.Arrays;
 

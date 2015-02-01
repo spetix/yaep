@@ -2,7 +2,7 @@ package it.fe.cassano.yeap.visitor;
 
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.visitor.EvalWithAssignVisitor;
+import it.fe.cassano.yeap.visitors.EvalWithAssignVisitor;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

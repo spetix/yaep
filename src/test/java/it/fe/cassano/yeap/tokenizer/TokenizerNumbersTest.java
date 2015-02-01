@@ -1,19 +1,18 @@
 package it.fe.cassano.yeap.tokenizer;
 
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParserConstants;
-import it.fe.cassano.astvisassignsample.ccparser.Token;
-import it.fe.cassano.yeap.tokenizer.ITokenizer;
+import it.fe.cassano.yeap.ccparser.ExpressionParser;
+import it.fe.cassano.yeap.ccparser.ExpressionParserConstants;
+import it.fe.cassano.yeap.ccparser.Token;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.apache.commons.lang3.StringUtils;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.apache.commons.lang3.StringUtils;
 
 
 public class TokenizerNumbersTest extends TestCase {

@@ -1,18 +1,11 @@
 package it.fe.cassano.yeap;
 
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
-import it.fe.cassano.astvisassignsample.ccparser.ParseException;
-import it.fe.cassano.yeap.ast.AssignmentTest;
 import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.RealExp;
-import it.fe.cassano.yeap.ast.SimpleExpressionsTest;
-import it.fe.cassano.yeap.parser.ExpressionParserTest;
-import it.fe.cassano.yeap.parser.OtherParserTest;
-import it.fe.cassano.yeap.parser.ParserValidityTest;
-import it.fe.cassano.yeap.tokenizer.TokenizerNumbersTest;
-import it.fe.cassano.yeap.visitor.EvalWithAssignVisitorTest;
-import it.fe.cassano.yeap.visitor.LispOutputVisitor;
+import it.fe.cassano.yeap.ccparser.ExpressionParser;
+import it.fe.cassano.yeap.ccparser.ParseException;
+import it.fe.cassano.yeap.visitors.LispOutputVisitor;
 
 import java.io.IOException;
 import java.io.Reader;

@@ -1,7 +1,7 @@
 package it.fe.cassano.yeap.parser;
 
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
-import it.fe.cassano.astvisassignsample.ccparser.ParseException;
+import it.fe.cassano.yeap.ccparser.ExpressionParser;
+import it.fe.cassano.yeap.ccparser.ParseException;
 
 import java.io.Reader;
 import java.io.StringReader;

@@ -9,9 +9,9 @@ import it.fe.cassano.yeap.ast.PlusExp;
 import it.fe.cassano.yeap.ast.ProductExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
-import it.fe.cassano.yeap.visitor.ExpType;
-import it.fe.cassano.yeap.visitor.IVisitor;
-import it.fe.cassano.yeap.visitor.TypeVisitor;
+import it.fe.cassano.yeap.visitors.ExpType;
+import it.fe.cassano.yeap.visitors.IVisitor;
+import it.fe.cassano.yeap.visitors.TypeVisitor;
 
 import java.util.Collections;
 import java.util.HashMap;

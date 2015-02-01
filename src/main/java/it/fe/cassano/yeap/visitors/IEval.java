@@ -1,4 +1,4 @@
-package it.fe.cassano.yeap.visitor;
+package it.fe.cassano.yeap.visitors;
 
 public interface IEval<T> {
 	

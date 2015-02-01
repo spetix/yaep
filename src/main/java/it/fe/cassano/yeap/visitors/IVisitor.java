@@ -1,4 +1,4 @@
-package it.fe.cassano.yeap.visitor;
+package it.fe.cassano.yeap.visitors;
 
 import it.fe.cassano.yeap.ast.AssignExp;
 import it.fe.cassano.yeap.ast.DivideExp;
@@ -18,6 +18,7 @@ import it.fe.cassano.yeap.ast.UnaryMinusExp;
 
 public interface IVisitor {
 
+	
 	public void visit(final NumExp exp);
 	public void visit(final PlusExp exp);
 	public void visit(final MinusExp exp);

@@ -1,38 +1,19 @@
 package it.fe.cassano.yeap;
 
-import it.fe.cassano.astvisassignsample.ccparser.ExpressionParser;
-import it.fe.cassano.astvisassignsample.ccparser.ParseException;
-import it.fe.cassano.yeap.ast.AssignmentTest;
-import it.fe.cassano.yeap.ast.Exp;
-import it.fe.cassano.yeap.ast.NumExp;
-import it.fe.cassano.yeap.ast.RealExp;
-import it.fe.cassano.yeap.ast.SimpleExpressionsTest;
+import it.fe.cassano.yeap.ccparser.ParseException;
 import it.fe.cassano.yeap.functionlibrary.Callme;
-import it.fe.cassano.yeap.parser.ExpressionParserTest;
-import it.fe.cassano.yeap.parser.OtherParserTest;
-import it.fe.cassano.yeap.parser.ParserValidityTest;
-import it.fe.cassano.yeap.tokenizer.TokenizerNumbersTest;
-import it.fe.cassano.yeap.visitor.EvalWithAssignVisitorTest;
-import it.fe.cassano.yeap.visitor.ExpType;
-import it.fe.cassano.yeap.visitor.LispOutputVisitor;
+import it.fe.cassano.yeap.visitors.ExpType;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
  * Unit test for simple App.
