@@ -11,8 +11,8 @@
 	<url>http://www.cassano.fe.it/yeap</url>
 
 	<scm>
-		<connection>scm:git:file:///Users/ccassano/lab/git_repos/progettoLinguaggi</connection>
-		<developerConnection>scm:git:file:///Users/ccassano/lab/git_repos/progettoLinguaggi</developerConnection>
+		<connection>scm:git:https://github.com/spetix/yaep.git</connection>
+		<developerConnection>scm:git:https://github.com/spetix/yaep.git</developerConnection>
 		<!-- <url>http://somerepository.com/view.cvs</url> -->
 	</scm>
 
@@ -162,6 +162,7 @@
 				<artifactId>javacc-maven-plugin</artifactId>
 				<version>2.6</version>
 			</plugin>
+<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -177,6 +178,7 @@
 					<useStandardDocletOptions>true</useStandardDocletOptions>
 				</configuration>
 			</plugin>
+ -->
 		</plugins>
 	</reporting>
 	<dependencies>

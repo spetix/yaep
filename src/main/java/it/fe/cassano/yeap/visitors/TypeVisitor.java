@@ -1,7 +1,8 @@
 package it.fe.cassano.yeap.visitors;
 
 import it.fe.cassano.yeap.ast.AssignExp;
-import it.fe.cassano.yeap.ast.DivideExp;
+import it.fe.cassano.yeap.ast.DivExp;
+import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ast.FunCodeExp;
 import it.fe.cassano.yeap.ast.FunDefineExp;
 import it.fe.cassano.yeap.ast.FunExp;
@@ -12,12 +13,11 @@ import it.fe.cassano.yeap.ast.MinusExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.OpExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.ast.ProductExp;
+import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +36,11 @@ public class TypeVisitor implements IVisitor {
 	public Object getVal()
 	{
 		return type;
+	}
+	
+	public void visit(Exp e)
+	{
+		e.accept(this);
 	}
 	
 	void visitOpExp(OpExp exp)
@@ -66,12 +71,12 @@ public class TypeVisitor implements IVisitor {
 	}
 
 	@Override
-	public void visit(ProductExp exp) {
+	public void visit(MulExp exp) {
 		visitOpExp(exp);
 	}
 
 	@Override
-	public void visit(DivideExp exp) {
+	public void visit(DivExp exp) {
 		visitOpExp(exp);
 	}
 

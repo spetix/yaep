@@ -16,7 +16,6 @@ public class ParserTest extends TestCase {
     {
     	final TestSuite ts = new TestSuite();
     	// ts.addTestSuite(ParserTest.class);
-    	ts.addTestSuite(ParserValidityTest.class);
     	ts.addTestSuite(ExpressionParserTest.class);
     	ts.addTestSuite(TermParserTest.class);
     	ts.addTestSuite(FactorParserTest.class);

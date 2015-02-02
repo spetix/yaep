@@ -5,9 +5,9 @@ import it.fe.cassano.yeap.visitors.IVisitor;
 
 public class RealExp extends Exp {
 	
-	final Float val;
+	final double val;
 
-	public RealExp(final Float val)
+	public RealExp(final double val)
 	{
 		this.val = val;
 	}
@@ -16,7 +16,7 @@ public class RealExp extends Exp {
 		return "(" +this.val+")";
 	}
 	
-	public Float getValue()
+	public double getValue()
 	{
 		return val;
 	}

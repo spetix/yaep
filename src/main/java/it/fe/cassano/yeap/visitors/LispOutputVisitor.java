@@ -1,14 +1,21 @@
 package it.fe.cassano.yeap.visitors;
 
-import it.fe.cassano.yeap.ast.DivideExp;
+import it.fe.cassano.yeap.ast.AssignExp;
+import it.fe.cassano.yeap.ast.DivExp;
 import it.fe.cassano.yeap.ast.Exp;
+import it.fe.cassano.yeap.ast.FunCodeExp;
+import it.fe.cassano.yeap.ast.FunDefineExp;
 import it.fe.cassano.yeap.ast.FunExp;
+import it.fe.cassano.yeap.ast.FunSignExp;
+import it.fe.cassano.yeap.ast.IdentExp;
+import it.fe.cassano.yeap.ast.IdentValExp;
 import it.fe.cassano.yeap.ast.MinusExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.OpExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.ast.ProductExp;
+import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.RealExp;
+import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 
 import java.util.List;
@@ -27,8 +34,8 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 	}
 	public void visit( PlusExp e ) { visitOpExp(e); }
 	public void visit( MinusExp e ) { visitOpExp(e); }
-	public void visit( ProductExp e ) { visitOpExp(e); }
-	public void visit( DivideExp e ) { visitOpExp(e); }
+	public void visit( MulExp e ) { visitOpExp(e); }
+	public void visit( DivExp e ) { visitOpExp(e); }
 	public void visit( NumExp e ) {
 	curs = "" + e.getValue();
 	}
@@ -54,6 +61,46 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 		e.expr().accept(this);
 		String ex = getVal();
 		curs = "(- "+ex+")";
+		
+	}
+	@Override
+	public void visit(AssignExp assignExp) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(IdentExp e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(IdentValExp e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(SeqExp seqExp) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(FunDefineExp funDefineExp) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(FunSignExp funSignExp) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(FunCodeExp funCodeExp) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(Exp exp) {
+		// TODO Auto-generated method stub
 		
 	}
 

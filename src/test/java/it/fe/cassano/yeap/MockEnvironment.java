@@ -1,6 +1,10 @@
 package it.fe.cassano.yeap;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import it.fe.cassano.yeap.visitors.IEnvironment;
 
@@ -28,6 +32,11 @@ public class MockEnvironment implements IEnvironment {
 	@Override
 	public Object getVal(String key) {
 		return this.env.get(key);
+	}
+
+	@Override
+	public Map<String, Object> toUnmodifiableMap() {
+		return  Collections.<String, Object> unmodifiableMap(this.env);
 	}
 
 }

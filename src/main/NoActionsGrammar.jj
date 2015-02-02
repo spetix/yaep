@@ -7,8 +7,7 @@
   DEBUG_PARSER = true;
   DEBUG_LOOKAHEAD = true;
   DEBUG_TOKEN_MANAGER = true;
-  LOOKAHEAD=2;
-}
+  }
 PARSER_BEGIN(ExpressionParser)
 package it.fe.cassano.yeap.ccparser;
 import java.io.BufferedReader;
@@ -69,7 +68,7 @@ TOKEN : /* DATA TYPES */
 
 }
 
-
+/*
 public void lines():
 {}
 {  (    (      fundef() | sequence()
@@ -79,22 +78,24 @@ public void lines():
 
 public void sequence():
 {}
-{   expr() ( LOOKAHEAD(2) < COMMA > expr())*
+{   expr() (  < COMMA > expr())*
 }
+*/
+
+public void sequence()
+{}
+{
+  ((fundef()|assignment())(< EOL >| < COMMA >))+ expr()}
 
 public void expr() :
 {}
 {
  
- term() ( LOOKAHEAD(2) < PLUS > term() |< MINUS >  term() )*
+ term() ( < PLUS > term() |< MINUS >  term() )*
  |
  assignment()
 }
 
-void op():
-{}
-{  <PLUS >|< MINUS >
-}
 
 void assignment() :
 {}
@@ -117,7 +118,7 @@ void fundefparams():
 
 void term():
 {}
-{  factor() ( < DIV > factor() |< MUL >  factor() )
+{  factor() ( < DIV > factor() |< MUL >  factor() )*
 }
 
 

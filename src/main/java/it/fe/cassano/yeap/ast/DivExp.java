@@ -3,7 +3,7 @@ package it.fe.cassano.yeap.ast;
 import it.fe.cassano.yeap.visitors.IVisitor;
 
 
-public class DivideExp extends OpExp {
+public class DivExp extends OpExp {
 
 	@Override
 	public
@@ -11,7 +11,7 @@ public class DivideExp extends OpExp {
 		return "/";
 	}
 
-	public DivideExp(final Exp left, final Exp right)
+	public DivExp(final Exp left, final Exp right)
 	{
 		super(left,right);
 	}

@@ -1,5 +1,8 @@
 package it.fe.cassano.yeap.gui.actions;
 
+import java.util.Collections;
+import java.util.Map;
+
 import it.fe.cassano.yeap.visitors.IEnvironment;
 
 import javax.swing.table.AbstractTableModel;
@@ -108,5 +111,10 @@ public class EnvironmentTableModel extends AbstractTableModel implements
 	@Override
 	public Object getVal(String key) {
 		return this.environment.get(key);
+	}
+
+	@Override
+	public Map<String, Object> toUnmodifiableMap() {
+		return  Collections.<String, Object> unmodifiableMap(this.environment);
 	}
 }

@@ -3,8 +3,13 @@ package it.fe.cassano.yeap;
 import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.RealExp;
+import it.fe.cassano.yeap.ast.SimpleExpressionsTest;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ParseException;
+import it.fe.cassano.yeap.parser.ExpressionParserTest;
+import it.fe.cassano.yeap.parser.OtherParserTest;
+import it.fe.cassano.yeap.tokenizer.TokenizerNumbersTest;
+import it.fe.cassano.yeap.visitor.EvalWithAssignVisitorTest;
 import it.fe.cassano.yeap.visitors.LispOutputVisitor;
 
 import java.io.IOException;
@@ -37,16 +42,15 @@ public class AppTest
     public static Test suite()
     {
     	final TestSuite ts = new TestSuite();
-//    	/* TOKENIZER AND PARSER */
-//    	ts.addTestSuite(ParserValidityTest.class);
-//    	ts.addTestSuite(ExpressionParserTest.class);
-//    	/* AST */
-//    	ts.addTestSuite(SimpleExpressionsTest.class);
-//    	/* VISITORS */
-//    	ts.addTestSuite(EvalWithAssignVisitorTest.class);
-//    	/* OTHER */
-//    	ts.addTestSuite(OtherParserTest.class);
-//    	ts.addTestSuite(TokenizerNumbersTest.class);
+    	/* TOKENIZER AND PARSER */
+    	ts.addTestSuite(ExpressionParserTest.class);
+    	/* AST */
+    	ts.addTestSuite(SimpleExpressionsTest.class);
+    	/* VISITORS */
+    	ts.addTestSuite(EvalWithAssignVisitorTest.class);
+    	/* OTHER */
+    	ts.addTestSuite(OtherParserTest.class);
+    	ts.addTestSuite(TokenizerNumbersTest.class);
    	ts.addTestSuite(AppTest.class);
      
     	// After adding assignment extension to the App:
@@ -162,28 +166,28 @@ public class AppTest
     public void testCasting()
     {
     	NumExp a = new NumExp(7);
-    	RealExp b = new RealExp(5.5f);
+    	RealExp b = new RealExp(5.5d);
     	
-    	assertEquals(11.0f, sum(b,b));
-    	assertEquals(12.5f, sum(a,b));
-    	assertEquals(12.5f, sum(b,a));
+    	assertEquals(11.0d, sum(b,b));
+    	assertEquals(12.5d, sum(a,b));
+    	assertEquals(12.5d, sum(b,a));
     	assertEquals(14l, sum(a,a));
     	
     }
     
 
     
-    protected Float sum(RealExp a, RealExp b)
+    protected double sum(RealExp a, RealExp b)
     {
     	return a.getValue()+b.getValue();
     }
     
-    protected Float sum(RealExp a,NumExp b)
+    protected double sum(RealExp a,NumExp b)
     {
     	return a.getValue()+b.getValue();
     }
     
-    protected Float sum(NumExp a, RealExp b)
+    protected double sum(NumExp a, RealExp b)
     {
     	return a.getValue()+b.getValue();
     }

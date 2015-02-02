@@ -43,10 +43,23 @@ public class OtherParserTest extends TestCase {
         Reader valThis = new StringReader("A=3,1 - ( a(3.4,-1) - 1 )");
         ExpressionParser p = new ExpressionParser(valThis);
         //assertTrue(p.isValidExpression());
-        Exp e = p.expr();
+        Exp e = p.sequence();
         assertEquals("((A=(3)),((1)-((a((3.4),(-(1))))-(1))))",e.toString());
     	
     }
+    
+    public void testLongTerms() throws IOException, ParseException
+    {
+    
+        Reader valThis = new StringReader("1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1");
+        ExpressionParser p = new ExpressionParser(valThis);
+        //assertTrue(p.isValidExpression());
+        Exp e = p.expr();
+        assertEquals("((((((((((((((((((((((((((((((1)-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))",e.toString());
+    	
+    }
+    
+    
 /*  
     public void testParseFactor() throws IOException
     {

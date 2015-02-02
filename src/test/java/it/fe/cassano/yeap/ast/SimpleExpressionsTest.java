@@ -39,14 +39,14 @@ public class SimpleExpressionsTest extends TestCase {
     }
     public void testProduct()
     {
-    	OpExp product = new ProductExp(new NumExp(5),new NumExp(3));
+    	OpExp product = new MulExp(new NumExp(5),new NumExp(3));
     	System.out.println(product.toString());
         assertTrue( product.toString().equals("((5)*(3))") );
     }
     
     public void testDivide()
     {
-    	OpExp divide = new DivideExp(new NumExp(5),new NumExp(3));
+    	OpExp divide = new DivExp(new NumExp(5),new NumExp(3));
     	System.out.println(divide.toString());
         assertTrue( divide.toString().equals("((5)/(3))") );
     }

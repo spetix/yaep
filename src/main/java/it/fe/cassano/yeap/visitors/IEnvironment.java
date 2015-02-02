@@ -1,5 +1,7 @@
 package it.fe.cassano.yeap.visitors;
 
+import java.util.Map;
+
 public interface IEnvironment {
 	
 	/**
@@ -26,4 +28,6 @@ public interface IEnvironment {
 	 * 
 	 */
 	public Object getVal(final String key);
+	
+	public Map<String, Object> toUnmodifiableMap();
 }

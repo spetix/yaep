@@ -2,12 +2,12 @@ package it.fe.cassano.yeap.visitor;
 
 import it.fe.cassano.yeap.MockEnvironment;
 import it.fe.cassano.yeap.ast.AssignExp;
-import it.fe.cassano.yeap.ast.DivideExp;
+import it.fe.cassano.yeap.ast.DivExp;
 import it.fe.cassano.yeap.ast.IdentExp;
 import it.fe.cassano.yeap.ast.MinusExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.ast.ProductExp;
+import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 import it.fe.cassano.yeap.visitors.ExpType;
@@ -138,10 +138,10 @@ public class TypeVisitorTest extends TestCase {
     	RealExp r2  = new RealExp(3.5f);
     	
     	
-    	ProductExp m = new ProductExp(n1,r2);
+    	MulExp m = new MulExp(n1,r2);
     	visitor.visit(m);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
-    	m = new ProductExp(r2,n1);
+    	m = new MulExp(r2,n1);
     	visitor.visit(m);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
@@ -154,7 +154,7 @@ public class TypeVisitorTest extends TestCase {
     	RealExp r2  = new RealExp(3.5f);
     	
     	
-    	ProductExp m = new ProductExp(r1,r2);
+    	MulExp m = new MulExp(r1,r2);
     	visitor.visit(m);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
@@ -165,7 +165,7 @@ public class TypeVisitorTest extends TestCase {
     	
     	NumExp n1  = new NumExp(3);
     	NumExp n2 = new NumExp(3);
-    	ProductExp m = new ProductExp(n1,n2);
+    	MulExp m = new MulExp(n1,n2);
     	visitor.visit(m);
     	assertEquals(ExpType.NumExp,(ExpType)visitor.getVal());
     	
@@ -181,10 +181,10 @@ public class TypeVisitorTest extends TestCase {
     	RealExp r2  = new RealExp(3.5f);
     	
     	
-    	DivideExp m = new DivideExp(n1,r2);
+    	DivExp m = new DivExp(n1,r2);
     	visitor.visit(m);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
-    	m = new DivideExp(r2,n1);
+    	m = new DivExp(r2,n1);
     	visitor.visit(m);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
@@ -197,7 +197,7 @@ public class TypeVisitorTest extends TestCase {
     	RealExp r2  = new RealExp(3.5f);
     	
     	
-    	DivideExp m = new DivideExp(r1,r2);
+    	DivExp m = new DivExp(r1,r2);
     	visitor.visit(m);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
@@ -208,7 +208,7 @@ public class TypeVisitorTest extends TestCase {
     	
     	NumExp n1  = new NumExp(3);
     	NumExp n2 = new NumExp(3);
-    	DivideExp m = new DivideExp(n1,n2);
+    	DivExp m = new DivExp(n1,n2);
     	visitor.visit(m);
     	assertEquals(ExpType.NumExp,(ExpType)visitor.getVal());
     	

@@ -32,6 +32,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +103,15 @@ public class YEAPGui {
 	private void generateWindowStructure() 
 	{
 		LOGGER.debug("setup application panels");
+		try
+		{
+		UIManager.setLookAndFeel(
+	            UIManager.getCrossPlatformLookAndFeelClassName());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.X_AXIS));
@@ -114,7 +124,7 @@ public class YEAPGui {
 		
 		
 		JComboBox<String> visitorType = new JComboBox<String>(VISITORS.getVisitors());
-		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane));
+		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel));
 		
 		JButton clearEnvironment = new JButton( new ClearEnvironmentAction(frame, envDataModel));
 		
