@@ -1,5 +1,6 @@
 package it.fe.cassano.yeap.visitor;
 
+import it.fe.cassano.yeap.MockEnvironment;
 import it.fe.cassano.yeap.ast.AssignExp;
 import it.fe.cassano.yeap.ast.DivideExp;
 import it.fe.cassano.yeap.ast.IdentExp;
@@ -12,10 +13,6 @@ import it.fe.cassano.yeap.ast.UnaryMinusExp;
 import it.fe.cassano.yeap.visitors.ExpType;
 import it.fe.cassano.yeap.visitors.IVisitor;
 import it.fe.cassano.yeap.visitors.TypeVisitor;
-
-import java.util.Collections;
-import java.util.HashMap;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -34,7 +31,7 @@ public class TypeVisitorTest extends TestCase {
     {
     	RealExp r  = new RealExp(3.5f);
     	
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	visitor.visit(r);
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     	
@@ -44,14 +41,14 @@ public class TypeVisitorTest extends TestCase {
     {
     	NumExp n  = new NumExp(3);
     	
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	visitor.visit(n);
     	assertEquals(ExpType.NumExp,(ExpType)visitor.getVal());	
     }
     
     public void testSumIntReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	RealExp r2  = new RealExp(3.5f);
@@ -67,7 +64,7 @@ public class TypeVisitorTest extends TestCase {
   
     public void testSumRealReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	RealExp r1  = new RealExp(3.5f);
     	RealExp r2  = new RealExp(3.5f);
@@ -80,7 +77,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testSumIntInt()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	NumExp n2 = new NumExp(3);
@@ -92,7 +89,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testMinusIntReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	RealExp r2  = new RealExp(3.5f);
@@ -108,7 +105,7 @@ public class TypeVisitorTest extends TestCase {
   
     public void testMinusRealReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	RealExp r1  = new RealExp(3.5f);
     	RealExp r2  = new RealExp(3.5f);
@@ -121,7 +118,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testMinusIntInt()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	NumExp n2 = new NumExp(3);
@@ -135,7 +132,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testProductIntReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	RealExp r2  = new RealExp(3.5f);
@@ -151,7 +148,7 @@ public class TypeVisitorTest extends TestCase {
   
     public void testProductRealReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	RealExp r1  = new RealExp(3.5f);
     	RealExp r2  = new RealExp(3.5f);
@@ -164,7 +161,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testProductIntInt()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	NumExp n2 = new NumExp(3);
@@ -178,7 +175,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testDivideIntReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	RealExp r2  = new RealExp(3.5f);
@@ -194,7 +191,7 @@ public class TypeVisitorTest extends TestCase {
   
     public void testDivideRealReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	RealExp r1  = new RealExp(3.5f);
     	RealExp r2  = new RealExp(3.5f);
@@ -207,7 +204,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testDivIntInt()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	NumExp n2 = new NumExp(3);
@@ -221,7 +218,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testUnaryMinusReal()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	RealExp r1  = new RealExp(3.5f);
     	RealExp r2  = new RealExp(-3.5f);
@@ -238,7 +235,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testMinusInt()
     {
-    	IVisitor visitor = new TypeVisitor(Collections.<String,ExpType>emptyMap());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	UnaryMinusExp m = new UnaryMinusExp(n1);
@@ -254,7 +251,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testAssignmentInt()
     {
-    	IVisitor visitor = new TypeVisitor(new HashMap<String,ExpType>());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	NumExp n1  = new NumExp(3);
     	AssignExp e = new AssignExp(new IdentExp("IntVal"), n1);
@@ -265,7 +262,7 @@ public class TypeVisitorTest extends TestCase {
     
     public void testAssignmentReal()
     {
-    	IVisitor visitor = new TypeVisitor(new HashMap<String,ExpType>());
+    	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
     	RealExp r1  = new RealExp(3.1f);
     	AssignExp e = new AssignExp(new IdentExp("RealVal"), r1);

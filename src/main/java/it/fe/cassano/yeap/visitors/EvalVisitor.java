@@ -54,9 +54,9 @@ public class EvalVisitor implements IVisitor {
 
 	}
 
-//	public Map<String, Object> getEnvironment() {
-//		return Collections.<String, Object> unmodifiableMap(env.toMap());
-//	}
+	public Map<String, Object> getEnvironment() {
+		return Collections.<String, Object> unmodifiableMap(env.toMap());
+	}
 
 	public void visit(SeqExp e) {
 		e.left().accept(this);
@@ -145,6 +145,11 @@ public class EvalVisitor implements IVisitor {
 	public void visit(FunCodeExp funCodeExp) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Object getEnvironment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

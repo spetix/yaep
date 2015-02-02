@@ -1,5 +1,6 @@
 package it.fe.cassano.yeap.visitor;
 
+import it.fe.cassano.yeap.MockEnvironment;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
 import it.fe.cassano.yeap.visitors.EvalVisitor;
@@ -29,7 +30,7 @@ public class EvalVisitorTest extends TestCase {
     	PlusExp sum = new PlusExp(new NumExp(3),new NumExp(5));
     	System.out.println(sum.toString());
         assertTrue( sum.toString().equals("((3)+(5))") );
-        EvalVisitor v = new EvalVisitor();
+        EvalVisitor v = new EvalVisitor(new MockEnvironment());
         v.visit(sum);
         assertEquals(((Integer)v.getVal()).intValue(),8);             
     }
