@@ -1,5 +1,7 @@
 package it.fe.cassano.yeap.gui.actions;
 
+import it.fe.cassano.yeap.visitors.VISITORS;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 
@@ -46,7 +48,8 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		LOGGER.debug("received event {}", actionEvent.getActionCommand());
-	
+		int strategy = this.box.getSelectedIndex();
+		
 	}
 
 }

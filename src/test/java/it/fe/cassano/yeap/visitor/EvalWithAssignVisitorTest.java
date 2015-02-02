@@ -4,7 +4,7 @@ import it.fe.cassano.yeap.ast.AssignExp;
 import it.fe.cassano.yeap.ast.IdentExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.visitors.EvalWithAssignVisitor;
+import it.fe.cassano.yeap.visitors.EvalVisitor;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -33,7 +33,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     	PlusExp sum = new PlusExp(new NumExp(3),new NumExp(5));
     	System.out.println(sum.toString());
         assertTrue( sum.toString().equals("((3)+(5))") );
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(sum);
         assertEquals(8, ((Integer) v.getVal()).intValue());    
     }
@@ -43,7 +43,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new NumExp(5));
     	System.out.println(assignment.toString());
         assertTrue( assignment.toString().equals("(A=(5))") );
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(assignment);
         assertEquals(5, ((Integer) v.getVal()).intValue());    
     }
@@ -53,7 +53,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new PlusExp(new NumExp(3),new NumExp(5)));
     	System.out.println(assignment.toString());
         assertTrue( assignment.toString().equals("(A=((3)+(5)))") );
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(assignment);
         assertEquals(8, ((Integer) v.getVal()).intValue());    
     }
@@ -62,7 +62,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new NumExp(5));
     	System.out.println(assignment.toString());
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(assignment); 
         assertEquals(1, v.getEnvironment().size());    
         assertTrue(v.getEnvironment().containsKey("A"));
@@ -73,7 +73,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new NumExp(5));
     	System.out.println(assignment.toString());
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(assignment); 
         AssignExp assignment2 = new AssignExp(new IdentExp("A"),new NumExp(7));
     	System.out.println(assignment2.toString());
@@ -87,7 +87,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"), new AssignExp(new IdentExp("A"), new NumExp(5)));
     	System.out.println(assignment.toString());
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(assignment); 
         assertEquals(1, v.getEnvironment().size());    
         assertTrue(v.getEnvironment().containsKey("A"));
@@ -98,7 +98,7 @@ public class EvalWithAssignVisitorTest extends TestCase {
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"), new AssignExp(new IdentExp("B"), new NumExp(5)));
     	System.out.println(assignment.toString());
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(assignment); 
         // Expression result:
         assertEquals(5, ((Integer) v.getVal()).intValue());   

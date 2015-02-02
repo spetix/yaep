@@ -2,7 +2,7 @@ package it.fe.cassano.yeap.visitor;
 
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.visitors.EvalWithAssignVisitor;
+import it.fe.cassano.yeap.visitors.EvalVisitor;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -29,7 +29,7 @@ public class EvalVisitorTest extends TestCase {
     	PlusExp sum = new PlusExp(new NumExp(3),new NumExp(5));
     	System.out.println(sum.toString());
         assertTrue( sum.toString().equals("((3)+(5))") );
-        EvalWithAssignVisitor v = new EvalWithAssignVisitor();
+        EvalVisitor v = new EvalVisitor();
         v.visit(sum);
         assertEquals(((Integer)v.getVal()).intValue(),8);             
     }

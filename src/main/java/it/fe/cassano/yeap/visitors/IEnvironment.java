@@ -9,17 +9,21 @@ public interface IEnvironment {
 	 * @param key
 	 * @param value
 	 */
-	public void add(String key, Object value);
+	public void add(final String key, final Object value);
 	
 	/**
 	 * remove given variable from environment
 	 * @param key
 	 */
-	public void remove(String key);
+	public void remove(final String key);
 	
 	/**
 	 * Remove all elemements from environment
 	 */
 	public void clear();
-
+	
+	/**
+	 * 
+	 */
+	public Object getVal(final String key);
 }

@@ -104,4 +104,9 @@ public class EnvironmentTableModel extends AbstractTableModel implements
 		this.environment.clear();
 		this.fireTableDataChanged();
 	}
+
+	@Override
+	public Object getVal(String key) {
+		return this.environment.get(key);
+	}
 }

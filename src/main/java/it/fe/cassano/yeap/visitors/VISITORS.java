@@ -1,20 +1,21 @@
 package it.fe.cassano.yeap.visitors;
 
-import java.util.List;
-import java.util.Vector;
-
 import it.fe.cassano.yeap.visitors.factories.EvalVisitorFactoryMethod;
 import it.fe.cassano.yeap.visitors.factories.IVisitorFactoryMethod;
+import it.fe.cassano.yeap.visitors.factories.TypeVisitorFactoryMethod;
+
+import java.util.Vector;
 
 public enum VISITORS {
 	
 	EvalVisitor("Evaluate Expression", new EvalVisitorFactoryMethod()),
+	TypeVisitor("Show Types", new TypeVisitorFactoryMethod()),
 	
 	;
 	
 	
-	private final String description;
-	private final IVisitorFactoryMethod method;
+	public final String description;
+	public final IVisitorFactoryMethod method;
 
 	VISITORS(final String description, final IVisitorFactoryMethod method)
 	{

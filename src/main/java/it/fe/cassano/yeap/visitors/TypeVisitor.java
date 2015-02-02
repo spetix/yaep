@@ -1,11 +1,7 @@
 package it.fe.cassano.yeap.visitors;
 
-import java.util.Collections;
-import java.util.Map;
-
 import it.fe.cassano.yeap.ast.AssignExp;
 import it.fe.cassano.yeap.ast.DivideExp;
-import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ast.FunCodeExp;
 import it.fe.cassano.yeap.ast.FunDefineExp;
 import it.fe.cassano.yeap.ast.FunExp;
@@ -21,22 +17,20 @@ import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TypeVisitor implements IVisitor {
 	
 	Object type;
-	protected final Map<String, ExpType> env;
-	protected final Map<String, FunCodeExp> library;
+	protected final IEnvironment env;
+	protected final Map<String, FunCodeExp> library = new HashMap<String,FunCodeExp>();
 
-	public TypeVisitor(final Map<String, ExpType> env, final Map<String,FunCodeExp> library) {
-		this.env=env;
-		this.library=library;
-		
-	}
+	public TypeVisitor(IEnvironment env) {
 	
-	public TypeVisitor(final Map<String, ExpType> env)
-	{
 		this.env = env;
-		this.library = Collections.<String,FunCodeExp>emptyMap();
+		//this.library = Collections.<String,FunCodeExp>emptyMap();
 	}
 	
 	public Object getVal()
@@ -104,7 +98,7 @@ public class TypeVisitor implements IVisitor {
 		final String id = ((IdentExp)assignExp.left()).getName();
 		assignExp.right().accept(this); 
 		type = getVal();
-		this.env.put(id,(ExpType) type);
+		this.env.add(id,(ExpType) type);
 
 	}
 
@@ -117,7 +111,7 @@ public class TypeVisitor implements IVisitor {
 	@Override
 	public void visit(IdentValExp e) {
 		String id = e.getName();
-		 type = ((ExpType) env.get(id));
+		 type = ((ExpType) this.env.getVal(id));
 	}
 
 	/**
