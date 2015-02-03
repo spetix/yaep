@@ -15,11 +15,12 @@ public class ParserTest extends TestCase {
     public static Test suite()
     {
     	final TestSuite ts = new TestSuite();
-    	// ts.addTestSuite(ParserTest.class);
     	ts.addTestSuite(ExpressionParserTest.class);
     	ts.addTestSuite(TermParserTest.class);
     	ts.addTestSuite(FactorParserTest.class);
     	ts.addTestSuite(AssignmentParserTest.class);
+    	ts.addTestSuite(FunctionDefineParserTest.class);
+    	  
     	ts.addTestSuite(OtherParserTest.class);
     	
         return ts;

@@ -7,9 +7,9 @@ import it.fe.cassano.yeap.visitors.IVisitor;
 
 public class FunCodeExp extends Exp {
 	
-	final protected String jFunName;
-	final protected ExpType retType;
-	final protected List<ExpType> params;
+	final public String jFunName;
+	final public ExpType retType;
+	final public List<ExpType> params;
 
 	public FunCodeExp(final String jFunName,final ExpType retType, final List<ExpType> params)
 	{

@@ -38,6 +38,29 @@ public class TokenizerFunctionNameTest extends TestCase {
     	r.close();  
     	
     }
+    
+    public void testJName2() throws IOException
+    {
+    	Reader r = new StringReader("java.Math.sin(");
+    	ITokenizer t = new ExpressionParser(r);
+    	Token tok = t.getNextToken();
+    	assertEquals(ExpressionParserConstants.JFUN, tok.kind);
+    	assertEquals("java.Math.sin",tok.image);
+    	r.close();  
+    	
+    }
+    
+    public void testJName3() throws IOException
+    {
+    	Reader r = new StringReader("= java.Math.sin(");
+    	ITokenizer t = new ExpressionParser(r);
+    	Token tok = t.getNextToken();
+    	tok = t.getNextToken();
+    	assertEquals(ExpressionParserConstants.JFUN, tok.kind);
+    	assertEquals("java.Math.sin",tok.image);
+    	r.close();  
+    	
+    }
 
     public void testInvalidJName() throws IOException
     {

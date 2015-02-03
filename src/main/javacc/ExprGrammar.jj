@@ -27,9 +27,9 @@ SKIP :
   " "
 | "\t"
 }
-TOKEN : /* EOL */
+TOKEN : /* SEPARATORS: */
 {
- < EOL : ( "\r" | "\n" )+ >
+ < SEPARATOR : ( "\r" | "\n" | ";" )+ >
 }
 
 TOKEN : /* OPERATORS */
@@ -42,12 +42,12 @@ TOKEN : /* OPERATORS */
 }
 TOKEN : /* SYNTAX HELPERS */
 {
-  < COLON : ":" >
-| < OBR: "(" >
+  
+ < OBR: "(" >
 | < CBR: ")" >
 | <  COMMA: "," >
-| < DEF : "%" >
-| < VAL : "$" >
+
+
 }
 
 
@@ -61,6 +61,7 @@ TOKEN : /* IDENTIFIERS */
 TOKEN : /* IDENTVAL */
 {
   < VALUEIDENT : < VAL ><IDENT > >
+| < #VAL : "$" >
 }
 
 TOKEN : /* FUNCTION NAME */
@@ -68,6 +69,10 @@ TOKEN : /* FUNCTION NAME */
   < FNAME : < LOWCASE >(< ALPHA > | < DIGIT > | < LOWCASE >)* >
 |  < #LOWCASE : ["a"-"z"] >
 }
+
+TOKEN :{
+  < ALIAS: < DEF ><FNAME > > 
+|  < #DEF : "%" >}
 
 TOKEN :
 {
@@ -89,28 +94,36 @@ TOKEN : /* REAL NUMBERS */
 
 TOKEN : /* DATA TYPES */
 {
-  < DATATYPE : "RealExp" | "NumExp" >
+  < DATATYPE : ":RealExp" | ":NumExp" >
 
 }
 
 /* VN */
-public void lines():
-{}
+
+public Exp initialGoal():
+{Exp t1,t2;}
 {
-  (
-    (
-      fundef() /* | sequence() */
-    ) < EOL >
-  )+
+	  (	    
+	  t1=expr()
+	|
+	  t1=fundef() < SEPARATOR > t2=initialGoal()
+	  {		t1 = new SeqExp(t1,t2);
+	  }
+	)
+	{	  return t1;
+	}
 }
 
+
+
+   
 /* Function alias definition */
 Exp fundef():
 {Token fAlias, javaName, returnType; List<ExpType > par = new ArrayList<ExpType >(); }
 {
-	 < DEF > fAlias=< FNAME > <ASSIGN > javaName=< JFUN ><OBR > fundefparams(par) < CBR ><COLON > returnType=<DATATYPE >
+	 fAlias=< ALIAS > <ASSIGN > javaName=< JFUN ><OBR > fundefparams(par) < CBR > returnType=<DATATYPE >
 	 {	   	
-  		return new FunDefineExp(new FunSignExp(fAlias.image,ExpType.valueof(returnType.image),par), new FunCodeExp(javaName.image,ExpType.valueof(returnType.image),par));	 }
+  		return new FunDefineExp(new FunSignExp(StringUtils.substring(fAlias.image,1),ExpType.valueof(StringUtils.substring(returnType.image,1)),par), new FunCodeExp(javaName.image,ExpType.valueof(StringUtils.substring(returnType.image,1)),par));	 }
 }
 
 void fundefparams(List<ExpType > params):
@@ -118,16 +131,9 @@ void fundefparams(List<ExpType > params):
 {
   t1=< DATATYPE >  {
     params.add(ExpType.valueof(t1.image));  }
-  (  < COMMA > t1=<DATATYPE >  {	params.add(ExpType.valueof(t1.image));
+  (  < COMMA > t1=<DATATYPE >  {	params.add(ExpType.valueof(StringUtils.substring(t1.image,1)));
   }
   )*
-}
-
-public void sequence():
-{
-}
-{ 
-  expr() (  < COMMA > expr())*
 }
 
 
@@ -136,7 +142,9 @@ public Exp expr() :
 {Exp t1,t2;Token t;}
 {
   (    
- t1=assignment()
+ t1=assignment() (< SEPARATOR > t2=expr()
+ {
+   t1 = new SeqExp(t1,t2); })?
  |
  
  t1=term() (  (t=< PLUS >|t=< MINUS >) t2= term()
@@ -200,7 +208,7 @@ Exp factor():
   | 
     t=< VALUEIDENT >
     {
-      t1 = new IdentExp(StringUtils.substring(t.image,1));    }
+      t1 = new IdentValExp(StringUtils.substring(t.image,1));    }
   | 
   < OBR > t1=expr() < CBR >
   |

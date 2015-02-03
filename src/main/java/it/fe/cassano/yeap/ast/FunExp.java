@@ -25,16 +25,7 @@ public class FunExp extends Exp {
 		return "(" +this.name+"("+plist+"))";
 	}
 	
-	public Float getValue()
-	{
-		// TODO
-		return 0F;
-	}
-	
-//	@Override
-//	public int eval() {
-//		return this.val;
-//	}
+
 	
 	 public void accept(final IVisitor v)
 	 {

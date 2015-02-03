@@ -26,6 +26,9 @@ import org.apache.commons.lang3.StringUtils;
 public class LispOutputVisitor implements IVisitor, IEval<String> {
 
 	String curs = ""; // memorizzazione risultato
+	public LispOutputVisitor() {
+		
+	}
 	public String getVal() { return curs; } // lettura risultato
 	protected void visitOpExp(OpExp e){
 	e.left().accept(this); String sleft = getVal();

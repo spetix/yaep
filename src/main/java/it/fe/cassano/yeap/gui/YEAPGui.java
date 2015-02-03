@@ -11,6 +11,7 @@ import it.fe.cassano.yeap.gui.actions.SaveAction;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -125,13 +126,15 @@ public class YEAPGui {
 		
 		JComboBox<String> visitorType = new JComboBox<String>(VISITORS.getVisitors());
 		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel));
+		executeButton.setPreferredSize(new Dimension(200,20));
 		
 		JButton clearEnvironment = new JButton( new ClearEnvironmentAction(frame, envDataModel));
+		clearEnvironment.setPreferredSize(new Dimension(200,20));
 		
 		JPanel envPanel = new JPanel();
 		envPanel.setLayout(new BorderLayout());
 		envPanel.setBorder(BorderFactory.createTitledBorder("Environment"));
-		envPanel.setMinimumSize(new Dimension(70,200));
+		envPanel.setMinimumSize(new Dimension(120,200));
 		
 		envPanel.add(environment);
 		

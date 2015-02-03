@@ -25,7 +25,7 @@ public class ExpressionParser implements ITokenizer, IParser{
 SKIP :{  " "| "\t"
 }
 TOKEN : /* EOL */
-{ < EOL : ( "\r" | "\n" )+ >}TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MUL : "*" >| < DIV : "/" >
+{ < SEPARATOR : ( "\r" | "\n" | ";" )+ >}TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MUL : "*" >| < DIV : "/" >
 | < ASSIGN : "=" >
 }
 TOKEN : /* SYNTAX HELPERS */
@@ -68,24 +68,12 @@ TOKEN : /* DATA TYPES */
 
 }
 
-/*
-public void lines():
-{}
-{  (    (      fundef() | sequence()
-    ) < EOL >
-  )+
-}
-
-public void sequence():
+public void code():
 {}
-{   expr() (  < COMMA > expr())*
+{  expr()
+|
+  fundef() < SEPARATOR > code()
 }
-*/
-
-public void sequence()
-{}
-{
-  ((fundef()|assignment())(< EOL >| < COMMA >))+ expr()}
 
 public void expr() :
 {}
@@ -93,7 +81,7 @@ public void expr() :
  
  term() ( < PLUS > term() |< MINUS >  term() )*
  |
- assignment()
+ assignment() < SEPARATOR > expr() 
 }
 
 

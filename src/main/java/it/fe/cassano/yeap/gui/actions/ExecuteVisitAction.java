@@ -63,18 +63,18 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		LOGGER.debug("received event {}", actionEvent.getActionCommand());
 		LOGGER.warn("canned visitor at to TypeVisitor at the moment!");
 		int strategy = this.box.getSelectedIndex();
-		IVisitor v = VISITORS.TypeVisitor.method.getInstance(this.env);
+		IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env);
 		Writer wri = new StringWriter();
 		ExpressionParser p = new ExpressionParser(new StringReader(this.editor.getText()));
 		Exp e = null;
 		try {
-			e = p.expr();
+			e = p.initialGoal();
+			v.visit(e);
 			wri.append("" +v.getVal());
 		} catch (ParseException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		v.visit(e);
 		out.setText(wri.toString());
 		
 	}

@@ -10,15 +10,14 @@ import it.fe.cassano.yeap.ast.FunSignExp;
 import it.fe.cassano.yeap.ast.IdentExp;
 import it.fe.cassano.yeap.ast.IdentValExp;
 import it.fe.cassano.yeap.ast.MinusExp;
+import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 
-import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -31,11 +30,38 @@ public class EvalVisitor implements IVisitor {
 
 	protected Object result;
 	protected final IEnvironment environment;
+	protected final Map<String,FunCodeExp> functionAliases;
 
+	/** 
+	 * EvalVisitor constructor.
+	 * Needs to know which is the current environment
+	 * @param env
+	 */
 	public EvalVisitor(final IEnvironment env) {
 		this.environment = env;
+		functionAliases = new HashMap<String,FunCodeExp>();
+	}
+	
+	/**
+	 * Method to obtain last evaluated expr
+	 */
+	public Object getVal() {
+		LOGGER.debug("last evaluation returned {}",result);
+		return result;
+	}
+	
+	/**
+	 * returns an unmodifiable rappresentation of current environment
+	 * @return
+	 */
+	public Map<String,Object> getEnvironment() {
+		return this.environment.toUnmodifiableMap();
 	}
 
+	/* VISIT Functions */
+	
+	
+	
 	public void visit(AssignExp e) {
 		e.left().accept(this);
 		final String id = ((IdentExp) e.left()).getName();
@@ -68,31 +94,53 @@ public class EvalVisitor implements IVisitor {
 
 	@Override
 	public void visit(RealExp realExp) {
-		realExp.accept(this);
+		result = realExp.getValue();
 	}
 
-	public Object getVal() {
-		return result;
-	}
+
 
 	public void visit(DivExp exp) {
 		exp.left().accept(this);
-		Object l = (Number) getVal();
+		Object l = getVal();
 		exp.right().accept(this);
-		Number r = (Number) getVal();
-		if ((l instanceof Double) || (r instanceof  Double))
-		{
-			result = (Double) l/(Double)r;
-		}
-		else
-		{
-			result = (Long)l/(Long)r;
-		}
+		Object r =  getVal();
+		// OMG!
+				if (l instanceof Integer && r instanceof Integer)
+				{
+					result = (int) l / (int) r;
+				}
+				
+				else if (l instanceof Integer && r instanceof Double)
+				{
+					double tl = (int) l;
+					double res = tl / ((double) r);
+					result = res;
+				}
+				else if (r instanceof Integer && l instanceof Double)
+				{
+					double tr = (int) r;
+					double res = ((double)l) / tr;
+					result = res;
+				}
+				
+				else
+				{
+					result =(double) (((double) l) /((double) r));
+				}
 	}
 
 	@Override
 	public void visit(FunExp funExp) {
-		// TODO Auto-generated method stub
+		/*
+		List<Object> evaluedParams = new ArrayList<Object>();
+		funExp
+		for( Exp param:  funExp.getParams())
+		{
+			param.accept(this); 
+			evaluedParams.add(getVal());
+		}
+		Callme fEval = new CallMe(funExp)
+		*/
 
 	}
 
@@ -101,14 +149,29 @@ public class EvalVisitor implements IVisitor {
 		Object l = getVal();
 		exp.right().accept(this);
 		Object r = getVal();
-		if ((l instanceof Double) || (r instanceof  Double))
-		{
-			result = (Double) l-(Double)r;
-		}
-		else
-		{
-			result = (Long)l - (Long)r;
-		}
+		// OMG!
+				if (l instanceof Integer && r instanceof Integer)
+				{
+					result = (int) l - (int) r;
+				}
+				
+				else if (l instanceof Integer && r instanceof Double)
+				{
+					double tl = (int) l;
+					double res = tl - ((double) r);
+					result = res;
+				}
+				else if (r instanceof Integer && l instanceof Double)
+				{
+					double tr = (int) r;
+					double res = ((double)l) - tr;
+					result = res;
+				}
+				
+				else
+				{
+					result =(double) (((double) l) -((double) r));
+				}
 	}
 
 
@@ -122,14 +185,29 @@ public class EvalVisitor implements IVisitor {
 		Object l =  getVal();
 		exp.right().accept(this);
 		Object r = getVal();
-		if ((l instanceof Double) || (r instanceof  Double))
-		{
-			result = (Double) l+(Double)r;
-		}
-		else
-		{
-			result = (Long)l + (Long)r;
-		}
+		// OMG!
+				if (l instanceof Integer && r instanceof Integer)
+				{
+					result = (int) l + (int) r;
+				}
+				
+				else if (l instanceof Integer && r instanceof Double)
+				{
+					double tl = (int) l;
+					double res = tl + ((double) r);
+					result = res;
+				}
+				else if (r instanceof Integer && l instanceof Double)
+				{
+					double tr = (int) r;
+					double res = ((double)l) + tr;
+					result = res;
+				}
+				
+				else
+				{
+					result =(double) (((double) l) +((double) r));
+				}
 	}
 
 	public void visit(MulExp exp) {
@@ -137,14 +215,30 @@ public class EvalVisitor implements IVisitor {
 		Object l = getVal();
 		exp.right().accept(this);
 		Object r = getVal();
-		if ((l instanceof Double) || (r instanceof  Double))
+		// OMG!
+		if (l instanceof Integer && r instanceof Integer)
 		{
-			result = (Double) l*(Double)r;
+			result = (int) l * (int) r;
 		}
+		
+		else if (l instanceof Integer && r instanceof Double)
+		{
+			double tl = (int) l;
+			double res = tl * ((double) r);
+			result = res;
+		}
+		else if (r instanceof Integer && l instanceof Double)
+		{
+			double tr = (int) r;
+			double res = ((double)l) * tr;
+			result = res;
+		}
+		
 		else
 		{
-			result = (Long)l * (Long)r;
+			result =(double) (((double) l) *((double) r));
 		}
+		
 	}
 
 	@Override
@@ -152,11 +246,11 @@ public class EvalVisitor implements IVisitor {
 		Object l = getVal();
 		if ((l instanceof Double))
 		{
-			result = -(Double) l;
+			result = -(double) l;
 		}
 		else
 		{
-			result = -(Long)l;
+			result = -(int)l;
 		}
 	}
 
@@ -179,13 +273,7 @@ public class EvalVisitor implements IVisitor {
 		// TODO
 	}
 
-	/**
-	 * returns an unmodifiable rappresentation of current environment
-	 * @return
-	 */
-	public Map<String,Object> getEnvironment() {
-		return this.environment.toUnmodifiableMap();
-	}
+
 
 	@Override
 	public void visit(Exp exp) {

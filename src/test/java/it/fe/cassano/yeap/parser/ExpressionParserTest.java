@@ -32,40 +32,40 @@ public class ExpressionParserTest extends TestCase {
     public void testParseDoublePlus() throws IOException, ParseException {
     	Reader r = new StringReader("1+1+1");
     	ExpressionParser t = new ExpressionParser(r);
-    	assertEquals("(((1)+(1))+(1))",t.expr().toString());
+    	assertEquals("(((1)+(1))+(1))",t.initialGoal().toString());
     }
     
     public void testParseDoubleMinus() throws IOException, ParseException {
     	Reader r = new StringReader("1- 1- 1");
     	ExpressionParser t = new ExpressionParser(r);
-    	assertEquals("(((1)-(1))-(1))",t.expr().toString());
+    	assertEquals("(((1)-(1))-(1))",t.initialGoal().toString());
     }
     
     public void testParseDoubleMinus2() throws IOException, ParseException {
     	Reader r = new StringReader("1-1-1");
     	ExpressionParser t = new ExpressionParser(r);
-    	Exp e = t.expr();
+    	Exp e = t.initialGoal();
     	assertEquals("(((1)-(1))-(1))",e.toString());
     }
     
     public void testParseDoubleMinus3() throws IOException, ParseException {
     	Reader r = new StringReader("1-1--1");
     	ExpressionParser t = new ExpressionParser(r);
-    	Exp e = t.expr();
+    	Exp e = t.initialGoal();
     	assertEquals("(((1)-(1))-(-(1)))",e.toString());
     }
     
     public void testParseDoubleExpr() throws IOException, ParseException {
     	Reader r = new StringReader("1-1+1");
     	ExpressionParser t = new ExpressionParser(r);
-    	Exp e = t.expr();
+    	Exp e = t.initialGoal();
     	assertEquals("(((1)-(1))+(1))",e.toString());
     }
     
     public void testParseDoubleExpr2() throws IOException, ParseException {
     	Reader r = new StringReader("1-1+-1");
     	ExpressionParser t = new ExpressionParser(r);
-    	Exp e = t.expr();
+    	Exp e = t.initialGoal();
     	assertEquals("(((1)-(1))+(-(1)))",e.toString());
     }
   
@@ -148,7 +148,7 @@ public class ExpressionParserTest extends TestCase {
 //    }
 //    
 //    
-//    public void testExpr() throws IOException
+//    public void testinitialGoal() throws IOException
 //    {
 //        assertTrue( true );
 //        Reader valThis = new StringReader("( 12     * ( ( 5 + 1 )  - 1 ) )");
