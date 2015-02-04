@@ -255,20 +255,20 @@ public class EvalVisitor implements IVisitor {
 
 	@Override
 	public void visit(FunDefineExp funDefineExp) {
-		funDefineExp.accept(this);
+		//funDefineExp.accept(this);
 		// TODO
 
 	}
 
 	@Override
 	public void visit(FunSignExp funSignExp) {
-		funSignExp.accept(this);
+		//funSignExp.accept(this);
 		// TODO
 	}
 
 	@Override
 	public void visit(FunCodeExp funCodeExp) {
-		funCodeExp.accept(this);
+		//funCodeExp.accept(this);
 		// TODO
 	}
 

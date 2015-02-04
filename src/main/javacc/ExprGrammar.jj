@@ -102,14 +102,25 @@ TOKEN : /* DATA TYPES */
 
 public Exp initialGoal():
 {Exp t1=null; Exp t2 = null;}
-{	    
-	  (	    t1=expr() 
+{	  /*
+	     Placing assignment here instead of inside expr avoids very confusing notations such as:
+	     3*A=3 or A=(B=3)/1 or 1+C=(2*$B)
+	     but also forbids A=B=C=D=3
+	     to reintroduce multiple assigments assignment rule has been changed.
+	  */
+	  (
+	     t1=assignment()
+ | 	    t1=expr() 
 	|
 	  t1=fundef()
 	) (< SEPARATOR > t2=initialGoal()
 	  {		t1 = new SeqExp(t1,t2);
 	  }
-	)*
+	/* no need of )*, initialGoal recalls itself forever since there is a separator along the way
+       probably it's also acceptable to set the empty production on first part.. in order to support initial separator or final separator..
+       ..with caution..
+	 */
+	)?
 	{	  return t1;
 	}
 }
@@ -126,9 +137,11 @@ Exp fundef():
   		return new FunDefineExp(new FunSignExp(StringUtils.substring(fAlias.image,1),ExpType.valueof(StringUtils.substring(returnType.image,1)),par), new FunCodeExp(javaName.image,ExpType.valueof(StringUtils.substring(returnType.image,1)),par));	 }
 }
 
+
 void fundefparams(List<ExpType > params):
 {Token t1;}
 {
+  /* empty params list is not accepted */
   t1=< DATATYPE >  {
     params.add(ExpType.valueof(t1.image));  }
   (  < COMMA > t1=<DATATYPE >  {	params.add(ExpType.valueof(StringUtils.substring(t1.image,1)));
@@ -142,8 +155,7 @@ public Exp expr() :
 {Exp t1,t2;Token t;}
 {
   (    
- t1=assignment()
- | 
+
  t1=term() (  (t=< PLUS >|t=< MINUS >) t2= term()
  {
    if (StringUtils.equals(t.image,"+"))
@@ -163,9 +175,16 @@ public Exp expr() :
 
 
 Exp assignment() :
-{Exp t1; Token id;}
+{Exp t1=null; Token id;}
 {  	
-    id=< IDENT >  < ASSIGN > t1=expr()
+    /* the following permits single assignment only
+        id=< IDENT >  < ASSIGN > t1=expr()
+
+       In order to keep multiple assignments (i.e. A=B=C=D=3) the rule
+       has to be changed in:
+     */
+        id= < IDENT > <ASSIGN > ( t1=expr() | t1=assignment())
+        
     {		return new AssignExp(new IdentExp(id.image),t1);
     }
 }
@@ -175,7 +194,7 @@ Exp term():
 {Exp t1,t2;Token t;}
 {
   (    
-   t1=factor()  ( LOOKAHEAD(2) (t=< DIV >|t=< MUL >) t2=factor()  {
+   t1=factor()  ( (t=< DIV >|t=< MUL >) t2=factor()  {
     if (StringUtils.equals(t.image,"/"))
     {
       t1 = new DivExp(t1,t2);
