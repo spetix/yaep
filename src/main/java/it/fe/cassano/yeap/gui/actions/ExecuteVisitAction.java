@@ -3,10 +3,8 @@ package it.fe.cassano.yeap.gui.actions;
 import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ParseException;
-import it.fe.cassano.yeap.parser.IParser;
 import it.fe.cassano.yeap.visitors.IEnvironment;
 import it.fe.cassano.yeap.visitors.IVisitor;
-import it.fe.cassano.yeap.visitors.TypeVisitor;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.Component;
@@ -20,8 +18,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
-import javax.swing.JOptionPane;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +68,11 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		try {
 			e = p.initialGoal();
 			v.visit(e);
+			for (final Pair<String, Object> key : v.getResults())
+			{
+				wri.append(key.getLeft() + " ==> " + key.getRight());
+				wri.append("\n");
+			}
 			wri.append("" +v.getVal());
 		} catch (ParseException | IOException e1) {
 			// TODO Auto-generated catch block

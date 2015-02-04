@@ -101,15 +101,15 @@ TOKEN : /* DATA TYPES */
 /* VN */
 
 public Exp initialGoal():
-{Exp t1,t2;}
-{
-	  (	    
-	  t1=expr()
+{Exp t1=null; Exp t2 = null;}
+{	    
+	  (	    t1=expr() 
 	|
-	  t1=fundef() < SEPARATOR > t2=initialGoal()
+	  t1=fundef()
+	) (< SEPARATOR > t2=initialGoal()
 	  {		t1 = new SeqExp(t1,t2);
 	  }
-	)
+	)*
 	{	  return t1;
 	}
 }
@@ -142,11 +142,8 @@ public Exp expr() :
 {Exp t1,t2;Token t;}
 {
   (    
- t1=assignment() (< SEPARATOR > t2=expr()
- {
-   t1 = new SeqExp(t1,t2); })?
- |
- 
+ t1=assignment()
+ | 
  t1=term() (  (t=< PLUS >|t=< MINUS >) t2= term()
  {
    if (StringUtils.equals(t.image,"+"))
@@ -178,7 +175,7 @@ Exp term():
 {Exp t1,t2;Token t;}
 {
   (    
-   t1=factor()  ( (t=< DIV >|t=< MUL >) t2=factor()  {
+   t1=factor()  ( LOOKAHEAD(2) (t=< DIV >|t=< MUL >) t2=factor()  {
     if (StringUtils.equals(t.image,"/"))
     {
       t1 = new DivExp(t1,t2);

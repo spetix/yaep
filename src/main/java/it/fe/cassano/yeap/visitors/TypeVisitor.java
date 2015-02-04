@@ -10,16 +10,19 @@ import it.fe.cassano.yeap.ast.FunSignExp;
 import it.fe.cassano.yeap.ast.IdentExp;
 import it.fe.cassano.yeap.ast.IdentValExp;
 import it.fe.cassano.yeap.ast.MinusExp;
+import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.OpExp;
 import it.fe.cassano.yeap.ast.PlusExp;
-import it.fe.cassano.yeap.ast.MulExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 public class TypeVisitor implements IVisitor {
 	
@@ -146,6 +149,12 @@ public class TypeVisitor implements IVisitor {
 	@Override
 	public void visit(FunCodeExp funCodeExp) {
 		funCodeExp.accept(this); 
+	}
+
+	@Override
+	public List<Pair<String, Object>> getResults() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
