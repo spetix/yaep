@@ -25,7 +25,7 @@ public class EvalVisitorTest extends TestCase {
         return ts;
     }
     
-    public void testSum()
+    public void testSum() throws Exception
     {
     	PlusExp sum = new PlusExp(new NumExp(3),new NumExp(5));
     	System.out.println(sum.toString());

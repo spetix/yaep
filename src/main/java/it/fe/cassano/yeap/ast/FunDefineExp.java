@@ -2,15 +2,11 @@ package it.fe.cassano.yeap.ast;
 
 import it.fe.cassano.yeap.visitors.IVisitor;
 
-public class FunDefineExp extends Exp {
+public class FunDefineExp extends OpExp {
 
-	final protected FunCodeExp right;
-	final protected FunSignExp left;
 
 	public FunDefineExp(final FunSignExp left, final FunCodeExp right) {
-		this.left = left;
-	    this.right = right;
-		// TODO Auto-generated constructor stub
+		super(left,right);
 	}
 
 	public String opName() {
@@ -18,7 +14,7 @@ public class FunDefineExp extends Exp {
 	}
 
 	@Override
-	public void accept(IVisitor v) {
+	public void accept(IVisitor v) throws Exception {
 		v.visit(this);
 
 	}

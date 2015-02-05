@@ -71,103 +71,16 @@ public class ExpressionParserTest extends TestCase {
   
    
     
- 
     
-//    
-//    public void testParseTerm2() throws IOException
-//    {
-//    	Reader r = new StringReader("( 12 * 1 )");
-//    	ITokenizer t = new ExpressionTokenizer(r);
-//    	ExpressionParser p = new ExpressionParser(t);
-//    	assertEquals("((12)*(1))",p.parseTerm().toString());
-//    	
-//    }
-//    
-//    public void testParseTerm3() throws IOException
-//    {
-//    	Reader r = new StringReader("  1  ");
-//    	ITokenizer t = new ExpressionTokenizer(r);
-//    	ExpressionParser p = new ExpressionParser(t);
-//    	assertEquals("(1)",p.parseTerm().toString());
-//    	
-//    }
-//    
-//    public void testParseTerm4() throws IOException
-//    {
-//    	Reader r = new StringReader("(  1  )");
-//    	ITokenizer t = new ExpressionTokenizer(r);
-//    	ExpressionParser p = new ExpressionParser(t);
-//    	assertEquals("(1)",p.parseTerm().toString());
-//    	
-//    }
-//    
-//    
-//    public void testParseTerm5() throws IOException
-//    {
-//    	Reader r = new StringReader("3 * ( 2 + 1 )");
-//    	ITokenizer t = new ExpressionTokenizer(r);
-//    	ExpressionParser p = new ExpressionParser(t);
-//    	assertEquals("((3)*((2)+(1)))",p.parseTerm().toString());
-//    	
-//    }
-//    
-//    public void testParseTerm6() throws IOException
-//    {
-//    	Reader r = new StringReader("3 * ( 2 * ( 1 ) )");
-//    	ITokenizer t = new ExpressionTokenizer(r);
-//    	ExpressionParser p = new ExpressionParser(t);
-//    	assertEquals("((3)*((2)*(1)))",p.parseTerm().toString());
-//    	
-//    }
-//    
-//    public void testExprSimpe() throws IOException
-//    {
-//        Reader valThis = new StringReader("1 + 1 - 1");
-//        ITokenizer tok = new ExpressionTokenizer(valThis);
-//        ExpressionParser p = new ExpressionParser(tok);
-//        Exp expressionEval = p.parseExp();
-//        assertEquals("(((1)+(1))-(1))",expressionEval.toString());
-//    }
-//    
-//    public void testExprSimpleRightPlus() throws IOException
-//    {
-//        Reader valThis = new StringReader("1 + ( 1 - 1 )");
-//        ITokenizer tok = new ExpressionTokenizer(valThis);
-//        ExpressionParser p = new ExpressionParser(tok);
-//        Exp expressionEval = p.parseExp();
-//        assertEquals("((1)+((1)-(1)))",expressionEval.toString());
-//    }
-//    
-//    public void testExprSimpleRightMinus() throws IOException
-//    {
-//        Reader valThis = new StringReader("1 - ( 1 - 1 )");
-//        ITokenizer tok = new ExpressionTokenizer(valThis);
-//        ExpressionParser p = new ExpressionParser(tok);
-//        Exp expressionEval = p.parseExp();
-//        assertEquals("((1)-((1)-(1)))",expressionEval.toString());
-//    }
-//    
-//    
-//    public void testinitialGoal() throws IOException
-//    {
-//        assertTrue( true );
-//        Reader valThis = new StringReader("( 12     * ( ( 5 + 1 )  - 1 ) )");
-//        ITokenizer tok = new ExpressionTokenizer(valThis);
-//        ExpressionParser p = new ExpressionParser(tok);
-//        Exp expressionEval = p.parseExp();
-//        assertEquals("((12)*(((5)+(1))-(1)))",expressionEval.toString());
-//    }
-//    
-//    public void testExprOnlyNeededBrackets() throws IOException
-//    {
-//        assertTrue( true );
-//        Reader valThis = new StringReader("12     * ( ( 5 + 1 )  - 1 )");
-//        ITokenizer tok = new ExpressionTokenizer(valThis);
-//        ExpressionParser p = new ExpressionParser(tok);
-//        Exp expressionEval = p.parseExp();
-//        assertEquals("((12)*(((5)+(1))-(1)))",expressionEval.toString());
-//    }
-//    
+    public void testExprOnlyNeededBrackets() throws IOException, ParseException
+    {
+        assertTrue( true );
+        Reader valThis = new StringReader("12     * ( ( 5 + 1 )  - 1 )");
+        ExpressionParser p = new ExpressionParser(valThis);
+        Exp expressionEval = p.initialGoal();
+        assertEquals("((12)*(((5)+(1))-(1)))",expressionEval.toString());
+    }
+    
 //    public void testExprOnlyNeededBracketsBut() throws IOException
 //    {
 //        assertTrue( true );

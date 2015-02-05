@@ -133,8 +133,10 @@ Exp fundef():
 {Token fAlias, javaName, returnType; List<ExpType > par = new ArrayList<ExpType >(); }
 {
 	 fAlias=< ALIAS > <ASSIGN > javaName=< JFUN ><OBR > fundefparams(par) < CBR > returnType=<DATATYPE >
-	 {	   	
-  		return new FunDefineExp(new FunSignExp(StringUtils.substring(fAlias.image,1),ExpType.valueof(StringUtils.substring(returnType.image,1)),par), new FunCodeExp(javaName.image,ExpType.valueof(StringUtils.substring(returnType.image,1)),par));	 }
+	 {
+	    final String theAlias = StringUtils.substring(fAlias.image,1);
+	    final ExpType theReturnType = ExpType.valueof(StringUtils.substring(returnType.image,1));
+  		return new FunDefineExp(new FunSignExp(theAlias,par), new FunCodeExp(javaName.image,theReturnType,par));	 }
 }
 
 
@@ -143,7 +145,7 @@ void fundefparams(List<ExpType > params):
 {
   /* empty params list is not accepted */
   t1=< DATATYPE >  {
-    params.add(ExpType.valueof(t1.image));  }
+    params.add(ExpType.valueof(StringUtils.substring(t1.image,1)));  }
   (  < COMMA > t1=<DATATYPE >  {	params.add(ExpType.valueof(StringUtils.substring(t1.image,1)));
   }
   )*

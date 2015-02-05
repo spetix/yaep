@@ -17,7 +17,7 @@ public class AssignExp extends OpExp {
 	
 
 	@Override
-	public void accept(final IVisitor v) {
+	public void accept(final IVisitor v) throws Exception {
 		v.visit(this);
 	}
 

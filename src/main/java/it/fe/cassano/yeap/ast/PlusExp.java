@@ -23,7 +23,7 @@ public class PlusExp extends OpExp {
 //		return left.eval() + right.eval();
 //	}
 	
-	public void accept(final IVisitor v)
+	public void accept(final IVisitor v) throws Exception
 	{
 		v.visit(this);
 	}

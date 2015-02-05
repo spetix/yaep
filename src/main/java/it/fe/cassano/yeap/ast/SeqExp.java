@@ -9,13 +9,13 @@ public class SeqExp extends OpExp {
 	}
 
 	@Override
-	public void accept(IVisitor v) {
-		((IVisitor) v).visit(this);	
+	public void accept(IVisitor v) throws Exception {
+		v.visit(this);	
 	}
 
 	@Override
 	public String opName() {
-		return ",";
+		return ";";
 	}
 	
 	

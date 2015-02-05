@@ -2,23 +2,21 @@ package it.fe.cassano.yeap.gui.actions;
 
 import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
-import it.fe.cassano.yeap.ccparser.ParseException;
 import it.fe.cassano.yeap.visitors.IEnvironment;
 import it.fe.cassano.yeap.visitors.IVisitor;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,23 +60,27 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		LOGGER.warn("canned visitor at to TypeVisitor at the moment!");
 		int strategy = this.box.getSelectedIndex();
 		IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env);
-		Writer wri = new StringWriter();
+		StringWriter wri = new StringWriter();
 		ExpressionParser p = new ExpressionParser(new StringReader(this.editor.getText()));
 		Exp e = null;
 		try {
 			e = p.initialGoal();
 			v.visit(e);
+			
 			for (final Pair<String, Object> key : v.getResults())
 			{
 				wri.append(key.getLeft() + " ==> " + key.getRight());
 				wri.append("\n");
 			}
 			wri.append("" +v.getVal());
-		} catch (ParseException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch ( Exception e1) {
+			LOGGER.warn("problem occurred during action");
+			LOGGER.trace("see stack trace {}",e);
+			wri.append(e1.getMessage());
 		}
+		wri.flush();
 		out.setText(wri.toString());
+		IOUtils.closeQuietly(wri);
 		
 	}
 

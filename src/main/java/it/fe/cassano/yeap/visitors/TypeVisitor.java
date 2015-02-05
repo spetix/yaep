@@ -41,12 +41,12 @@ public class TypeVisitor implements IVisitor {
 		return type;
 	}
 	
-	public void visit(Exp e)
+	public void visit(Exp e) throws Exception
 	{
 		e.accept(this);
 	}
 	
-	void visitOpExp(OpExp exp)
+	void visitOpExp(OpExp exp) throws Exception
 	{
 		exp.left().accept(this); ExpType lType =  (ExpType) getVal();
 		exp.right().accept(this); ExpType rType = (ExpType) getVal();
@@ -63,23 +63,23 @@ public class TypeVisitor implements IVisitor {
 	}
 
 	@Override
-	public void visit(PlusExp exp) {
+	public void visit(PlusExp exp) throws Exception {
 		visitOpExp(exp);
 
 	}
 
 	@Override
-	public void visit(MinusExp exp) {
+	public void visit(MinusExp exp) throws Exception {
 		visitOpExp(exp);
 	}
 
 	@Override
-	public void visit(MulExp exp) {
+	public void visit(MulExp exp) throws Exception {
 		visitOpExp(exp);
 	}
 
 	@Override
-	public void visit(DivExp exp) {
+	public void visit(DivExp exp) throws Exception {
 		visitOpExp(exp);
 	}
 
@@ -95,13 +95,13 @@ public class TypeVisitor implements IVisitor {
 	}
 
 	@Override
-	public void visit(UnaryMinusExp unaryMinusExp) {
+	public void visit(UnaryMinusExp unaryMinusExp) throws Exception {
 		unaryMinusExp.expr().accept(this); ExpType eType = (ExpType) getVal();
 		type = eType;
 	}
 
 	@Override
-	public void visit(AssignExp assignExp) {
+	public void visit(AssignExp assignExp) throws Exception {
 		assignExp.left().accept(this);
 		final String id = ((IdentExp)assignExp.left()).getName();
 		assignExp.right().accept(this); 
@@ -125,17 +125,18 @@ public class TypeVisitor implements IVisitor {
 	/**
 	 * Sequence type is conventionally set to last type seen in sequence.
 	 * This make sense as all previous parts of sequence are just assignments.
+	 * @throws Exception 
 	 * @SeqExp a sequence
 	 */
 	@Override
-	public void visit(SeqExp seqExp) {
+	public void visit(SeqExp seqExp) throws Exception {
 		// seqExp.left().accept(this); ExpType lType = (ExpType) getVal();
 		seqExp.right().accept(this); ExpType rType = (ExpType) getVal();
 		type = rType; 
 	}
 
 	@Override
-	public void visit(FunDefineExp funDefineExp) {
+	public void visit(FunDefineExp funDefineExp) throws Exception {
 		funDefineExp.accept(this);
 	}
 

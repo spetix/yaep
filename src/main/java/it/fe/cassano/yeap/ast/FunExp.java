@@ -27,7 +27,7 @@ public class FunExp extends Exp {
 	
 
 	
-	 public void accept(final IVisitor v)
+	 public void accept(final IVisitor v) throws Exception
 	 {
 	 v.visit(this);
 	 }

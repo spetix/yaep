@@ -31,15 +31,15 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 		
 	}
 	public String getVal() { return curs; } // lettura risultato
-	protected void visitOpExp(OpExp e){
+	protected void visitOpExp(OpExp e) throws Exception{
 	e.left().accept(this); String sleft = getVal();
 	e.right().accept(this); String sright = getVal();
 	curs = "(" + e.opName() + " " + sleft + " " + sright + ")";
 	}
-	public void visit( PlusExp e ) { visitOpExp(e); }
-	public void visit( MinusExp e ) { visitOpExp(e); }
-	public void visit( MulExp e ) { visitOpExp(e); }
-	public void visit( DivExp e ) { visitOpExp(e); }
+	public void visit( PlusExp e ) throws Exception { visitOpExp(e); }
+	public void visit( MinusExp e ) throws Exception { visitOpExp(e); }
+	public void visit( MulExp e ) throws Exception { visitOpExp(e); }
+	public void visit( DivExp e ) throws Exception { visitOpExp(e); }
 	public void visit( NumExp e ) {
 	curs = "" + e.getValue();
 	}
@@ -48,7 +48,7 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 		curs = ""+ e.getValue();
 	}
 	@Override
-	public void visit(FunExp funExp) {
+	public void visit(FunExp funExp) throws Exception {
 		List<Exp> params = funExp.getParams();
 		List<String> res = new Vector<String>();
 		for (Exp p: params)
@@ -61,7 +61,7 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 		
 	}
 	@Override
-	public void visit(UnaryMinusExp e) {
+	public void visit(UnaryMinusExp e) throws Exception {
 		e.expr().accept(this);
 		String ex = getVal();
 		curs = "(- "+ex+")";

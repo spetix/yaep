@@ -16,13 +16,9 @@ public class MinusExp extends OpExp {
 		super(left,right);
 	}
 	
-//	@Override
-//	public int eval() {
-//		// TODO Auto-generated method stub
-//		return left.eval() - right.eval();
-//	}
+
 	
-	 public void accept(final IVisitor v)
+	 public void accept(final IVisitor v) throws Exception
 	 {
 		 v.visit(this);
 	 }

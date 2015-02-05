@@ -114,7 +114,7 @@ public class AppTest
 //        Exp expressionEval = p.parseExp();
 //  //      assertEquals(expressionEval.eval(),6);
 //    }
-    public void testLispOutputVisitor() throws IOException, ParseException
+    public void testLispOutputVisitor() throws Exception
     {
     	Reader valThis = new StringReader(" 7 * ( 1 + 1 )");
          
@@ -126,7 +126,7 @@ public class AppTest
         
     }
     
-    public void testLispOutputVisitor2() throws IOException, ParseException
+    public void testLispOutputVisitor2() throws Exception
     {
     	Reader valThis = new StringReader(" 7 * ( 1 + 1 ) - 3");
          
@@ -139,7 +139,7 @@ public class AppTest
     }
     
     
-    public void testLispOutputVisitor3() throws IOException, ParseException
+    public void testLispOutputVisitor3() throws Exception
     {
     	Reader valThis = new StringReader(" 7 * ( sin(-0.75) + max(3,5 ) )- 3");
          

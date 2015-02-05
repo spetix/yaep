@@ -46,7 +46,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.NumExp,(ExpType)visitor.getVal());	
     }
     
-    public void testSumIntReal()
+    public void testSumIntReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -62,7 +62,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
   
-    public void testSumRealReal()
+    public void testSumRealReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -75,7 +75,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
     
-    public void testSumIntInt()
+    public void testSumIntInt() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -87,7 +87,7 @@ public class TypeVisitorTest extends TestCase {
     	
     }
     
-    public void testMinusIntReal()
+    public void testMinusIntReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -103,7 +103,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
   
-    public void testMinusRealReal()
+    public void testMinusRealReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -116,7 +116,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
     
-    public void testMinusIntInt()
+    public void testMinusIntInt() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -130,7 +130,7 @@ public class TypeVisitorTest extends TestCase {
     
     /* Mul */
     
-    public void testProductIntReal()
+    public void testProductIntReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -146,7 +146,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
   
-    public void testProductRealReal()
+    public void testProductRealReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -159,7 +159,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
     
-    public void testProductIntInt()
+    public void testProductIntInt() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -173,7 +173,7 @@ public class TypeVisitorTest extends TestCase {
     
     /* DIV */
     
-    public void testDivideIntReal()
+    public void testDivideIntReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -189,7 +189,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
   
-    public void testDivideRealReal()
+    public void testDivideRealReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -202,7 +202,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
     
-    public void testDivIntInt()
+    public void testDivIntInt() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -216,7 +216,7 @@ public class TypeVisitorTest extends TestCase {
     
     /* UNARY Minus */
     
-    public void testUnaryMinusReal()
+    public void testUnaryMinusReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -233,7 +233,7 @@ public class TypeVisitorTest extends TestCase {
     	assertEquals(ExpType.RealExp,(ExpType)visitor.getVal());
     }
     
-    public void testMinusInt()
+    public void testMinusInt() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -249,7 +249,7 @@ public class TypeVisitorTest extends TestCase {
     	
     /* ASSIGNMENT */
     
-    public void testAssignmentInt()
+    public void testAssignmentInt() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	
@@ -260,7 +260,7 @@ public class TypeVisitorTest extends TestCase {
     	
     }
     
-    public void testAssignmentReal()
+    public void testAssignmentReal() throws Exception
     {
     	IVisitor visitor = new TypeVisitor(new MockEnvironment());
     	

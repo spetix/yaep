@@ -1,10 +1,9 @@
 package it.fe.cassano.yeap.visitors;
 
-import java.util.List;
 
 public enum ExpType {
 	InvalidExp(Void.class),
-	NumExp(Long.class),
+	NumExp(Integer.class),
 	RealExp(Double.class),
 	;
 
@@ -37,7 +36,7 @@ public enum ExpType {
 		{
 		case "numexp":
 			return NumExp;
-		case "realexp":
+		case "realexp":	
 			return RealExp;
 		default:
 			return InvalidExp;
@@ -46,7 +45,6 @@ public enum ExpType {
 	}
 
 	public Class classType() {
-		// TODO Auto-generated method stub
 		return this.clazz;
 	}
 	
