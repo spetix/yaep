@@ -2,7 +2,7 @@ package it.fe.cassano.yeap.gui.actions;
 
 import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
-import it.fe.cassano.yeap.visitors.IEnvironment;
+import it.fe.cassano.yeap.models.IEnvironment;
 import it.fe.cassano.yeap.visitors.IVisitor;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
@@ -24,17 +24,18 @@ import org.slf4j.LoggerFactory;
 public class ExecuteVisitAction extends AbstractAction implements Action {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6131238241286881230L;
 	protected final Component parentComponent;
 	protected final JEditorPane editor;
 	private JComboBox<String> box;
 	private JEditorPane out;
 	private IEnvironment env;
+	private IEnvironment fun;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+	
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ExecuteVisitAction.class);
 
@@ -45,13 +46,14 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	 * @param editor
 	 *            the JEditorPane to be cleared
 	 */
-	public ExecuteVisitAction(final Component parentComponent, final JEditorPane editor, final JComboBox<String> box, final JEditorPane out, final IEnvironment env) {
+	public ExecuteVisitAction(final Component parentComponent, final JEditorPane editor, final JComboBox<String> box, final JEditorPane out, final IEnvironment env, final IEnvironment fun) {
 		super("Execute");
 		this.parentComponent = parentComponent;
 		this.editor = editor;
 		this.box = box;
 		this.out = out;
 		this.env = env;
+		this.fun = fun;
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		LOGGER.debug("received event {}", actionEvent.getActionCommand());
 		LOGGER.warn("canned visitor at to TypeVisitor at the moment!");
 		int strategy = this.box.getSelectedIndex();
-		IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env);
+		IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env,this.fun);
 		StringWriter wri = new StringWriter();
 		ExpressionParser p = new ExpressionParser(new StringReader(this.editor.getText()));
 		Exp e = null;

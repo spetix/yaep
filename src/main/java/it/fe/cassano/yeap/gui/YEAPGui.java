@@ -3,21 +3,16 @@ package it.fe.cassano.yeap.gui;
 import it.fe.cassano.yeap.gui.actions.AboutAction;
 import it.fe.cassano.yeap.gui.actions.ClearEnvironmentAction;
 import it.fe.cassano.yeap.gui.actions.CloseAction;
-import it.fe.cassano.yeap.gui.actions.EnvironmentTableModel;
 import it.fe.cassano.yeap.gui.actions.ExecuteVisitAction;
 import it.fe.cassano.yeap.gui.actions.NewAction;
 import it.fe.cassano.yeap.gui.actions.OpenAction;
 import it.fe.cassano.yeap.gui.actions.SaveAction;
+import it.fe.cassano.yeap.models.MapModel;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -32,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 
@@ -43,13 +39,17 @@ public class YEAPGui {
 	private final static Logger LOGGER = LoggerFactory.getLogger(YEAPGui.class);
 	
 	private JFrame frame;
-	private JEditorPane editor;
+	private  JEditorPane editor;
 
-	private JEditorPane outputPane;
+	private  JEditorPane outputPane;
 
-	private JTable environment;
+	private  JTable environment;
 
-	private EnvironmentTableModel envDataModel;
+	private final MapModel envDataModel;
+
+	private final MapModel envFunctionsModel;
+
+	private JTable functions;
 	
 	
 
@@ -73,6 +73,8 @@ public class YEAPGui {
 	 * Create the application.
 	 */
 	public YEAPGui() {
+		this.envDataModel = new MapModel("Var","Value");
+		this.envFunctionsModel = new MapModel("Alias","Java name");
 		initialize();
 	}
 
@@ -85,16 +87,18 @@ public class YEAPGui {
 		this.frame = new JFrame();
 		this.editor = new JEditorPane();
 		this.outputPane = new JEditorPane();
-		this.envDataModel = new EnvironmentTableModel();
+		// Var list:
 		this.environment = new JTable(envDataModel);
-		this.environment.setPreferredScrollableViewportSize(new Dimension(200, 300));		
+		this.environment.setPreferredScrollableViewportSize(new Dimension(200, 300));
+		// Function list:
+		this.functions = new JTable(envFunctionsModel);
+		this.functions.setPreferredScrollableViewportSize(new Dimension(200, 300));
 		
 		generateWindow();
 		generateWindowStructure();
 		generateMenu();
 		
-		
-		this.frame.pack();
+		//this.frame.pack();
 	
 	}
 
@@ -114,6 +118,9 @@ public class YEAPGui {
 			e.printStackTrace();
 		}
 		
+//		JSplitPane mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+//		mainPanel.setOneTouchExpandable(true);
+//		//mainPanel.setDividerLocation(500);
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.X_AXIS));
 		
@@ -121,24 +128,33 @@ public class YEAPGui {
 		
 		JScrollPane editorScrollPane = new JScrollPane(editor);
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		editorScrollPane.setMinimumSize(new Dimension(600, 400));
+		editorScrollPane.setMinimumSize(new Dimension(800, 400));
 		
 		
 		JComboBox<String> visitorType = new JComboBox<String>(VISITORS.getVisitors());
-		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel));
-		executeButton.setPreferredSize(new Dimension(200,20));
+		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel, this.envFunctionsModel));
+		executeButton.setMinimumSize(new Dimension(200,20));
 		
 		JButton clearEnvironment = new JButton( new ClearEnvironmentAction(frame, envDataModel));
-		clearEnvironment.setPreferredSize(new Dimension(200,20));
+		clearEnvironment.setText("clear vars");
+		clearEnvironment.setMinimumSize(new Dimension(200,20));
+		JButton clearFunctions = new JButton(new ClearEnvironmentAction(frame, envFunctionsModel));
+		clearFunctions.setText("clear func");
+		clearFunctions.setMinimumSize(new Dimension(200,20));
+		
 		
 		JPanel envPanel = new JPanel();
 		envPanel.setLayout(new BorderLayout());
-		envPanel.setBorder(BorderFactory.createTitledBorder("Environment"));
-		envPanel.setMinimumSize(new Dimension(120,200));
-		
+		envPanel.setBorder(BorderFactory.createTitledBorder("Defined variables"));
+		envPanel.setMinimumSize(new Dimension(200,200));
 		envPanel.add(environment);
 		
 		
+		JPanel funPanel = new JPanel();
+		funPanel.setLayout(new BorderLayout());
+		funPanel.setBorder(BorderFactory.createTitledBorder("Defined Functions"));
+		funPanel.setMinimumSize(new Dimension(200,200));		
+		funPanel.add(functions);
 		
 		Box visitorBox = Box.createHorizontalBox();
 		JLabel visitorLabel = new JLabel("Action: ");
@@ -148,14 +164,18 @@ public class YEAPGui {
 		commandPanel.add(visitorBox);
 		commandPanel.add(executeButton);
 		commandPanel.add(clearEnvironment);
+		commandPanel.add(clearFunctions);		
 		commandPanel.add(envPanel);
+		commandPanel.add(funPanel);
 		commandPanel.add(Box.createVerticalGlue());
+		
+		visitorBox.add(visitorLabel);
+		visitorBox.add(visitorType);
 		
 		JPanel mainEditor = new JPanel();
 		mainEditor.setLayout(new BorderLayout());
 		mainEditor.setBorder(BorderFactory.createTitledBorder("Expression Editor"));
 	    mainEditor.add(editorScrollPane);
-		
 		mainPanel.add(mainEditor);
 		mainPanel.add(commandPanel);
 		
@@ -164,9 +184,13 @@ public class YEAPGui {
 		resultPanel.setBorder(BorderFactory.createTitledBorder("Evaluation Output"));
 		resultPanel.add(outputPane);
 		
-		Box app = Box.createVerticalBox();
-		app.add(mainPanel);
-		app.add(resultPanel);
+//		Box app = Box.createVerticalBox();
+//		app.add(mainPanel);
+//		app.add(resultPanel);
+		JSplitPane app = new JSplitPane(JSplitPane.VERTICAL_SPLIT,mainPanel,resultPanel);
+		app.setOneTouchExpandable(true);
+		app.setDividerLocation(0.5);
+		//app.setDividerLocation(500);
 		frame.getContentPane().add(app);
 		
 	}
@@ -174,7 +198,7 @@ public class YEAPGui {
 	private void generateWindow() 
 	{
 		LOGGER.debug("setup main window");
-		frame.setBounds(100, 100, 900, 600);
+		frame.setSize(1200, 700);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));	
 	}

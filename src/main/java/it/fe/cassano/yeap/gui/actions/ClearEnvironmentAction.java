@@ -1,6 +1,6 @@
 package it.fe.cassano.yeap.gui.actions;
 
-import it.fe.cassano.yeap.visitors.IEnvironment;
+import it.fe.cassano.yeap.models.IEnvironment;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;

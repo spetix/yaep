@@ -22,5 +22,11 @@ public class FunCodeExp extends Exp {
 	public void accept(IVisitor v) {
 		v.visit(this);
 	}
+	
+	@Override
+	public  String toString()
+	{
+		return FunSignExp.produceSignature(jFunName, params)+":"+retType;
+	}
 
 }

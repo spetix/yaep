@@ -30,7 +30,7 @@ public class EvalVisitorTest extends TestCase {
     	PlusExp sum = new PlusExp(new NumExp(3),new NumExp(5));
     	System.out.println(sum.toString());
         assertTrue( sum.toString().equals("((3)+(5))") );
-        EvalVisitor v = new EvalVisitor(new MockEnvironment());
+        EvalVisitor v = new EvalVisitor(new MockEnvironment(),new MockEnvironment());
         v.visit(sum);
         assertEquals(((Integer)v.getVal()).intValue(),8);             
     }

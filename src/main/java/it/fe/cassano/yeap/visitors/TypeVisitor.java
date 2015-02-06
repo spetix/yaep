@@ -17,6 +17,7 @@ import it.fe.cassano.yeap.ast.PlusExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
+import it.fe.cassano.yeap.models.IEnvironment;
 
 import java.util.HashMap;
 import java.util.List;

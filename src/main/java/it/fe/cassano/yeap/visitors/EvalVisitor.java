@@ -17,6 +17,7 @@ import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.ast.SeqExp;
 import it.fe.cassano.yeap.ast.UnaryMinusExp;
 import it.fe.cassano.yeap.functionlibrary.Callme;
+import it.fe.cassano.yeap.models.IEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class EvalVisitor implements IVisitor {
 
 	protected Object result;
 	protected final IEnvironment environment;
-	protected final Map<String, FunCodeExp> functionAliases;
+	protected final IEnvironment funLibrary;
 	protected final List<Pair<String, Object>> sequenceResults;
 
 	private int expNumber;
@@ -53,11 +54,12 @@ public class EvalVisitor implements IVisitor {
 	/**
 	 * EvalVisitor constructor. Needs to know which is the current environment
 	 * 
-	 * @param env
+	 * @param env, variables definitions present in environment
+	 * @param funLibrary, function aliased in environment
 	 */
-	public EvalVisitor(final IEnvironment env) {
+	public EvalVisitor(final IEnvironment env, final IEnvironment funLibrary) {
 		this.environment = env;
-		functionAliases = new HashMap<String, FunCodeExp>();
+		this.funLibrary = funLibrary;
 		sequenceResults = new ArrayList<Pair<String, Object>>();
 		this.expNumber = 0; // Count of evaluated expression;
 	}
@@ -225,8 +227,8 @@ public class EvalVisitor implements IVisitor {
 			evaluedParams.add(tmpVal);
 		}
 		
-		final String signature = FunSignExp.signature(fName, pTypes);
-		final FunCodeExp funCodeExp = this.functionAliases.get(signature);
+		final String signature = FunSignExp.produceSignature(fName, pTypes);
+		final FunCodeExp funCodeExp = (FunCodeExp) this.funLibrary.getVal(signature);
 
 		// Call function:
 		switch (funCodeExp.retType) {
@@ -347,7 +349,7 @@ public class EvalVisitor implements IVisitor {
 		funDefineExp.left().accept(this);
 		String fId = (String) getVal();
 		funDefineExp.right().accept(this);
-		this.functionAliases.put(fId, (FunCodeExp) getVal());
+		this.funLibrary.add(fId, (FunCodeExp) getVal());;
 	}
 
 	@Override

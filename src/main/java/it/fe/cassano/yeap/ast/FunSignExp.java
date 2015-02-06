@@ -35,10 +35,16 @@ public class FunSignExp extends Exp{
 	
 	public String signature()
 	{
-		return FunSignExp.signature(this.fName, params);
+		return FunSignExp.produceSignature(this.fName, params);
 	}
 	
-	public static String signature (String name, List<ExpType> inputParams)
+	@Override
+	public String toString()
+	{
+		return this.signature();
+	}
+	
+	public static String produceSignature (String name, List<ExpType> inputParams)
 	{		
 		return name +"(" + StringUtils.join(inputParams,",") +")";
 	}

@@ -1,4 +1,4 @@
-package it.fe.cassano.yeap.visitors;
+package it.fe.cassano.yeap.models;
 
 import java.util.Map;
 

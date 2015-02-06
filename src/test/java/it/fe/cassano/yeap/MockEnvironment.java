@@ -1,6 +1,6 @@
 package it.fe.cassano.yeap;
 
-import it.fe.cassano.yeap.visitors.IEnvironment;
+import it.fe.cassano.yeap.models.IEnvironment;
 
 import java.util.Collections;
 import java.util.HashMap;

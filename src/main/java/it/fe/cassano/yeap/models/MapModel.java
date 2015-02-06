@@ -1,9 +1,7 @@
-package it.fe.cassano.yeap.gui.actions;
+package it.fe.cassano.yeap.models;
 
 import java.util.Collections;
 import java.util.Map;
-
-import it.fe.cassano.yeap.visitors.IEnvironment;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -12,25 +10,28 @@ import org.apache.commons.collections4.map.LinkedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EnvironmentTableModel extends AbstractTableModel implements
+public class MapModel extends AbstractTableModel implements
 		TableModel, IEnvironment {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 543996928565940083L;
-	private final static Logger LOGGER = LoggerFactory
-			.getLogger(EnvironmentTableModel.class);
+	private static final long serialVersionUID = 2143919124920177349L;
 
-	private final String[] headers = { "Var", "Value" };
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(MapModel.class);
+
+	private final String[] headers;
 	private final LinkedMap<String, Object> environment;
 
-	public EnvironmentTableModel() {
+	public MapModel(final String keyHeader, final String valueHeader) {
 		super();
+		headers = new String[2];
+		headers[0]=keyHeader;
+		headers[1]=valueHeader;
 
-		LOGGER.info("Initializing environment");
+		LOGGER.info("Initializing function library");
 		this.environment = new LinkedMap<String, Object>();
-		this.environment.put("A", 33);
 	}
 
 	@Override
@@ -70,7 +71,6 @@ public class EnvironmentTableModel extends AbstractTableModel implements
 	 */
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		LOGGER.info("cell {} {} editable information requested", row, col);
 		return false;
 	}
 

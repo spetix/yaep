@@ -5,3 +5,11 @@
 /SimpleCharStream.java
 /Token.java
 /TokenMgrError.java
+/NoActionParser.java
+/NoActionParserConstants.java
+/NoActionParserTokenManager.java
+/JJTNoActionParserState.java
+/NoActionParserTreeConstants.java
+/NoActionsGrammar.jj
+/Node.java
+/SimpleNode.java
