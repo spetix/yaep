@@ -1,9 +1,7 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
- */options{
+options{
   JDK_VERSION = "1.7";
   STATIC = false;
-  FORCE_LA_CHECK = false;
+  FORCE_LA_CHECK = true;
   DEBUG_PARSER = true;
   DEBUG_LOOKAHEAD = true;
   DEBUG_TOKEN_MANAGER = true;
@@ -27,7 +25,7 @@ SKIP :
 
 TOKEN : /* SEPARATORS: */
 {
- < SEPARATOR : (  "\n" | "\r" | ";" )+ >
+ < SEPARATOR : ("\n" | "\r" | ";")+  >
 }
 
 TOKEN : /* OPERATORS */
@@ -51,20 +49,20 @@ TOKEN : /* SYNTAX HELPERS */
 
 TOKEN : /* IDENTIFIERS */
 {
-  < IDENT : (< ALPHA >|< UNDERSCORE >)(< ALPHA > |< UNDERSCORE > | < DIGIT > | < LOWCASE > )* >
-| < #ALPHA : ["A"-"Z"] >
-| < #UNDERSCORE : "_" >
+  < IDENT : (< UPCASE >|< USCORE >)(< UPCASE > |< USCORE > | < DIGIT > | < LOWCASE > )* >
+| < #UPCASE : ["A"-"Z"] >
+| < #USCORE : "_" >
 }
-
-TOKEN : /* IDENTVAL */
+/* Using same symbol for lvalue and rvalue of a var, removing this token *//*
+TOKEN : 
 {
   < VALUEIDENT : < VAL ><IDENT > >
 | < #VAL : "$" >
 }
-
+*/
 TOKEN : /* FUNCTION NAME */
 {
-  < FNAME : < LOWCASE >(< ALPHA > | < DIGIT > | < LOWCASE >)* >
+  < FNAME : < LOWCASE >(< UPCASE > | < DIGIT > | < LOWCASE >)* >
 |  < #LOWCASE : ["a"-"z"] >
 }
 
@@ -74,7 +72,7 @@ TOKEN :{
 
 TOKEN :
 {
-  < JFUN : (< LOWCASE > (<ALPHA >|< DIGIT >|<LOWCASE >)*< DOT >)+< ALPHA >(< ALPHA >|< DIGIT >|< LOWCASE >|< UNDERSCORE >)*< DOT >(< ALPHA >|< LOWCASE >|< UNDERSCORE >)(< ALPHA >| < DIGIT > | < LOWCASE >)* >
+  < JFUN : (< LOWCASE > (<UPCASE >|< DIGIT >|<LOWCASE >)*< DOT >)+< UPCASE >(< UPCASE >|< DIGIT >|< LOWCASE >|< USCORE >)*< DOT >(< UPCASE >|< LOWCASE >|< USCORE >)(< UPCASE >| < DIGIT > | < LOWCASE >)* >
 }
 
 TOKEN : /* NUMBERS */
@@ -96,29 +94,17 @@ TOKEN : /* DATA TYPES */
 
 }
 
-/* VN */
-
+/* VN */public Exp s():{Exp ast;}{  ast=initialGoal() < EOF >  {    return ast;  }}
 public Exp initialGoal():
 {Exp t1=null; Exp t2 = null;}
 {	  /*
-	     Placing assignment here instead of inside expr avoids very confusing notations such as:
+	     Placing assignment here instead of inside expr. This avoids very confusing notations such as:
 	     3*A=3 or A=(B=3)/1 or 1+C=(2*$B)
 	     but also forbids A=B=C=D=3
-	     to reintroduce multiple assigments assignment rule has been changed.
+	     to reintroduce multiple assigments assignment() rule has been changed consequently.
 	  */
-	  (
-	     t1=assignment()
- | 	    t1=expr() 
-	|
-	  t1=fundef()
-	) (< SEPARATOR > t2=initialGoal()
-	  {		t1 = new SeqExp(t1,t2);
-	  }
-	/* no need of )*, initialGoal recalls itself forever since there is a separator along the way
-       probably it's also acceptable to set the empty production on first part.. in order to support initial separator or final separator..
-       ..with caution..
-	 */
-	)?
+	  ( LOOKAHEAD(2) t1=assignment()	  | t1=expr()	  | t1=fundef() )
+	  ( (< SEPARATOR >)+ ( t2=initialGoal() { t1 = new SeqExp(t1,t2);	} )?	  )
 	{	  return t1;
 	}
 }
@@ -169,7 +155,7 @@ public Exp expr() :
 }
 
 
-Exp assignment() :
+Exp assignment() : 
 {Exp t1=null; Token id;}
 {  	
     /* the following permits single assignment only
@@ -178,7 +164,7 @@ Exp assignment() :
        In order to keep multiple assignments (i.e. A=B=C=D=3) the rule
        has to be changed in:
      */
-        id= < IDENT > <ASSIGN > ( t1=expr() | t1=assignment())
+        id= < IDENT > <ASSIGN > ( LOOKAHEAD(2) t1=expr() | t1=assignment())
         
     {		return new AssignExp(new IdentExp(id.image),t1);
     }
@@ -212,10 +198,10 @@ Exp factor():
   t=< REALNUM >
   {
     t1 = new RealExp(Double.parseDouble(t.image));  }
-  | 
+  |  /*
     t=< VALUEIDENT >
     {
-      t1 = new IdentValExp(StringUtils.substring(t.image,1));    }
+      t1 = new IdentValExp(StringUtils.substring(t.image,1));    }    */    t=< IDENT >    {      t1 = new IdentValExp(t.image);    }
   | 
   < OBR > t1=expr() < CBR >
   |

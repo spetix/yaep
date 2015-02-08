@@ -133,14 +133,15 @@ public class YEAPGui {
 		
 		JComboBox<String> visitorType = new JComboBox<String>(VISITORS.getVisitors());
 		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel, this.envFunctionsModel));
-		executeButton.setMinimumSize(new Dimension(200,20));
+		executeButton.setText("Process visit!");
+		//executeButton.setMinimumSize(new Dimension(300,20));
 		
 		JButton clearEnvironment = new JButton( new ClearEnvironmentAction(frame, envDataModel));
-		clearEnvironment.setText("clear vars");
-		clearEnvironment.setMinimumSize(new Dimension(200,20));
+		clearEnvironment.setText("Clear var store");
+		clearEnvironment.setMinimumSize(new Dimension(300,20));
 		JButton clearFunctions = new JButton(new ClearEnvironmentAction(frame, envFunctionsModel));
-		clearFunctions.setText("clear func");
-		clearFunctions.setMinimumSize(new Dimension(200,20));
+		clearFunctions.setText("Clear fun store");
+		//clearFunctions.setMinimumSize(new Dimension(300,20));
 		
 		
 		JPanel envPanel = new JPanel();

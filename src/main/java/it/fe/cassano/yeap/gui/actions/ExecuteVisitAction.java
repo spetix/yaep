@@ -8,6 +8,7 @@ import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -17,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,10 +65,11 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		int strategy = this.box.getSelectedIndex();
 		IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env,this.fun);
 		StringWriter wri = new StringWriter();
-		ExpressionParser p = new ExpressionParser(new StringReader(this.editor.getText()));
+		final Reader parserInput = new StringReader(StringUtils.trim(this.editor.getText())+";");
+		ExpressionParser p = new ExpressionParser(parserInput);
 		Exp e = null;
 		try {
-			e = p.initialGoal();
+			e = p.s();
 			v.visit(e);
 			
 			for (final Pair<String, Object> key : v.getResults())
@@ -83,6 +86,7 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		wri.flush();
 		out.setText(wri.toString());
 		IOUtils.closeQuietly(wri);
+		IOUtils.closeQuietly(parserInput);
 		
 	}
 

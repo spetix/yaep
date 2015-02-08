@@ -229,6 +229,10 @@ public class EvalVisitor implements IVisitor {
 		
 		final String signature = FunSignExp.produceSignature(fName, pTypes);
 		final FunCodeExp funCodeExp = (FunCodeExp) this.funLibrary.getVal(signature);
+		if (funCodeExp == null)
+		{
+			throw new Exception("function with signature "+ signature+" not found in store");
+		}
 
 		// Call function:
 		switch (funCodeExp.retType) {
@@ -334,7 +338,8 @@ public class EvalVisitor implements IVisitor {
 	}
 
 	@Override
-	public void visit(UnaryMinusExp unaryMinusExp) {
+	public void visit(UnaryMinusExp unaryMinusExp) throws Exception {
+		unaryMinusExp.expr().accept(this);
 		Object l = getVal();
 		if ((l instanceof Double)) {
 			result = -(double) l;
