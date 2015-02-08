@@ -1,10 +1,10 @@
 package it.fe.cassano.yeap.ast;
 
-import java.util.Collections;
-import java.util.List;
-
 import it.fe.cassano.yeap.visitors.ExpType;
 import it.fe.cassano.yeap.visitors.IVisitor;
+
+import java.util.Collections;
+import java.util.List;
 
 public class FunCodeExp extends Exp {
 	

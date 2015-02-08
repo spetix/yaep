@@ -1,12 +1,12 @@
 package it.fe.cassano.yeap.ast;
 
+import it.fe.cassano.yeap.visitors.ExpType;
+import it.fe.cassano.yeap.visitors.IVisitor;
+
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-
-import it.fe.cassano.yeap.visitors.ExpType;
-import it.fe.cassano.yeap.visitors.IVisitor;
 
 public class FunSignExp extends Exp{
 	

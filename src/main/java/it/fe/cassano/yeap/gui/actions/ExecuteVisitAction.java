@@ -32,7 +32,7 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	private static final long serialVersionUID = 6131238241286881230L;
 	protected final Component parentComponent;
 	protected final JEditorPane editor;
-	private JComboBox<String> box;
+	private JComboBox<VISITORS> box;
 	private JEditorPane out;
 	private IEnvironment env;
 	private IEnvironment fun;
@@ -48,11 +48,11 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	 * @param editor
 	 *            the JEditorPane to be cleared
 	 */
-	public ExecuteVisitAction(final Component parentComponent, final JEditorPane editor, final JComboBox<String> box, final JEditorPane out, final IEnvironment env, final IEnvironment fun) {
+	public ExecuteVisitAction(final Component parentComponent, final JEditorPane editor, final JComboBox<VISITORS> visitorType, final JEditorPane out, final IEnvironment env, final IEnvironment fun) {
 		super("Execute");
 		this.parentComponent = parentComponent;
 		this.editor = editor;
-		this.box = box;
+		this.box = visitorType;
 		this.out = out;
 		this.env = env;
 		this.fun = fun;
@@ -61,28 +61,35 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		LOGGER.debug("received event {}", actionEvent.getActionCommand());
-		LOGGER.warn("canned visitor at to TypeVisitor at the moment!");
-		int strategy = this.box.getSelectedIndex();
 		// IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env,this.fun);
-		IVisitor v = VISITORS.LispVisitor.method.getInstance(this.env, this.fun);
+		// IVisitor v = VISITORS.LispVisitor.method.getInstance(this.env, this.fun);
+		
+		VISITORS strategy = (VISITORS) this.box.getSelectedItem();
+		IVisitor visitorInstance = strategy.method.getInstance(this.env,this.fun);
 		StringWriter wri = new StringWriter();
 		final Reader parserInput = new StringReader(StringUtils.trim(this.editor.getText())+";");
-		ExpressionParser p = new ExpressionParser(parserInput);
-		Exp e = null;
+		ExpressionParser parserInstance = new ExpressionParser(parserInput);
+		Exp ast = null;
 		try {
-			e = p.s();
-			v.visit(e);
-			
-			for (final Pair<String, Object> key : v.getResults())
+			ast = parserInstance.s(); // parse input and generate AST
+			visitorInstance.visit(ast); // Visit AST
+			// Produce results:
+			if (visitorInstance.getResults().size()>0)
 			{
-				wri.append(key.getLeft() + " ==> " + key.getRight());
-				wri.append("\n");
+				for (final Pair<String, Object> key : visitorInstance.getResults())
+				{
+					wri.append(key.getLeft() + " ==> " + key.getRight());
+					wri.append("\n");
+				}
 			}
-			wri.append("" +v.getVal());
-		} catch ( Exception e1) {
+			else
+			{
+				wri.append("" +visitorInstance.getVal());
+			}
+		} catch ( Exception e) {
 			LOGGER.warn("problem occurred during action");
 			LOGGER.trace("see stack trace {}",e);
-			wri.append(e1.getMessage());
+			wri.append(e.getMessage());
 		}
 		wri.flush();
 		out.setText(wri.toString());

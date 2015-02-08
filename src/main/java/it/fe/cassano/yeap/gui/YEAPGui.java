@@ -131,7 +131,7 @@ public class YEAPGui {
 		editorScrollPane.setMinimumSize(new Dimension(800, 400));
 		
 		
-		JComboBox<String> visitorType = new JComboBox<String>(VISITORS.getVisitors());
+		JComboBox<VISITORS> visitorType = new JComboBox<VISITORS>(VISITORS.values());
 		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel, this.envFunctionsModel));
 		executeButton.setText("Process visit!");
 		//executeButton.setMinimumSize(new Dimension(300,20));
@@ -161,6 +161,7 @@ public class YEAPGui {
 		JLabel visitorLabel = new JLabel("Action: ");
 		visitorBox.add(visitorLabel);
 		visitorBox.add(visitorType);
+		
 		Box commandPanel = Box.createVerticalBox();
 		commandPanel.add(visitorBox);
 		commandPanel.add(executeButton);
@@ -169,10 +170,7 @@ public class YEAPGui {
 		commandPanel.add(envPanel);
 		commandPanel.add(funPanel);
 		commandPanel.add(Box.createVerticalGlue());
-		
-		visitorBox.add(visitorLabel);
-		visitorBox.add(visitorType);
-		
+	
 		JPanel mainEditor = new JPanel();
 		mainEditor.setLayout(new BorderLayout());
 		mainEditor.setBorder(BorderFactory.createTitledBorder("Expression Editor"));

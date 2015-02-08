@@ -24,6 +24,13 @@ public enum VISITORS {
 		this.description = description;
 		this.method = method;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return this.description;
+		
+	}
 
 	public static Vector<String> getVisitors()
 	{
@@ -34,4 +41,6 @@ public enum VISITORS {
 		}
 		return retVal;
 	}
+	
+	
 }
