@@ -1,5 +1,6 @@
 package it.fe.cassano.yeap.ast;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,13 +11,13 @@ import it.fe.cassano.yeap.visitors.IVisitor;
 public class FunSignExp extends Exp{
 	
 	private final List<ExpType> params;
-	private final String fName;
+	public final String name;
 	//final public ExpType rType;
 
 	/*
-	public FunSignExp(final String fName, final ExpType rType, final List<ExpType> params)
+	public FunSignExp(final String name, final ExpType rType, final List<ExpType> params)
 	{
-		this.fName = fName;
+		this.fName = name;
 		this.params = params;
 		this.rType = rType;
 	}
@@ -24,7 +25,7 @@ public class FunSignExp extends Exp{
 	
 	public FunSignExp(final String fName, final List<ExpType> params)
 	{
-		this.fName = fName;
+		this.name = fName;
 		this.params = params;
 	}
 
@@ -35,7 +36,7 @@ public class FunSignExp extends Exp{
 	
 	public String signature()
 	{
-		return FunSignExp.produceSignature(this.fName, params);
+		return FunSignExp.produceSignature(this.name, params);
 	}
 	
 	@Override
@@ -48,6 +49,10 @@ public class FunSignExp extends Exp{
 	{		
 		return name +"(" + StringUtils.join(inputParams,",") +")";
 	}
-	
+
+	public List<ExpType> getParams() {
+		return Collections.unmodifiableList(this.params);
+	}
+
 
 }

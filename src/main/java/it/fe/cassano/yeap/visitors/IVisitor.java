@@ -27,31 +27,32 @@ public interface IVisitor {
 	 * returns the result of last evaluated expression
 	 * @return
 	 */
-	public Object getVal();
+	public abstract Object getVal();
+	
 	/**
 	 * return an immutable map containing the results of all parsed expressions (and their ordinal position)
 	 * @return
 	 */
-	public List<Pair<String, Object>> getResults();
+	public abstract List<Pair<String, Object>> getResults();
 	
 	/* AST Visit related methods */
 	
-	public void visit(final Exp exp) throws Exception;	
-	public void visit(final NumExp exp);
-	public void visit(final PlusExp exp) throws Exception;
-	public void visit(final MinusExp exp) throws Exception;
-	public void visit(final MulExp exp) throws Exception;
-	public void visit(final DivExp exp) throws Exception;
-	public void visit(final RealExp realExp);
-	public void visit(final FunExp funExp) throws Exception;
-	public void visit(final UnaryMinusExp unaryMinusExp) throws Exception;
+	public abstract void visit(final Exp exp) throws Exception;	
+	public abstract void visit(final NumExp numExp);
+	public abstract void visit(final PlusExp plusExp) throws Exception;
+	public abstract void visit(final MinusExp minusExp) throws Exception;
+	public abstract void visit(final MulExp mulExp) throws Exception;
+	public abstract void visit(final DivExp divExp) throws Exception;
+	public abstract void visit(final RealExp realExp);
+	public abstract void visit(final FunExp funExp) throws Exception;
+	public abstract void visit(final UnaryMinusExp unaryMinusExp) throws Exception;
 	public abstract void visit(AssignExp assignExp) throws Exception;
-	public abstract void visit(IdentExp e);
-	public abstract void visit(IdentValExp e);
+	public abstract void visit(IdentExp identExp);
+	public abstract void visit(IdentValExp identValExp);
 	public abstract void visit(SeqExp seqExp) throws Exception;
-	public void visit(FunDefineExp funDefineExp) throws Exception;
-	public void visit(FunSignExp funSignExp);
-	public void visit(FunCodeExp funCodeExp);
+	public abstract void visit(FunDefineExp funDefineExp) throws Exception;
+	public abstract void visit(FunSignExp funSignExp);
+	public abstract void visit(FunCodeExp funCodeExp);
 	
 	
 	

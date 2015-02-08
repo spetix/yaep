@@ -239,13 +239,13 @@ public class EvalVisitor implements IVisitor {
 		case RealExp: {
 			Callme<Double> theFunction;
 			theFunction = new Callme<Double>(funCodeExp.jFunName,
-					funCodeExp.params);
+					funCodeExp.getParams());
 			result = theFunction.invoke(evaluedParams);
 			break;
 		}
 		case NumExp: {
 			Callme<Double> theFunction = new Callme<Double>(
-					funCodeExp.jFunName, funCodeExp.params);
+					funCodeExp.jFunName, funCodeExp.getParams());
 			result = theFunction.invoke(evaluedParams);
 			break;
 		}

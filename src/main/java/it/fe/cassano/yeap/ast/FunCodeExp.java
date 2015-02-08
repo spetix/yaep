@@ -1,5 +1,6 @@
 package it.fe.cassano.yeap.ast;
 
+import java.util.Collections;
 import java.util.List;
 
 import it.fe.cassano.yeap.visitors.ExpType;
@@ -9,7 +10,7 @@ public class FunCodeExp extends Exp {
 	
 	final public String jFunName;
 	final public ExpType retType;
-	final public List<ExpType> params;
+	final protected List<ExpType> params;
 
 	public FunCodeExp(final String jFunName,final ExpType retType, final List<ExpType> params)
 	{
@@ -27,6 +28,15 @@ public class FunCodeExp extends Exp {
 	public  String toString()
 	{
 		return FunSignExp.produceSignature(jFunName, params)+":"+retType;
+	}
+	
+	/**
+	 * Return unmodifiable list of java function parameters
+	 * @return
+	 */
+	public List<ExpType> getParams()
+	{
+		return Collections.unmodifiableList(this.params);
 	}
 
 }

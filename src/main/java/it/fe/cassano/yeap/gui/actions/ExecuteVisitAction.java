@@ -63,7 +63,8 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 		LOGGER.debug("received event {}", actionEvent.getActionCommand());
 		LOGGER.warn("canned visitor at to TypeVisitor at the moment!");
 		int strategy = this.box.getSelectedIndex();
-		IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env,this.fun);
+		// IVisitor v = VISITORS.EvalVisitor.method.getInstance(this.env,this.fun);
+		IVisitor v = VISITORS.LispVisitor.method.getInstance(this.env, this.fun);
 		StringWriter wri = new StringWriter();
 		final Reader parserInput = new StringReader(StringUtils.trim(this.editor.getText())+";");
 		ExpressionParser p = new ExpressionParser(parserInput);
