@@ -38,7 +38,7 @@ public class LispOutputVisitorTest extends TestCase {
     
     public void testRealExp()
     {
-    	RealExp e = new RealExp(-3.21F);
+    	RealExp e = new RealExp(-3.21d);
     	LispOutputVisitor v = new LispOutputVisitor();
     	v.visit(e);
     	assertEquals("-3.21",v.getVal());
@@ -46,7 +46,7 @@ public class LispOutputVisitorTest extends TestCase {
     
     public void testFunExp() throws Exception
     {
-    	FunExp e = new FunExp("myfun", Arrays.asList( new Exp[]{ new NumExp(3), new RealExp(3.2f)}	));
+    	FunExp e = new FunExp("myfun", Arrays.asList( new Exp[]{ new NumExp(3), new RealExp(3.2d)}	));
     	LispOutputVisitor v = new LispOutputVisitor();
     	v.visit(e);
     	assertEquals("(myfun 3 3.2)",v.getVal());	

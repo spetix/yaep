@@ -30,16 +30,16 @@ public class FunctionDefineParserTest extends TestCase {
     
     public void testParseDefine() throws ParseException 
     {
-    	Reader r = new StringReader("%sin = java.Math.sin(:RealExp):RealExp; sin(4.1)");
+    	Reader r = new StringReader("%sin = java.Math.sin(:RealExp):RealExp; sin(4.1);");
     	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(sin=(java.Math.sin(RealExp)RealExp))",p.initialGoal().toString());
+    	assertEquals("((sin(RealExp)=java.Math.sin(RealExp):RealExp);(sin((4.1))))",p.s().toString());
     }
     
     public void testParseDefine2() throws ParseException 
     {
-    	Reader r = new StringReader("%sin = java.Math.sin(:RealExp):RealExp; %sin = java.Math.sin(:RealExp):RealExp; sin(4.1)");
+    	Reader r = new StringReader("%sin = java.Math.sin(:RealExp):RealExp; %sin = java.Math.sin(:RealExp):RealExp; sin(4.1);");
     	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(sin=(java.Math.sin(RealExp)RealExp))",p.initialGoal().toString());
+    	assertEquals("((sin(RealExp)=java.Math.sin(RealExp):RealExp);((sin(RealExp)=java.Math.sin(RealExp):RealExp);(sin((4.1)))))",p.s().toString());
     }
     
 }

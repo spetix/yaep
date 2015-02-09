@@ -16,10 +16,8 @@ public class VisitorTest extends TestCase {
     {
     	final TestSuite ts = new TestSuite();
     	ts.addTestSuite(LispOutputVisitorTest.class);
-    	ts.addTestSuite(EvalVisitorTest.class);
     	ts.addTestSuite(EvalWithAssignVisitorTest.class);
-    	 ts.addTestSuite(TypeVisitorTest.class);
-        return ts;
+    	return ts;
     }
     
   

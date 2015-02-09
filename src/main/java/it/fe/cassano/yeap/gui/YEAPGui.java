@@ -11,6 +11,7 @@ import it.fe.cassano.yeap.models.MapModel;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -29,12 +30,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.UIManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class YEAPGui {
+public class YEAPGui implements IExecuteHelper{
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(YEAPGui.class);
 	
@@ -50,6 +52,10 @@ public class YEAPGui {
 	private final MapModel envFunctionsModel;
 
 	private JTable functions;
+
+	private JComboBox<VISITORS> visitors;
+
+	private JTree tree;
 	
 	
 
@@ -94,6 +100,11 @@ public class YEAPGui {
 		this.functions = new JTable(envFunctionsModel);
 		this.functions.setPreferredScrollableViewportSize(new Dimension(200, 300));
 		
+		this.tree = new JTree();
+		this.tree.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		
+		
+		
 		generateWindow();
 		generateWindowStructure();
 		generateMenu();
@@ -130,16 +141,15 @@ public class YEAPGui {
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		editorScrollPane.setMinimumSize(new Dimension(800, 400));
 		
+		Box commandPanel = Box.createVerticalBox();
 		
-		JComboBox<VISITORS> visitorType = new JComboBox<VISITORS>(VISITORS.values());
-		JButton executeButton = new JButton(new ExecuteVisitAction(frame,editor,visitorType,outputPane,this.envDataModel, this.envFunctionsModel));
+		JButton executeButton = new JButton(new ExecuteVisitAction(commandPanel,this, this.envDataModel, this.envFunctionsModel));
 		executeButton.setText("Process visit!");
 		//executeButton.setMinimumSize(new Dimension(300,20));
-		
-		JButton clearEnvironment = new JButton( new ClearEnvironmentAction(frame, envDataModel));
+		JButton clearEnvironment = new JButton( new ClearEnvironmentAction(commandPanel, envDataModel));
 		clearEnvironment.setText("Clear var store");
 		clearEnvironment.setMinimumSize(new Dimension(300,20));
-		JButton clearFunctions = new JButton(new ClearEnvironmentAction(frame, envFunctionsModel));
+		JButton clearFunctions = new JButton(new ClearEnvironmentAction(commandPanel, envFunctionsModel));
 		clearFunctions.setText("Clear fun store");
 		//clearFunctions.setMinimumSize(new Dimension(300,20));
 		
@@ -160,9 +170,8 @@ public class YEAPGui {
 		Box visitorBox = Box.createHorizontalBox();
 		JLabel visitorLabel = new JLabel("Action: ");
 		visitorBox.add(visitorLabel);
-		visitorBox.add(visitorType);
+		visitorBox.add(getVisitors());
 		
-		Box commandPanel = Box.createVerticalBox();
 		commandPanel.add(visitorBox);
 		commandPanel.add(executeButton);
 		commandPanel.add(clearEnvironment);
@@ -178,10 +187,18 @@ public class YEAPGui {
 		mainPanel.add(mainEditor);
 		mainPanel.add(commandPanel);
 		
-		JPanel resultPanel = new JPanel();
-		resultPanel.setLayout(new BorderLayout());
-		resultPanel.setBorder(BorderFactory.createTitledBorder("Evaluation Output"));
-		resultPanel.add(outputPane);
+		JPanel resultTextPanel = new JPanel();
+		resultTextPanel.setLayout(new BorderLayout());
+		resultTextPanel.setBorder(BorderFactory.createTitledBorder("Evaluation Output"));
+		resultTextPanel.add(outputPane);
+		
+		JPanel resultTreePanel = new JPanel();
+		resultTreePanel.setLayout(new BorderLayout());
+		resultTreePanel.setBorder(BorderFactory.createTitledBorder("Evaluation Output"));
+		resultTreePanel.add(tree);
+		this.tree.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+		JSplitPane resultPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,resultTextPanel,resultTreePanel);
 		
 //		Box app = Box.createVerticalBox();
 //		app.add(mainPanel);
@@ -235,6 +252,31 @@ public class YEAPGui {
 		
 		frame.setJMenuBar(mb);
 		
+	}
+
+	@Override
+	public JEditorPane getEditor() {
+		return this.editor;
+	}
+
+	@Override
+	public JComboBox<VISITORS> getVisitors() {
+		if (this.visitors == null)
+		{
+			this.visitors = new JComboBox<VISITORS>(VISITORS.values());
+			
+		}
+		return this.visitors;
+	}
+
+	@Override
+	public JEditorPane getOutput() {
+		return this.outputPane;
+	}
+
+	@Override
+	public JTree getTree() {
+		return this.tree;
 	}
 
 }

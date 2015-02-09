@@ -30,31 +30,29 @@ public class OtherParserTest extends TestCase {
     
     public void testExprSimpleRightMinus() throws IOException, ParseException
     {
-    	Reader valThis = new StringReader("1 - ( 1 - 1 )");
+    	Reader valThis = new StringReader("1 - ( 1 - 1 );");
         ExpressionParser p = new ExpressionParser(valThis);
         //assertTrue(p.isValidExpression());
-        assertEquals("((1)-((1)-(1)))",p.expr().toString());
+        assertEquals("((1)-((1)-(1)))",p.s().toString());
     	
     }
     
     public void testUltraViolence() throws IOException, ParseException
     {
     
-        Reader valThis = new StringReader("A=3,1 - ( a(3.4,-1) - 1 )");
+        Reader valThis = new StringReader("A=3;1 - ( a(3.4,-1) - 1 );");
         ExpressionParser p = new ExpressionParser(valThis);
-        //assertTrue(p.isValidExpression());
-        Exp e = p.initialGoal();
-        assertEquals("((A=(3)),((1)-((a((3.4),(-(1))))-(1))))",e.toString());
+        Exp e = p.s();
+        assertEquals("((A=(3));((1)-((a((3.4),(-(1))))-(1))))",e.toString());
     	
     }
     
     public void testLongTerms() throws IOException, ParseException
     {
     
-        Reader valThis = new StringReader("1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1");
+        Reader valThis = new StringReader("1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1;");
         ExpressionParser p = new ExpressionParser(valThis);
-        //assertTrue(p.isValidExpression());
-        Exp e = p.expr();
+        Exp e = p.s();
         assertEquals("((((((((((((((((((((((((((((((1)-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))-(1))",e.toString());
     	
     }

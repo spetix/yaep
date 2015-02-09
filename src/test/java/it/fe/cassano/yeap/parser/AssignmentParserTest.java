@@ -26,48 +26,49 @@ public class AssignmentParserTest extends TestCase {
         return ts;
     }
     
-  
     
     public void testParseAssigment() throws ParseException 
     {
-    	Reader r = new StringReader("A = 3");
+    	Reader r = new StringReader("A = 3;");
     	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(3))",p.initialGoal().toString());
+    	assertEquals("(A=(3))",p.s().toString());
     }
     
 
     public void testParseAssigment2() throws ParseException 
     {
-    	Reader r = new StringReader("A = 3.0");
+    	Reader r = new StringReader("A = 3.0;");
     	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(3.0))",p.initialGoal().toString());
+    	assertEquals("(A=(3.0))",p.s().toString());
     }
     
     public void testParseAssigment3() throws ParseException 
     {
-    	Reader r = new StringReader("A = -3.0");
+    	Reader r = new StringReader("A = -3.0;");
     	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(-(3.0)))",p.initialGoal().toString());
+    	assertEquals("(A=(-(3.0)))",p.s().toString());
     }
     
-    public void testParseAssigmentDouble() throws ParseException 
-    {
-    	Reader r = new StringReader("A=BCa= 3.0");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(BCa=(3.0)))",p.initialGoal().toString());
-    }
+  
     
-    public void testParseAssigmentWithUOP() throws ParseException 
+    public void testParseAssigmentInvalidWithUOP()  
     {
-    	Reader r = new StringReader("A=-BCa= 3.0");
-    	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(-(BCa=(3.0))))",p.initialGoal().toString());
+    	try
+    	{
+	    	Reader r = new StringReader("A=-BCa= 3.0;");
+	    	ExpressionParser p = new ExpressionParser(r);
+	    	p.s();
+    	}
+    	catch(ParseException e)
+    	{
+    		assertTrue(true);
+    	}
     }
     
     public void testParseAssigmentWithFun() throws ParseException 
     {
-    	Reader r = new StringReader("A=-f(3)");
+    	Reader r = new StringReader("A=-f(3);");
     	ExpressionParser p = new ExpressionParser(r);
-    	assertEquals("(A=(-(f((3)))))",p.initialGoal().toString());
+    	assertEquals("(A=(-(f((3)))))",p.s().toString());
     }
 }

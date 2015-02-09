@@ -62,16 +62,7 @@ public class TokenizerFunctionNameTest extends TestCase {
     	
     }
 
-    public void testInvalidJName() throws IOException
-    {
-    	Reader r = new StringReader("java.lang.Math..sin");
-    	ITokenizer t = new ExpressionParser(r);
-    	Token tok = t.getNextToken();
-    	assertEquals(ExpressionParserConstants.JFUN, tok.kind);
-    	assertEquals("java.lang.Math..sin",tok.image);
-    	r.close();  
-    	
-    }
+ 
 
     
 }

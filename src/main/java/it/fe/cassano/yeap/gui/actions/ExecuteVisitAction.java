@@ -2,11 +2,13 @@ package it.fe.cassano.yeap.gui.actions;
 
 import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
+import it.fe.cassano.yeap.gui.IExecuteHelper;
 import it.fe.cassano.yeap.models.IEnvironment;
 import it.fe.cassano.yeap.visitors.IVisitor;
 import it.fe.cassano.yeap.visitors.VISITORS;
 
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.io.Reader;
 import java.io.StringReader;
@@ -16,6 +18,10 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +42,7 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	private JEditorPane out;
 	private IEnvironment env;
 	private IEnvironment fun;
+	private JTree tree;
 
 	
 	private static final Logger LOGGER = LoggerFactory
@@ -48,12 +55,13 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 	 * @param editor
 	 *            the JEditorPane to be cleared
 	 */
-	public ExecuteVisitAction(final Component parentComponent, final JEditorPane editor, final JComboBox<VISITORS> visitorType, final JEditorPane out, final IEnvironment env, final IEnvironment fun) {
+	public ExecuteVisitAction(final Component parentComponent, final IExecuteHelper mainFrame, final IEnvironment env, final IEnvironment fun) {
 		super("Execute");
 		this.parentComponent = parentComponent;
-		this.editor = editor;
-		this.box = visitorType;
-		this.out = out;
+		this.editor = mainFrame.getEditor();
+		this.box = mainFrame.getVisitors();
+		this.out = mainFrame.getOutput();
+		this.tree = mainFrame.getTree();
 		this.env = env;
 		this.fun = fun;
 	}
@@ -75,15 +83,20 @@ public class ExecuteVisitAction extends AbstractAction implements Action {
 			visitorInstance.visit(ast); // Visit AST
 			// Produce results:
 			if (visitorInstance.getResults().size()>0)
-			{
+			{ // Evaluate:
 				for (final Pair<String, Object> key : visitorInstance.getResults())
 				{
 					wri.append(key.getLeft() + " ==> " + key.getRight());
 					wri.append("\n");
 				}
 			}
-			else
-			{
+			else if (visitorInstance.getVal() instanceof DefaultMutableTreeNode)
+			{ // Show tree:
+				this.tree.setModel(new DefaultTreeModel((TreeNode) visitorInstance.getVal()));
+				this.tree.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+				this.tree.repaint();
+			} else 
+			{ // one expression or lisp visitor
 				wri.append("" +visitorInstance.getVal());
 			}
 		} catch ( Exception e) {
