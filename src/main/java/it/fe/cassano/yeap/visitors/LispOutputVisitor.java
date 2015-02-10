@@ -159,7 +159,7 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 			sb.append(" ");
 			i++;
 		}
-		output = " (call " +funCodeExp.jFunName + sb.toString() + ")";
+		output = " (call " +funCodeExp.jFunName +" " + sb.toString() + ")";
 		
 	}
 	@Override

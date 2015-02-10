@@ -32,6 +32,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.UIManager;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,13 +98,14 @@ public class YEAPGui implements IExecuteHelper{
 		this.outputPane = new JEditorPane();
 		// Var list:
 		this.environment = new JTable(envDataModel);
-		this.environment.setPreferredScrollableViewportSize(new Dimension(200, 300));
+		this.environment.setPreferredScrollableViewportSize(new Dimension(200, 200));
 		// Function list:
 		this.functions = new JTable(envFunctionsModel);
-		this.functions.setPreferredScrollableViewportSize(new Dimension(200, 300));
+		this.functions.setPreferredScrollableViewportSize(new Dimension(200, 200));
 		
-		this.tree = new JTree();
+		this.tree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		this.tree.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		
 		
 		
 		
@@ -139,7 +143,8 @@ public class YEAPGui implements IExecuteHelper{
 		
 		JScrollPane editorScrollPane = new JScrollPane(editor);
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		editorScrollPane.setMinimumSize(new Dimension(800, 400));
+		editorScrollPane.setPreferredSize(new Dimension(800, 400));
+		editorScrollPane.setMaximumSize(new Dimension(500,200));
 		
 		Box commandPanel = Box.createVerticalBox();
 		
@@ -157,14 +162,14 @@ public class YEAPGui implements IExecuteHelper{
 		JPanel envPanel = new JPanel();
 		envPanel.setLayout(new BorderLayout());
 		envPanel.setBorder(BorderFactory.createTitledBorder("Defined variables"));
-		envPanel.setMinimumSize(new Dimension(200,200));
+		envPanel.setPreferredSize(new Dimension(200,200));
 		envPanel.add(environment);
 		
 		
 		JPanel funPanel = new JPanel();
 		funPanel.setLayout(new BorderLayout());
 		funPanel.setBorder(BorderFactory.createTitledBorder("Defined Functions"));
-		funPanel.setMinimumSize(new Dimension(200,200));		
+		funPanel.setPreferredSize(new Dimension(200,200));		
 		funPanel.add(functions);
 		
 		Box visitorBox = Box.createHorizontalBox();
@@ -194,7 +199,7 @@ public class YEAPGui implements IExecuteHelper{
 		
 		JPanel resultTreePanel = new JPanel();
 		resultTreePanel.setLayout(new BorderLayout());
-		resultTreePanel.setBorder(BorderFactory.createTitledBorder("Evaluation Output"));
+		resultTreePanel.setBorder(BorderFactory.createTitledBorder("Tree View"));
 		resultTreePanel.add(tree);
 		this.tree.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
@@ -204,7 +209,7 @@ public class YEAPGui implements IExecuteHelper{
 //		app.add(mainPanel);
 //		app.add(resultPanel);
 		JSplitPane app = new JSplitPane(JSplitPane.VERTICAL_SPLIT,mainPanel,resultPanel);
-		app.setOneTouchExpandable(true);
+		//app.setOneTouchExpandable(true);
 		app.setDividerLocation(0.5);
 		//app.setDividerLocation(500);
 		frame.getContentPane().add(app);
