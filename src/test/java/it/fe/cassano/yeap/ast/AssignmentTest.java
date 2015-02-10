@@ -28,12 +28,6 @@ public class AssignmentTest extends TestCase {
     	assertEquals("(TEST=(1))", a.toString());
     }
     
-    public void testMultipleAssignment()
-    {
-    	Exp a = new AssignExp( new IdentExp("PROVA"), new AssignExp( new IdentExp("TEST"), new NumExp(1)));
-    	assertEquals("(PROVA=(TEST=(1)))", a.toString());
-    	
-    }
     
     public void testBuildAssignmentWithExpRV()
     {

@@ -49,7 +49,20 @@ public class AssignmentParserTest extends TestCase {
     	assertEquals("(A=(-(3.0)))",p.s().toString());
     }
     
-  
+    public void testParseAssigmentInvalidMultiple()  
+    {
+    	try
+    	{
+	    	Reader r = new StringReader("A=B=C=3.0;");
+	    	ExpressionParser p = new ExpressionParser(r);
+	    	p.s();
+	    	assertTrue(false);
+    	}
+    	catch(ParseException e)
+    	{
+    		assertTrue(true);
+    	}
+    } 
     
     public void testParseAssigmentInvalidWithUOP()  
     {
@@ -58,6 +71,7 @@ public class AssignmentParserTest extends TestCase {
 	    	Reader r = new StringReader("A=-BCa= 3.0;");
 	    	ExpressionParser p = new ExpressionParser(r);
 	    	p.s();
+	    	assertTrue(false);
     	}
     	catch(ParseException e)
     	{

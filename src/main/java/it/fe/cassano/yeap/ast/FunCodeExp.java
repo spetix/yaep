@@ -20,7 +20,7 @@ public class FunCodeExp extends Exp {
 	}
 
 	@Override
-	public void accept(IVisitor v) {
+	public void accept(IVisitor v) throws Exception {
 		v.visit(this);
 	}
 	

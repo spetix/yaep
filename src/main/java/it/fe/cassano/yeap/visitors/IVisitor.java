@@ -51,8 +51,8 @@ public interface IVisitor {
 	public abstract void visit(IdentValExp identValExp);
 	public abstract void visit(SeqExp seqExp) throws Exception;
 	public abstract void visit(FunDefineExp funDefineExp) throws Exception;
-	public abstract void visit(FunSignExp funSignExp);
-	public abstract void visit(FunCodeExp funCodeExp);
+	public abstract void visit(FunSignExp funSignExp) throws Exception;
+	public abstract void visit(FunCodeExp funCodeExp) throws Exception;
 	
 	
 	

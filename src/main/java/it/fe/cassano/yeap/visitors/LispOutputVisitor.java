@@ -105,19 +105,61 @@ public class LispOutputVisitor implements IVisitor, IEval<String> {
 	}
 	
 	@Override
-	public void visit(FunSignExp funSignExp) {
-		output = funSignExp.name + "(" + StringUtils.join(funSignExp.getParams()," ") + ")";
+	public void visit(FunSignExp funSignExp) throws Exception {
+		final StringBuffer sb = new StringBuffer();
+		int i=0;
+		for (final ExpType p : funSignExp.getParams())
+		{
+			switch (p)
+			{
+				case RealExp:
+				{
+					sb.append("r"+i);
+					break;
+				}
+				case NumExp:
+				{
+					sb.append("i"+i);
+					break;
+				}
+				default :
+				{
+					throw new Exception("unknown type");
+				}
+			}
+			sb.append(" ");
+			i++;
+		}
+		output = funSignExp.name + " ( " + sb.toString() + " )";
 		
 	}
 	@Override
-	public void visit(FunCodeExp funCodeExp) {
-		StringBuffer sb = new StringBuffer();
-		for (ExpType t : funCodeExp.getParams())
+	public void visit(FunCodeExp funCodeExp) throws Exception {
+		final StringBuffer sb = new StringBuffer();
+		int i=0;
+		for (final ExpType p : funCodeExp.getParams())
 		{
-				sb.append(" ");
-				sb.append(t.getClass().getSimpleName());
+			switch (p)
+			{
+				case RealExp:
+				{
+					sb.append("r"+i);
+					break;
+				}
+				case NumExp:
+				{
+					sb.append("i"+i);
+					break;
+				}
+				default :
+				{
+					throw new Exception("unknown type");
+				}
+			}
+			sb.append(" ");
+			i++;
 		}
-		output = "(call " +funCodeExp.jFunName + sb.toString() + ")";
+		output = " (call " +funCodeExp.jFunName + sb.toString() + ")";
 		
 	}
 	@Override

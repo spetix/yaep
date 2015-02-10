@@ -127,7 +127,7 @@ public class ShowTreeVisitor implements IVisitor {
 	 * Visit gets the Identifier name 
 	 */
 	public void visit(IdentValExp identValExp) throws NoSuchElementException {
-		//result = new DefaultMutableTreeNode(identValExp.getName());
+		result = new DefaultMutableTreeNode(identValExp.getName());
 	}
 
 	/**
