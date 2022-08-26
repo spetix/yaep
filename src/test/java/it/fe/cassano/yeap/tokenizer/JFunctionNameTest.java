@@ -11,6 +11,7 @@ import java.io.StringReader;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import junit.framework.Ignore;
 
 
 public class JFunctionNameTest extends TestCase {
@@ -49,6 +50,7 @@ public class JFunctionNameTest extends TestCase {
     	r.close();  	
     }
     
+	@Ignore
     public void testFNameComplex() throws IOException
     {
     	Reader r = new StringReader("a1ae_test");
