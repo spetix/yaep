@@ -4,8 +4,8 @@
 
 	<groupId>it.fe.cassano</groupId>
 	<artifactId>yeap</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<name>yeap</name>
 	<url>http://www.cassano.fe.it/yeap</url>
@@ -13,7 +13,6 @@
 	<scm>
 		<connection>scm:git:https://github.com/spetix/yaep.git</connection>
 		<developerConnection>scm:git:https://github.com/spetix/yaep.git</developerConnection>
-		<!-- <url>http://somerepository.com/view.cvs</url> -->
 	</scm>
 
 	<properties>
@@ -21,7 +20,8 @@
 	</properties>
 
 	<build>
-		<plugins>
+	   <pluginManagement>
+			<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
@@ -33,12 +33,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>3.2.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.8</version>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>add-source</id>
@@ -57,18 +57,19 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.10.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>11</source>
+					<target>11</target>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.javacc.plugin</groupId>
 				<artifactId>javacc-maven-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
+						<?m2e execute onConfiguration?>
 						<id>javacc</id>
 						<phase>generate-sources</phase>
 						<goals>
@@ -80,93 +81,35 @@
 					<dependency>
 						<groupId>net.java.dev.javacc</groupId>
 						<artifactId>javacc</artifactId>
-						<version>6.1.2</version>
+						<version>7.0.12</version>
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+			<version>3.0.0-M7</version>
+            <configuration>
+                <properties>
+                    <includeTags>junit5</includeTags>
+                </properties>
+            </configuration>
+        </plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>build-helper-maven-plugin</artifactId>
-										<versionRange>[1.0,)</versionRange>
-										<goals>
-											<goal>parse-version</goal>
-											<goal>add-source</goal>
-											<goal>maven-version</goal>
-											<goal>add-resource</goal>
-											<goal>add-test-resource</goal>
-											<goal>add-test-source</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>javacc-maven-plugin</artifactId>
-										<versionRange>[2.6]</versionRange>
-										<goals>
-											<goal>javacc</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-clean-plugin</artifactId>
-										<versionRange>[2.6]</versionRange>
-										<goals>
-											<goal>clean</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
 		</pluginManagement>
 	</build>
 
-	<reporting>
+	<!-- <reporting>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.javacc.plugin</groupId>
 				<artifactId>javacc-maven-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.0.1</version>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
+				<version>3.4.1</version>
 				<configuration>
 					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
 					<docletArtifact>
@@ -180,43 +123,24 @@
 			</plugin>
  
 		</plugins>
-	</reporting>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.3.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.7</version>
-		</dependency>
+	</reporting> -->
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.10</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.0</version>
-		</dependency>
+		<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.9.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
 
-	</dependencies>
+		</dependencies>
+	</dependencyManagement>
+
+<modules>
+<module>yeap-library</module>
+<module>yeap-gui</module>
+</modules>
 </project>
