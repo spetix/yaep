@@ -5,7 +5,7 @@
 	<groupId>it.fe.cassano</groupId>
 	<artifactId>yeap</artifactId>
 	<version>1.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>yeap</name>
 	<url>http://www.cassano.fe.it/yeap</url>
@@ -20,7 +20,8 @@
 	</properties>
 
 	<build>
-		<plugins>
+	   <pluginManagement>
+			<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
@@ -94,9 +95,10 @@
             </configuration>
         </plugin>
 		</plugins>
+		</pluginManagement>
 	</build>
 
-	<reporting>
+	<!-- <reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.javacc.plugin</groupId>
@@ -121,7 +123,7 @@
 			</plugin>
  
 		</plugins>
-	</reporting>
+	</reporting> -->
 
 		<dependencyManagement>
 		<dependencies>
@@ -132,45 +134,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.36</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-
-
-	</dependencies>
+<modules>
+<module>yeap-library</module>
+<module>yeap-gui</module>
+</modules>
 </project>
