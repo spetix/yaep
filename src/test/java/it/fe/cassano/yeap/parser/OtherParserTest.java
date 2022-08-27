@@ -4,31 +4,19 @@ import it.fe.cassano.yeap.ast.Exp;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ParseException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
 
-public class OtherParserTest extends TestCase {
+class OtherParserTest {
 	
-	public OtherParserTest(String testName) {
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(OtherParserTest.class);
-  
-        return ts;
-    }
     
-    public void testExprSimpleRightMinus() throws IOException, ParseException
+    @Test
+    void testExprSimpleRightMinus() throws IOException, ParseException
     {
     	Reader valThis = new StringReader("1 - ( 1 - 1 );");
         ExpressionParser p = new ExpressionParser(valThis);
@@ -37,7 +25,8 @@ public class OtherParserTest extends TestCase {
     	
     }
     
-    public void testUltraViolence() throws IOException, ParseException
+    @Test
+    void testUltraViolence() throws IOException, ParseException
     {
     
         Reader valThis = new StringReader("A=3;1 - ( a(3.4,-1) - 1 );");
@@ -47,7 +36,8 @@ public class OtherParserTest extends TestCase {
     	
     }
     
-    public void testLongTerms() throws IOException, ParseException
+    @Test
+    void testLongTerms() throws IOException, ParseException
     {
     
         Reader valThis = new StringReader("1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1;");

@@ -1,35 +1,23 @@
 package it.fe.cassano.yeap.visitor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import it.fe.cassano.yeap.MockEnvironment;
 import it.fe.cassano.yeap.ast.AssignExp;
 import it.fe.cassano.yeap.ast.IdentExp;
 import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.PlusExp;
 import it.fe.cassano.yeap.visitors.EvalVisitor;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 
-
-public class EvalWithAssignVisitorTest extends TestCase {
+class EvalWithAssignVisitorTest {
 	
-	public EvalWithAssignVisitorTest(String testName)
-	{
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(EvalWithAssignVisitorTest.class);
-  
-        return ts;
-    }
-    
-    public void testSum() throws Exception
+	
+    @Test
+    void testSum() throws Exception
     {
     	PlusExp sum = new PlusExp(new NumExp(3),new NumExp(5));
     	System.out.println(sum.toString());
@@ -39,7 +27,8 @@ public class EvalWithAssignVisitorTest extends TestCase {
         assertEquals(8, ((Integer) v.getVal()).intValue());    
     }
 
-    public void testAssignVal() throws Exception
+    @Test
+    void testAssignVal() throws Exception
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new NumExp(5));
     	System.out.println(assignment.toString());
@@ -49,7 +38,8 @@ public class EvalWithAssignVisitorTest extends TestCase {
         assertEquals(5, ((Integer) v.getVal()).intValue());    
     }
     
-    public void testAssignExpr() throws Exception
+    @Test
+    void testAssignExpr() throws Exception
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new PlusExp(new NumExp(3),new NumExp(5)));
     	System.out.println(assignment.toString());
@@ -59,7 +49,8 @@ public class EvalWithAssignVisitorTest extends TestCase {
         assertEquals(8, ((Integer) v.getVal()).intValue());    
     }
     
-    public void testAssignEnv() throws Exception
+    @Test
+    void testAssignEnv() throws Exception
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new NumExp(5));
     	System.out.println(assignment.toString());
@@ -70,7 +61,8 @@ public class EvalWithAssignVisitorTest extends TestCase {
         assertEquals(5,((Integer) v.getEnvironment().get("A")).intValue());
     }
     
-    public void testAssignedTwice() throws Exception
+    @Test
+    void testAssignedTwice() throws Exception
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"),new NumExp(5));
     	System.out.println(assignment.toString());
@@ -84,7 +76,8 @@ public class EvalWithAssignVisitorTest extends TestCase {
         assertEquals(7,((Integer) v.getEnvironment().get("A")).intValue());
     }
     
-    public void testDoubleAssignment() throws Exception
+    @Test
+    void testDoubleAssignment() throws Exception
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"), new AssignExp(new IdentExp("A"), new NumExp(5)));
     	System.out.println(assignment.toString());
@@ -95,7 +88,8 @@ public class EvalWithAssignVisitorTest extends TestCase {
         assertEquals(5,((Integer) v.getEnvironment().get("A")).intValue());
     }
     
-    public void testDoubleAssignmentEnv() throws Exception
+    @Test
+    void testDoubleAssignmentEnv() throws Exception
     {
     	AssignExp assignment = new AssignExp(new IdentExp("A"), new AssignExp(new IdentExp("B"), new NumExp(5)));
     	System.out.println(assignment.toString());

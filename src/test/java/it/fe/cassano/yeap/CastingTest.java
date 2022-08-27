@@ -1,39 +1,13 @@
 package it.fe.cassano.yeap;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Unit test for simple App.
- */
-public class CastingTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public CastingTest( String testName )
-    {
-        super( testName );
-    }
+import org.junit.jupiter.api.Test;
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(CastingTest.class);
-
-        return ts;
-    }
-
-    /** 
-     */
-    public void testCasting() 
+class CastingTest {
+   
+    @Test
+    void testCasting() 
     {
     	int a = 3;
     	Object b = a;
@@ -42,7 +16,8 @@ public class CastingTest
     	assertEquals(3,(int)b);
     }
     
-    public void testCasting2() 
+    @Test
+    void testCasting2() 
     {
     	int a = 3;
     	Object b = a;

@@ -6,29 +6,18 @@ import it.fe.cassano.yeap.ast.NumExp;
 import it.fe.cassano.yeap.ast.RealExp;
 import it.fe.cassano.yeap.visitors.LispOutputVisitor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Arrays;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
 
-public class LispOutputVisitorTest extends TestCase {
+class LispOutputVisitorTest {
 
-	public LispOutputVisitorTest(String testName) {
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(LispOutputVisitorTest.class);
-  
-        return ts;
-    }
+
     
-    public void testNumExp()
+    @Test
+	void testNumExp()
     {
     	NumExp e = new NumExp(3);
     	LispOutputVisitor v = new LispOutputVisitor();
@@ -36,7 +25,8 @@ public class LispOutputVisitorTest extends TestCase {
     	assertEquals("3",v.getVal());
     }
     
-    public void testRealExp()
+    @Test
+	void testRealExp()
     {
     	RealExp e = new RealExp(-3.21d);
     	LispOutputVisitor v = new LispOutputVisitor();
@@ -44,7 +34,8 @@ public class LispOutputVisitorTest extends TestCase {
     	assertEquals("-3.21",v.getVal());
     }
     
-    public void testFunExp() throws Exception
+    @Test
+	void testFunExp() throws Exception
     {
     	FunExp e = new FunExp("myfun", Arrays.asList( new Exp[]{ new NumExp(3), new RealExp(3.2d)}	));
     	LispOutputVisitor v = new LispOutputVisitor();

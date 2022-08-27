@@ -4,31 +4,19 @@ import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ExpressionParserConstants;
 import it.fe.cassano.yeap.ccparser.Token;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
 
 
-public class TokenizerExpressionsTest extends TestCase {
+class TokenizerExpressionsTest  {
 
-	public TokenizerExpressionsTest(String testName) {
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(TokenizerExpressionsTest.class);  
-        return ts;
-    }
-   
-    public void testSimpleSum() throws IOException
+	@Test
+	void testSimpleSum() throws IOException
     {
     	Reader r = new StringReader("3+ 1");
     	ITokenizer t = new ExpressionParser(r);
@@ -42,7 +30,9 @@ public class TokenizerExpressionsTest extends TestCase {
     	assertEquals("1",tok.image);
     	r.close();  	
     }
-    public void testSum() throws IOException
+    
+	@Test
+	void testSum() throws IOException
     {
     	Reader r = new StringReader("3+-1");
     	ITokenizer t = new ExpressionParser(r);
@@ -59,7 +49,8 @@ public class TokenizerExpressionsTest extends TestCase {
     	r.close();  	
     }
     
-    public void testDoubleMinus() throws IOException {
+    @Test
+	void testDoubleMinus() throws IOException {
     	Reader r = new StringReader("1-1-1");
     	ITokenizer t = new ExpressionParser(r);
     	Token tok = t.getNextToken();
@@ -79,7 +70,8 @@ public class TokenizerExpressionsTest extends TestCase {
     	
     }
     
-    public void testOperationWithIdent() throws IOException
+    @Test
+	void testOperationWithIdent() throws IOException
     {
     	Reader r = new StringReader("3*_ + 1.4");
     	ITokenizer t = new ExpressionParser(r);
@@ -99,7 +91,8 @@ public class TokenizerExpressionsTest extends TestCase {
     	r.close();  	
     }
     
-    public void testOperationWithFunction() throws IOException
+    @Test
+	void testOperationWithFunction() throws IOException
     {
     	Reader r = new StringReader("3*abc(_) + 1.4");
     	ITokenizer t = new ExpressionParser(r);
@@ -127,7 +120,8 @@ public class TokenizerExpressionsTest extends TestCase {
     }
     
     
-    public void testSequence() throws IOException
+    @Test
+	void testSequence() throws IOException
     {
     	Reader r = new StringReader("A=3,3-A");
     	ITokenizer t = new ExpressionParser(r);
@@ -152,7 +146,8 @@ public class TokenizerExpressionsTest extends TestCase {
     	r.close();  	
     }
     
-    public void testComplexSequence() throws IOException
+    @Test
+	void testComplexSequence() throws IOException
     {
     	Reader r = new StringReader("A=3,abc(_,-0.3)--1");
     	ITokenizer t = new ExpressionParser(r);

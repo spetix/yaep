@@ -4,31 +4,19 @@ import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ExpressionParserConstants;
 import it.fe.cassano.yeap.ccparser.Token;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+class TokenizerFunctionNameTest  {
 
 
-public class TokenizerFunctionNameTest extends TestCase {
-
-	public TokenizerFunctionNameTest(String testName) {
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(TokenizerFunctionNameTest.class);  
-        return ts;
-    }
    
-    public void testJName() throws IOException
+    @Test
+	void testJName() throws IOException
     {
     	Reader r = new StringReader("java.lang.Math.sin");
     	ITokenizer t = new ExpressionParser(r);
@@ -39,7 +27,8 @@ public class TokenizerFunctionNameTest extends TestCase {
     	
     }
     
-    public void testJName2() throws IOException
+    @Test
+	void testJName2() throws IOException
     {
     	Reader r = new StringReader("java.Math.sin(");
     	ITokenizer t = new ExpressionParser(r);
@@ -50,7 +39,8 @@ public class TokenizerFunctionNameTest extends TestCase {
     	
     }
     
-    public void testJName3() throws IOException
+    @Test
+	void testJName3() throws IOException
     {
     	Reader r = new StringReader("= java.Math.sin(");
     	ITokenizer t = new ExpressionParser(r);
@@ -58,11 +48,7 @@ public class TokenizerFunctionNameTest extends TestCase {
     	tok = t.getNextToken();
     	assertEquals(ExpressionParserConstants.JFUN, tok.kind);
     	assertEquals("java.Math.sin",tok.image);
-    	r.close();  
-    	
+    	r.close(); 	
     }
-
- 
-
     
 }

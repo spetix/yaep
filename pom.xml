@@ -13,7 +13,6 @@
 	<scm>
 		<connection>scm:git:https://github.com/spetix/yaep.git</connection>
 		<developerConnection>scm:git:https://github.com/spetix/yaep.git</developerConnection>
-		<!-- <url>http://somerepository.com/view.cvs</url> -->
 	</scm>
 
 	<properties>
@@ -69,6 +68,7 @@
 				<version>3.0.1</version>
 				<executions>
 					<execution>
+						<?m2e execute onConfiguration?>
 						<id>javacc</id>
 						<phase>generate-sources</phase>
 						<goals>
@@ -84,76 +84,16 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+			<version>3.0.0-M7</version>
+            <configuration>
+                <properties>
+                    <includeTags>junit5</includeTags>
+                </properties>
+            </configuration>
+        </plugin>
 		</plugins>
-				<!--
-		<pluginManagement>
-			<plugins>
-					 <plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>build-helper-maven-plugin</artifactId>
-										<versionRange>[1.0,)</versionRange>
-										<goals>
-											<goal>parse-version</goal>
-											<goal>add-source</goal>
-											<goal>maven-version</goal>
-											<goal>add-resource</goal>
-											<goal>add-test-resource</goal>
-											<goal>add-test-source</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>javacc-maven-plugin</artifactId>
-										<versionRange>[2.6]</versionRange>
-										<goals>
-											<goal>javacc</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-clean-plugin</artifactId>
-										<versionRange>[3.0.1]</versionRange>
-										<goals>
-											<goal>clean</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement> -->
 	</build>
 
 	<reporting>
@@ -182,13 +122,26 @@
  
 		</plugins>
 	</reporting>
+
+		<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.9.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>

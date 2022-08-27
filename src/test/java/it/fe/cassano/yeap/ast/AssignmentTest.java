@@ -1,42 +1,25 @@
 package it.fe.cassano.yeap.ast;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AssignmentTest extends TestCase {
+import org.junit.jupiter.api.Test;
+
+class AssignmentTest  {
 	
-	public AssignmentTest(String testName) 
-	{
-		super(testName);
-	}
 	
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(AssignmentTest.class);
-  
-        return ts;
-    }
-    
-    public void testBuildAssignment()
+    @Test
+    void testBuildAssignment()
     {
     	Exp a = new AssignExp( new IdentExp("TEST"), new NumExp(1));
     	assertEquals("(TEST=(1))", a.toString());
     }
     
-    
-    public void testBuildAssignmentWithExpRV()
+    @Test
+    void testBuildAssignmentWithExpRV()
     {
     	Exp e = new PlusExp(new NumExp(1), new NumExp(1));
     	Exp a = new AssignExp( new IdentExp("TEST"), e);
     	assertEquals("(TEST=((1)+(1)))", a.toString());
     }
-    
-    
-    
 
 }

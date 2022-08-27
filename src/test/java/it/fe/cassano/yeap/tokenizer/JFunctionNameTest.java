@@ -4,32 +4,20 @@ import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ExpressionParserConstants;
 import it.fe.cassano.yeap.ccparser.Token;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
 
+class JFunctionNameTest {
 
-
-public class JFunctionNameTest extends TestCase {
-
-	public JFunctionNameTest(String testName) {
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(JFunctionNameTest.class);  
-        return ts;
-    }
    
-    public void testFName() throws IOException
+    @Test
+	void testFName() throws IOException
     {
     	Reader r = new StringReader("s(2)");
     	ITokenizer t = new ExpressionParser(r);
@@ -41,7 +29,8 @@ public class JFunctionNameTest extends TestCase {
     
   
     
-    public void testNotAFName() throws IOException
+    @Test
+	void testNotAFName() throws IOException
     {
     	Reader r = new StringReader("Aaa");
     	ITokenizer t = new ExpressionParser(r);

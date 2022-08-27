@@ -3,31 +3,21 @@ package it.fe.cassano.yeap.parser;
 import it.fe.cassano.yeap.ccparser.ExpressionParser;
 import it.fe.cassano.yeap.ccparser.ParseException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
 
-public class FactorParserTest extends TestCase {
+
+
+class FactorParserTest {
 	
-	public FactorParserTest(String testName) {
-		super(testName);
-	}
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-    	final TestSuite ts = new TestSuite();
-    	ts.addTestSuite(FactorParserTest.class);
-  
-        return ts;
-    }
-    
-    public void testParseFactor() throws IOException, ParseException
+	
+    @Test
+    void testParseFactor() throws IOException, ParseException
     {
     	Reader r = new StringReader("  1  ");
     	ExpressionParser p = new ExpressionParser(r);
@@ -35,7 +25,8 @@ public class FactorParserTest extends TestCase {
     	
     }
     
-    public void testParseFactor4() throws IOException, ParseException
+    @Test
+    void testParseFactor4() throws IOException, ParseException
     {
     	Reader r = new StringReader("( 1 + 1 )");
     	ExpressionParser p = new ExpressionParser(r);
@@ -43,7 +34,8 @@ public class FactorParserTest extends TestCase {
     	
     }
     
-    public void testParseFactor5() throws IOException, ParseException
+    @Test
+    void testParseFactor5() throws IOException, ParseException
     {
     	Reader r = new StringReader("( 1 * 1 )");
     	ExpressionParser p = new ExpressionParser(r);
@@ -52,7 +44,8 @@ public class FactorParserTest extends TestCase {
     	
     }
     
-    public void testParseFactorTernary() throws IOException, ParseException
+    @Test
+    void testParseFactorTernary() throws IOException, ParseException
     {
     	Reader r = new StringReader("( 1 * 1 * 1 )");
     	ExpressionParser p = new ExpressionParser(r);
