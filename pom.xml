@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>it.fe.cassano</groupId>
-	<artifactId>yeap</artifactId>
+	<artifactId>yaep</artifactId>
 	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>yeap</name>
-	<url>http://www.cassano.fe.it/yeap</url>
+	<name>yaep</name>
+	<url>http://www.cassano.fe.it/yaep</url>
 
 	<scm>
 		<connection>scm:git:https://github.com/spetix/yaep.git</connection>
@@ -48,7 +48,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>${project.build.directory}/generated-sources/it.fe.cassano.yeap.ccparser</source>
+								<source>${project.build.directory}/generated-sources/it.fe.cassano.yaep.ccparser</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -98,33 +98,6 @@
 		</pluginManagement>
 	</build>
 
-	<!-- <reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.javacc.plugin</groupId>
-				<artifactId>javacc-maven-plugin</artifactId>
-				<version>3.0.1</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.4.1</version>
-				<configuration>
-					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-					<docletArtifact>
-						<groupId>org.umlgraph</groupId>
-						<artifactId>umlgraph</artifactId>
-						<version>5.6</version>
-					</docletArtifact>
-					<additionalparam>-views -all</additionalparam>
-					<useStandardDocletOptions>true</useStandardDocletOptions>
-				</configuration>
-			</plugin>
- 
-		</plugins>
-	</reporting> -->
-
 		<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -140,7 +113,8 @@
 	</dependencyManagement>
 
 <modules>
-<module>yeap-library</module>
-<module>yeap-gui</module>
+<module>yaep-library</module>
+<module>yaep-gui</module>
+<module>yaep-api</module>
 </modules>
 </project>

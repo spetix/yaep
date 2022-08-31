@@ -1,0 +1,135 @@
+openapi: "3.0.3"
+info:
+  title: "yaep expression parser"
+  description: "Api to evaluate expression sheets"
+  version: "1.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+- name: workspace
+  description: operation related to workspace
+
+servers:
+- url: https://{realUrl}:{port}/{basePath}
+  description: The production API server
+  variables:
+    realUrl:
+      default: localhost
+      description: this value is assigned by the service provider, in this example `gigantic-server.com`
+    port:
+      enum:
+        - '8443'
+        - '443'
+      default: '8443'
+    basePath:
+      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+      default: v1
+
+
+paths:
+  /ws/{workspaceID}:
+    parameters:
+    - $ref: "#/components/parameters/WorkspaceIDParam"
+    delete:
+      operationId: deleteWorkspace
+      tags:
+      - workspace
+      description: delete current workspace with ID workspaceID
+      responses:
+        '204':
+          description: Object not present anymore
+    get:
+      responses:
+        '200':
+          description: successfully retrieving workspace
+          content:
+            application/jsom:
+              schema: 
+                $ref: "#/components/schemas/WorkspaceDef"
+        '404':
+          description: workspace not found
+            
+    post:
+      operationId: createWorkspace
+      tags:
+      - workspace
+      description: create new workspace with ID workspaceID
+      parameters:
+      - $ref: "#/components/parameters/WorkspacePersistentParam"
+      requestBody:
+        description: initial workspace definition
+        content:
+          application/jsom:
+            schema: 
+              $ref: "#/components/schemas/WorkspaceDef"
+            examples:
+              Good:
+                $ref: "#/components/examples/WorkspaceDefExample"
+      responses:
+        '201':
+          description: successful creation
+          content:
+            application/jsom:
+              schema:
+                $ref: "#/components/schemas/WorkspaceID"
+
+components:
+  parameters:
+    WorkspaceIDParam:
+      name: workspaceID
+      required: true
+      in: path
+      schema:
+        $ref: "#/components/schemas/WorkspaceID"
+    WorkspacePersistentParam: 
+      name: workspacePersistent
+      in: query
+      description: preserve workspace
+      schema:
+        type: boolean
+  schemas:
+    WorkspaceID:
+      type: string
+    Expression:
+      type: string
+      
+    EnvironmentValue:
+          type: string
+    EnvironmentEntries:
+      description: "Environment variables set"
+      type: object
+      additionalProperties: 
+        $ref: '#/components/schemas/EnvironmentValue'
+
+    WorkspaceDef:
+      type: object
+      properties:
+        id: 
+          $ref: "#/components/schemas/WorkspaceID"
+        env:
+          $ref: "#/components/schemas/EnvironmentEntries"
+        expressions:
+          type: array 
+          items:
+            $ref: "#/components/schemas/Expression"
+  examples:
+    ValidEnvironmentExample:
+      value:
+        A: "7" 
+        B": "42"
+    ValidExpressionsExample:
+      value:
+      - "C=A+B"
+      - "3*C"
+    WorkspaceDefExample:
+      value:
+        env:
+          $ref: "#/components/examples/ValidEnvironmentExample"
+        expressions:
+          $ref: "#/components/examples/ValidExpressionsExample"
+      
+      
+      
+
+          

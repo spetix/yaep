@@ -1,268 +1,0 @@
-options{
-  JDK_VERSION = "1.7";
-  STATIC = false;
-  FORCE_LA_CHECK = true;
-  DEBUG_PARSER = true;
-  DEBUG_LOOKAHEAD = true;
-  DEBUG_TOKEN_MANAGER = true;
- }
-PARSER_BEGIN(ExpressionParser)
-package it.fe.cassano.yeap.ccparser;
-import java.io.BufferedReader;
-import java.io.Reader;
-import it.fe.cassano.yeap.ast.*;
-import it.fe.cassano.yeap.tokenizer.ITokenizer;
-import it.fe.cassano.yeap.parser.IParser;
-import java.util.List;
-import java.util.ArrayList;
-import it.fe.cassano.yeap.visitors.ExpType;
-import org.apache.commons.lang3.StringUtils;
-
-public class ExpressionParser implements ITokenizer, IParser{}PARSER_END(ExpressionParser)
-
-SKIP :
-{  " " | "\t" }
-
-TOKEN : /* SEPARATORS: */
-{
- < SEPARATOR : ("\n" | "\r" | ";")+  >
-}
-
-TOKEN : /* OPERATORS */
-{
-  < PLUS : "+" >
-| < MINUS : "-" >
-| < MUL : "*" >
-| < DIV : "/" >
-| < ASSIGN : "=" >
-}
-TOKEN : /* SYNTAX HELPERS */
-{
-  
- < OBR: "(" >
-| < CBR: ")" >
-| <  COMMA: "," >
-
-
-}
-
-
-TOKEN : /* IDENTIFIERS */
-{
-  < IDENT : (< UPCASE >|< USCORE >)(< UPCASE > |< USCORE > | < DIGIT > | < LOWCASE > )* >
-| < #UPCASE : ["A"-"Z"] >
-| < #USCORE : "_" >
-}
-/* Using same symbol for lvalue and rvalue of a var, removing this token *//*
-TOKEN : 
-{
-  < VALUEIDENT : < VAL ><IDENT > >
-| < #VAL : "$" >
-}
-*/
-TOKEN : /* FUNCTION NAME */
-{
-  < FNAME : < LOWCASE >(< UPCASE > | < DIGIT > | < LOWCASE >)* >
-|  < #LOWCASE : ["a"-"z"] >
-}
-
-TOKEN :{
-  < ALIAS: < DEF ><FNAME > > 
-|  < #DEF : "%" >}
-
-TOKEN :
-{
-  < JFUN : (< LOWCASE > (<UPCASE >|< DIGIT >|<LOWCASE >)*< DOT >)+< UPCASE >(< UPCASE >|< DIGIT >|< LOWCASE >|< USCORE >)*< DOT >(< UPCASE >|< LOWCASE >|< USCORE >)(< UPCASE >| < DIGIT > | < LOWCASE >)* >
-}
-
-TOKEN : /* NUMBERS */
-{
-  < INTNUM : < DIGIT >(< ZERO >| < DIGIT >)* | < ZERO > >
-| < #DIGIT : [ "1"-"9" ] >
-| < #ZERO : "0" >
-}
-
-TOKEN : /* REAL NUMBERS */
-{
-  < REALNUM : < INTNUM > < DOT > (< ZERO > | < DIGIT >)* >   
-| < #DOT : "." >
-}
-
-TOKEN : /* DATA TYPES */
-{
-  < DATATYPE : ":RealExp" | ":NumExp" >
-
-}
-
-/* VN */public Exp s():{Exp ast;}{  ast=initialGoal() < EOF >  {    return ast;  }}
-public Exp initialGoal():
-{Exp t1=null; Exp t2 = null;}
-{	  /*
-	     Placing assignment here instead of inside expr. This avoids very confusing notations such as:
-	     3*A=3 or A=(B=3)/1 or 1+C=(2*$B)
-	     but also forbids A=B=C=D=3
-	     to reintroduce multiple assigments assignment() rule has to be changed consequently.
-	  */	  	  (  LOOKAHEAD(2) t1=assignment()	  | t1=expr()	  | t1=fundef() )
-	  ( (< SEPARATOR >)+ ( t2=initialGoal() { t1 = new SeqExp(t1,t2);	} )?)
-	{	  return t1;
-	}
-}
-
-
-
-   
-/* Function alias definition */
-Exp fundef():
-{Token fAlias, javaName, returnType; List<ExpType > par = new ArrayList<ExpType >(); }
-{
-	 fAlias=< ALIAS > <ASSIGN > javaName=< JFUN ><OBR > fundefparams(par) < CBR > returnType=<DATATYPE >
-	 {
-	    final String theAlias = StringUtils.substring(fAlias.image,1);
-	    final ExpType theReturnType = ExpType.valueof(StringUtils.substring(returnType.image,1));
-  		return new FunDefineExp(new FunSignExp(theAlias,par), new FunCodeExp(javaName.image,theReturnType,par));	 }
-}
-
-
-void fundefparams(List<ExpType > params):
-{Token t1;}
-{
-  /* empty params list is not accepted */
-  t1=< DATATYPE >  {
-    params.add(ExpType.valueof(StringUtils.substring(t1.image,1)));  }
-  (  < COMMA > t1=<DATATYPE >  {	params.add(ExpType.valueof(StringUtils.substring(t1.image,1)));
-  }
-  )*
-}
-
-
-
-public Exp expr() :
-{Exp t1,t2;Token t;}
-{
-   t1 = term() (  < PLUS > t2= term()
-   {  
-     t1= new PlusExp(t1,t2); 
-   }
-  |    < MINUS > t2= term() 
-   {
-	 t1 = new MinusExp(t1,t2);
-    }
-  )*
- {
-   return t1;
- }
-}
-
-
-Exp assignment() : 
-{Exp t1=null; Token id;}
-{  	
-    /* the following permits single assignment only */
-        id=< IDENT >  < ASSIGN > t1=expr()
-    /*
-       In order to keep multiple assignments (i.e. A=B=C=D=3) the rule
-       has to be changed in:
-        id= < IDENT > <ASSIGN >  ( LOOKAHEAD(2) t1=expr() | t1=assigment())        And do something better for lookahead..
-     */
-        
-    {		return new AssignExp(new IdentExp(id.image),t1);
-    }
-}
-
-
-Exp term():
-{Exp t1,t2;}
-{     t1=factor()
-   ( < MUL > t2=factor()     {    
-       t1 = new MulExp(t1,t2);
-     }
-   |  < DIV > t2=factor()
-     {
-       t1 = new DivExp(t1,t2);    
-     }
-    )*
-  {
-   return t1;  }
-}
-
-Exp factor():
-{Token t; Exp t1;}
-{
- (   
-  t=<INTNUM>
-  {
-    t1= new NumExp(Integer.parseInt(t.image));  }
- 
-  |
-  t=< REALNUM >
-  {
-    t1 = new RealExp(Double.parseDouble(t.image));  }
-  |  /*
-    t=< VALUEIDENT >
-    {
-      t1 = new IdentValExp(StringUtils.substring(t.image,1));    }    */    t=< IDENT >    {      t1 = new IdentValExp(t.image);    }
-  | 
-  < OBR > t1=expr() < CBR >
-  |
-  t1=function()
-  | 
-  t1=unaryMinus()
-)
-{
-  return t1;}
-}
-
-
-Exp function():
-{Token t;List<Exp > params = new ArrayList<Exp >();}
-{
-  t=< FNAME >< OBR > fparams(params) < CBR >
-  {
-    return new FunExp(t.image,params);  }
-}
-
-
-void fparams(List<Exp > params):
-{Exp t1;}
-{
-  t1=expr()
-  {
-    params.add(t1);
-  }
-   ( < COMMA >  t1=expr()
-   {
-    params.add(t1);
-  }
-  )*
-}
-
-/* WAS: but param is exactly expr..
-void fparams(List<Exp > params):
-{Exp t1;}
-{
-  t1=param()  {
-    params.add(t1);  }
-   ( < COMMA >  param()
-   {
-    params.add(t1);
-  }
-  )*
-}
-
-Exp param():
-{Exp t1;}
-{
-  t1 =expr()
-  {
-    return t1;  }
-}
-*/
-Exp unaryMinus():
-{Exp e;}
-{
-  < MINUS > e = expr()
-  {
-    return new UnaryMinusExp(e);
-  }
-}
-
