@@ -28,6 +28,18 @@ servers:
 
 
 paths:
+  /ws:
+    get:
+      operationId: listWorkspaces
+      tags:
+      - workspace
+      responses:
+        '200':
+          description: successfully returning list of workspaces
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkspaceDefs"
   /ws/{workspaceID}:
     parameters:
     - $ref: "#/components/parameters/WorkspaceIDParam"
@@ -40,11 +52,14 @@ paths:
         '204':
           description: Object not present anymore
     get:
+      operationId: getWorkspace
+      tags:
+      - workspace
       responses:
         '200':
           description: successfully retrieving workspace
           content:
-            application/jsom:
+            application/json:
               schema: 
                 $ref: "#/components/schemas/WorkspaceDef"
         '404':
@@ -101,7 +116,10 @@ components:
       type: object
       additionalProperties: 
         $ref: '#/components/schemas/EnvironmentValue'
-
+    WorkspaceDefs:
+      type: array
+      items:
+        $ref: "#/components/schemas/WorkspaceID"
     WorkspaceDef:
       type: object
       properties:
