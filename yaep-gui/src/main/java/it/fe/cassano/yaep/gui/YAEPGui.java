@@ -1,15 +1,5 @@
 package it.fe.cassano.yaep.gui;
 
-import it.fe.cassano.yaep.gui.actions.AboutAction;
-import it.fe.cassano.yaep.gui.actions.ClearEnvironmentAction;
-import it.fe.cassano.yaep.gui.actions.CloseAction;
-import it.fe.cassano.yaep.gui.actions.ExecuteVisitAction;
-import it.fe.cassano.yaep.gui.actions.NewAction;
-import it.fe.cassano.yaep.gui.actions.OpenAction;
-import it.fe.cassano.yaep.gui.actions.SaveAction;
-import it.fe.cassano.yaep.models.MapModel;
-import it.fe.cassano.yaep.visitors.VISITORS;
-
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -34,10 +24,20 @@ import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import it.fe.cassano.yaep.gui.actions.AboutAction;
+import it.fe.cassano.yaep.gui.actions.ClearEnvironmentAction;
+import it.fe.cassano.yaep.gui.actions.CloseAction;
+import it.fe.cassano.yaep.gui.actions.ExecuteVisitAction;
+import it.fe.cassano.yaep.gui.actions.NewAction;
+import it.fe.cassano.yaep.gui.actions.OpenAction;
+import it.fe.cassano.yaep.gui.actions.SaveAction;
+import it.fe.cassano.yaep.models.MapModel;
+import it.fe.cassano.yaep.visitors.VISITORS;
+import it.fe.cassano.yaep.workspace.IWorkspace;
 
 public class YAEPGui implements IExecuteHelper{
 
@@ -59,6 +59,8 @@ public class YAEPGui implements IExecuteHelper{
 	private JComboBox<VISITORS> visitors;
 
 	private JTree tree;
+
+	private final IWorkspace ws;
 	
 	
 
@@ -69,7 +71,7 @@ public class YAEPGui implements IExecuteHelper{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					YAEPGui window = new YAEPGui();
+					YAEPGui window = new YAEPGui(new GuiWorkspace("UI"));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,7 +83,10 @@ public class YAEPGui implements IExecuteHelper{
 	/**
 	 * Create the application.
 	 */
-	public YAEPGui() {
+	public YAEPGui(IWorkspace ws) {
+		this.ws = ws;
+		// this.envDataModel = new MapModel("Var","Value", ws.getEnv());
+		// this.envFunctionsModel = new MapModel("Alias","Java name", ws.getFun());
 		this.envDataModel = new MapModel("Var","Value");
 		this.envFunctionsModel = new MapModel("Alias","Java name");
 		initialize();

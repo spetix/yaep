@@ -37,6 +37,9 @@
 							<generatorName>jaxrs-spec</generatorName>
 							<generateSupportingFiles>false</generateSupportingFiles>
 							<generateBuilders>true</generateBuilders>
+							<typeMappings>array=java.util.LinkedList,map=LinkedMap</typeMappings>
+							<instantiationTypes>array=java.util.LinkedList,map=LinkedMap</instantiationTypes>
+							<importMappings>LinkedMap=org.apache.commons.collections4.map.LinkedMap</importMappings>
 							<configOptions>
 								<useTags>true</useTags>
 								<library>quarkus</library>
@@ -82,25 +85,25 @@
 						<maven.home>${maven.home}</maven.home>
 					</systemPropertyVariables>
 				</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<executions>
-						<execution>
-							<goals>
-								<goal>integration-test</goal>
-								<goal>verify</goal>
-							</goals>
-							<configuration>
-								<systemPropertyVariables>
-									<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-									<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-									<maven.home>${maven.home}</maven.home>
-								</systemPropertyVariables>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<systemPropertyVariables>
+								<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+								<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+								<maven.home>${maven.home}</maven.home>
+							</systemPropertyVariables>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 	</build>

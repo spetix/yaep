@@ -39,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkspaceDefs"
+                $ref: "#/components/schemas/WorkspacesDefs"
   /ws/{workspaceID}:
     parameters:
     - $ref: "#/components/parameters/WorkspaceIDParam"
@@ -116,7 +116,14 @@ components:
       type: object
       additionalProperties: 
         $ref: '#/components/schemas/EnvironmentValue'
-    WorkspaceDefs:
+    ImportedFunctionSignature:
+          type: string
+    ImportedFunctions:
+      description: "Imported functions set"
+      type: object
+      additionalProperties: 
+        $ref: '#/components/schemas/ImportedFunctionSignature'
+    WorkspacesDefs:
       type: array
       items:
         $ref: "#/components/schemas/WorkspaceID"
@@ -127,15 +134,21 @@ components:
           $ref: "#/components/schemas/WorkspaceID"
         env:
           $ref: "#/components/schemas/EnvironmentEntries"
+        fun:
+          $ref: "#/components/schemas/ImportedFunctions"
         expressions:
           type: array 
           items:
             $ref: "#/components/schemas/Expression"
+      x-implements: ['it.fe.cassano.yaep.workspace.IWorkspace']
   examples:
     ValidEnvironmentExample:
       value:
         A: "7" 
         B": "42"
+    ValidImportedFunctionsExample:
+      value:
+        abs: "java.lang.Math.abs(double)" 
     ValidExpressionsExample:
       value:
       - "C=A+B"
@@ -144,6 +157,8 @@ components:
       value:
         env:
           $ref: "#/components/examples/ValidEnvironmentExample"
+        fun:
+          $ref: "#/components/examples/ValidImportedFunctionsExample"
         expressions:
           $ref: "#/components/examples/ValidExpressionsExample"
       

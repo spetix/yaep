@@ -1,7 +1,7 @@
 package it.fe.cassano.yaep.api;
 
 
-import java.util.List;
+import java.util.LinkedList;
 
 import it.fe.cassano.yaep.model.WorkspaceDef;
 
@@ -27,7 +27,7 @@ public class WorkspaceApiImpl implements WorkspaceApi {
     }
 
     @Override
-    public List<String> listWorkspaces() {
+    public LinkedList<String> listWorkspaces() {
         // TODO Auto-generated method stub
         return null;
     }

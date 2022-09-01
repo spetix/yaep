@@ -2,7 +2,7 @@ package it.fe.cassano.yaep.models;
 
 import java.util.Map;
 
-public interface IEnvironment {
+public interface IEnvironment<T> {
 	
 	/**
 	 * Add variable and its value to the environment,
@@ -11,7 +11,7 @@ public interface IEnvironment {
 	 * @param key
 	 * @param value
 	 */
-	public void add(final String key, final Object value);
+	public void add(final String key, final T value);
 	
 	/**
 	 * remove given variable from environment
@@ -27,7 +27,7 @@ public interface IEnvironment {
 	/**
 	 * 
 	 */
-	public Object getVal(final String key);
+	public T getVal(final String key);
 	
-	public Map<String, Object> toUnmodifiableMap();
+	public Map<String, T> toUnmodifiableMap();
 }
