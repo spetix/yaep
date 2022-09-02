@@ -35,7 +35,7 @@ import it.fe.cassano.yaep.gui.actions.ExecuteVisitAction;
 import it.fe.cassano.yaep.gui.actions.NewAction;
 import it.fe.cassano.yaep.gui.actions.OpenAction;
 import it.fe.cassano.yaep.gui.actions.SaveAction;
-import it.fe.cassano.yaep.models.MapModel;
+import it.fe.cassano.yaep.gui.model.MapModel;
 import it.fe.cassano.yaep.visitors.VISITORS;
 import it.fe.cassano.yaep.workspace.IWorkspace;
 
@@ -87,8 +87,8 @@ public class YAEPGui implements IExecuteHelper{
 		this.ws = ws;
 		// this.envDataModel = new MapModel("Var","Value", ws.getEnv());
 		// this.envFunctionsModel = new MapModel("Alias","Java name", ws.getFun());
-		this.envDataModel = new MapModel("Var","Value");
-		this.envFunctionsModel = new MapModel("Alias","Java name");
+		this.envDataModel = new MapModel("Var","Value", ws.getEnv());
+		this.envFunctionsModel = new MapModel("Alias","Java name", ws.getFun());
 		initialize();
 	}
 

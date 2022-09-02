@@ -1,17 +1,18 @@
-package it.fe.cassano.yaep.models;
+package it.fe.cassano.yaep.gui.model;
 
 import java.util.Collections;
 import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 import org.apache.commons.collections4.map.LinkedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.fe.cassano.yaep.models.IEnvironment;
+
 public class MapModel extends AbstractTableModel implements
-		TableModel, IEnvironment {
+		IEnvironment {
 
 	/**
 	 * 
@@ -24,14 +25,14 @@ public class MapModel extends AbstractTableModel implements
 	private final String[] headers;
 	private final LinkedMap<String, Object> environment;
 
-	public MapModel(final String keyHeader, final String valueHeader) {
+	public MapModel(final String keyHeader, final String valueHeader, LinkedMap<String,Object> entity) {
 		super();
 		headers = new String[2];
 		headers[0]=keyHeader;
 		headers[1]=valueHeader;
 
 		LOGGER.info("Initializing function library");
-		this.environment = new LinkedMap<String, Object>();
+		this.environment = entity;
 	}
 
 	@Override

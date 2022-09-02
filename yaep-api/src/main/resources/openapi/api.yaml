@@ -110,14 +110,14 @@ components:
       type: string
       
     EnvironmentValue:
-          type: string
+          type: object
     EnvironmentEntries:
       description: "Environment variables set"
       type: object
       additionalProperties: 
         $ref: '#/components/schemas/EnvironmentValue'
     ImportedFunctionSignature:
-          type: string
+          type: object
     ImportedFunctions:
       description: "Imported functions set"
       type: object

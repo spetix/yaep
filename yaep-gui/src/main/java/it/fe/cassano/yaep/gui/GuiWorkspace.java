@@ -9,9 +9,9 @@ import it.fe.cassano.yaep.workspace.IWorkspace;
 public class GuiWorkspace implements IWorkspace {
 
     private final String id;
-    private LinkedMap<String, String> env;
+    private LinkedMap<String, Object> env;
     private LinkedList<String> expressions;
-    private LinkedMap<String, String> fun;
+    private LinkedMap<String, Object> fun;
 
     public GuiWorkspace(String id) {
         this.id = id;
@@ -26,12 +26,12 @@ public class GuiWorkspace implements IWorkspace {
     }
 
     @Override
-    public LinkedMap<String, String> getEnv() {
+    public LinkedMap<String, Object> getEnv() {
         return this.env;
     }
 
     @Override
-    public void setEnv(LinkedMap<String, String> env) {
+    public void setEnv(LinkedMap<String, Object> env) {
         this.env = env;
     }
 
@@ -48,12 +48,12 @@ public class GuiWorkspace implements IWorkspace {
     }
 
     @Override
-    public LinkedMap<String, String> getFun() {
+    public LinkedMap<String, Object> getFun() {
         return this.fun;
     }
 
     @Override
-    public void setFun(LinkedMap<String, String> fun) {
+    public void setFun(LinkedMap<String, Object> fun) {
         this.fun = fun;
     }
     

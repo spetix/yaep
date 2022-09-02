@@ -8,17 +8,17 @@ public interface IWorkspace {
 
   public String getId();
 
-  public LinkedMap<String, String> getEnv();
+  public LinkedMap<String, Object> getEnv();
 
-  public void setEnv(LinkedMap<String, String> env);
+  public void setEnv(LinkedMap<String, Object> env);
 
   public LinkedList<String> getExpressions();
 
   public void setExpressions(LinkedList<String> expressions);
 
-  public LinkedMap<String, String> getFun();
+  public LinkedMap<String, Object> getFun();
 
-  public void setFun(LinkedMap<String, String> fun);
+  public void setFun(LinkedMap<String, Object> fun);
 
 
     
