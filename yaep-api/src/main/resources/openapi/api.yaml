@@ -9,6 +9,8 @@ info:
 tags:
 - name: workspace
   description: operation related to workspace
+- name: execute
+  description: run opeantions on workspace
 
 servers:
 - url: https://{realUrl}:{port}/{basePath}
@@ -28,6 +30,25 @@ servers:
 
 
 paths:
+  /execute/{workspaceID}:
+    post:
+      tags:
+      - execute
+      parameters:
+      - $ref: "#/components/parameters/WorkspaceIDParam"
+      requestBody:
+        description: list of opertations to attend
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Expressions"
+      responses:
+        '200':
+          description: result array
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Results"
   /ws:
     get:
       operationId: listWorkspaces
@@ -104,11 +125,21 @@ components:
       schema:
         type: boolean
   schemas:
+    Results:
+      type: array
+      items:
+        $ref: "#/components/schemas/Result"
+    Result:
+      description: result of operation
+      type: object
     WorkspaceID:
       type: string
     Expression:
       type: string
-      
+    Expressions:
+      type: array
+      items:
+        $ref: "#/components/schemas/Expression"      
     EnvironmentValue:
           type: object
     EnvironmentEntries:
@@ -136,10 +167,8 @@ components:
           $ref: "#/components/schemas/EnvironmentEntries"
         fun:
           $ref: "#/components/schemas/ImportedFunctions"
-        expressions:
-          type: array 
-          items:
-            $ref: "#/components/schemas/Expression"
+        history:
+          $ref: "#/components/schemas/Expressions"
       x-implements: ['it.fe.cassano.yaep.workspace.IWorkspace']
   examples:
     ValidEnvironmentExample:

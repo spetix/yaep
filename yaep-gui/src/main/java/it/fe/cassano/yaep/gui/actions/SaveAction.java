@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author ccassano
  *
  */
-public class SaveAction extends AbstractAction implements Action {
+public class SaveAction extends AbstractAction {
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(SaveAction.class);
 	protected final Component parentComponent;

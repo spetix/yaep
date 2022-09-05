@@ -36,13 +36,13 @@ public class GuiWorkspace implements IWorkspace {
     }
 
     @Override
-    public LinkedList<String> getExpressions() {
+    public LinkedList<String> getHistory() {
         // TODO Auto-generated method stub
         return this.expressions;
     }
 
     @Override
-    public void setExpressions(LinkedList<String> expressions) {
+    public void setHistory(LinkedList<String> expressions) {
         this.expressions = expressions;
         
     }

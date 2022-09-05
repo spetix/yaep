@@ -12,9 +12,9 @@ public interface IWorkspace {
 
   public void setEnv(LinkedMap<String, Object> env);
 
-  public LinkedList<String> getExpressions();
+  public LinkedList<String> getHistory();
 
-  public void setExpressions(LinkedList<String> expressions);
+  public void setHistory(LinkedList<String> expressions);
 
   public LinkedMap<String, Object> getFun();
 

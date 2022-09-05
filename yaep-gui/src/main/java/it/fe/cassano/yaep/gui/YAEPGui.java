@@ -60,8 +60,6 @@ public class YAEPGui implements IExecuteHelper{
 
 	private JTree tree;
 
-	private final IWorkspace ws;
-	
 	
 
 	/**
@@ -83,10 +81,8 @@ public class YAEPGui implements IExecuteHelper{
 	/**
 	 * Create the application.
 	 */
-	public YAEPGui(IWorkspace ws) {
-		this.ws = ws;
-		// this.envDataModel = new MapModel("Var","Value", ws.getEnv());
-		// this.envFunctionsModel = new MapModel("Alias","Java name", ws.getFun());
+	public YAEPGui(final IWorkspace ws) {
+
 		this.envDataModel = new MapModel("Var","Value", ws.getEnv());
 		this.envFunctionsModel = new MapModel("Alias","Java name", ws.getFun());
 		initialize();
