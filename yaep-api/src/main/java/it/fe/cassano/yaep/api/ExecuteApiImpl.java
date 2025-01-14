@@ -1,9 +1,13 @@
 package it.fe.cassano.yaep.api;
 
-public class ExecuteApiImpl {
+import java.util.LinkedList;
+
+import it.fe.cassano.yaep.model.Result;
+
+public class ExecuteApiImpl implements ExecuteApi {
 
     
-    java.util.LinkedList<Object> executeWorkspaceIDPost(final String workspaceID,final java.util.LinkedList<String> requestBody) {
+    public LinkedList<Result> executeWorkspaceIDPost(final String workspaceID,final java.util.LinkedList<String> requestBody) {
         return null;
     }
 

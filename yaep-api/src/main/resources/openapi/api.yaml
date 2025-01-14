@@ -131,7 +131,15 @@ components:
         $ref: "#/components/schemas/Result"
     Result:
       description: result of operation
-      type: object
+      oneOf:
+        - $ref: "#/components/schemas/IntegerResult"
+        - $ref: "#/components/schemas/DoubleResult"
+    IntegerResult:
+      type: integer
+      format: int64
+    DoubleResult:
+      type: number
+      format: double
     WorkspaceID:
       type: string
     Expression:
